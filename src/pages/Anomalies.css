@@ -1,0 +1,829 @@
+.anomalies-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #0a0a0a;
+  position: relative;
+  overflow-x: hidden;
+  padding: 2rem 0;
+}
+
+/* Particules flottantes en arrière-plan */
+.anomalies-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ 
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+
+/* Header principal avec effet néon */
+.anomaly-header {
+  text-align: center;
+  margin-bottom: 6rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* Élément flottant central pour le score d'anomalies */
+
+
+
+
+.anomaly-header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 50%, #DEBEFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+  
+}
+
+
+.anomaly-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C079E0, #817EE1, #DEBEFF, transparent);
+  
+}
+
+
+/* Cartes de résumé avec effet de lévitation */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background: linear-gradient(145deg, 
+    rgba(46, 16, 101, 0.85) 0%, 
+    rgba(36, 31, 63, 0.9) 50%,
+    rgba(41, 35, 70, 0.85) 100%
+  );
+  border: 1px solid rgba(129, 126, 225, 0.3);
+  border-radius: 25px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  animation: cardFloat 6s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-8px) rotateX(2deg); }
+}
+
+.card:nth-child(1) { animation-delay: 0s; }
+.card:nth-child(2) { animation-delay: 1.5s; }
+.card:nth-child(3) { animation-delay: 3s; }
+.card:nth-child(4) { animation-delay: 4.5s; }
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(192, 121, 224, 0.1), 
+    transparent
+  );
+  transition: left 0.8s ease;
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+.card:hover {
+  transform: translateY(-15px) rotateX(5deg) rotateY(2deg);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(192, 121, 224, 0.4) inset;
+  border-color: rgba(192, 121, 224, 0.6);
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.card .value {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #C079E0, #817EE1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.card-analyzed .value {
+  background: linear-gradient(135deg, #00D4FF, #5A9FD4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-normal .value {
+  background: linear-gradient(135deg, #00FF87, #60D394);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-detected .value {
+  background: linear-gradient(135deg, #FF3B5C, #FF6B8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card .sub {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+/* Section graphique avec design immersif */
+.anomaly-chart-section {
+  max-width: 1400px;
+  margin: 6rem auto 4rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+
+.anomaly-chart-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.chart-header p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.event-filter {
+  background: linear-gradient(135deg, 
+    rgba(46, 16, 101, 0.9) 0%, 
+    rgba(36, 31, 63, 0.9) 100%
+  );
+  border: 1px solid rgba(129, 126, 225, 0.4);
+  border-radius: 25px;
+  padding: 0.8rem 1.5rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.event-filter:hover {
+  border-color: rgba(192, 121, 224, 0.6);
+  box-shadow: 0 0 20px rgba(192, 121, 224, 0.3);
+  transform: translateY(-2px);
+}
+
+.chart-wrapper {
+  background: linear-gradient(145deg, 
+    rgba(46, 16, 101, 0.4) 0%, 
+    rgba(36, 31, 63, 0.6) 50%,
+    rgba(41, 35, 70, 0.4) 100%
+  );
+  border: 1px solid rgba(129, 126, 225, 0.2);
+  border-radius: 30px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(192, 121, 224, 0.03) 90deg,
+    rgba(129, 126, 225, 0.03) 180deg,
+    rgba(222, 190, 255, 0.03) 270deg,
+    transparent 360deg
+  );
+  animation: chartBgRotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes chartBgRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Section journal avec design néomorphique */
+.anomaly-log-section {
+  max-width: 1400px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.log-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.log-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  margin-top: 13rem;
+}
+
+.log-header p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.log-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.log-controls span {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  background: rgba(46, 16, 101, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  border: 1px solid rgba(129, 126, 225, 0.3);
+}
+
+.log-controls label {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.log-controls select {
+  background: rgba(46, 16, 101, 0.8);
+  border: 1px solid rgba(129, 126, 225, 0.4);
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  color: #fff;
+  font-weight: 600;
+  outline: none;
+}
+
+.log-controls button {
+  background: linear-gradient(135deg, #C079E0, #817EE1);
+  border: none;
+  border-radius: 15px;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.log-controls button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.log-controls button:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.log-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.log-controls button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(192, 121, 224, 0.4);
+}
+
+/* Table avec design futuriste */
+.table-wrapper {
+  background: linear-gradient(145deg, 
+    rgba(46, 16, 101, 0.3) 0%, 
+    rgba(36, 31, 63, 0.5) 50%,
+    rgba(41, 35, 70, 0.3) 100%
+  );
+  border: 1px solid rgba(129, 126, 225, 0.2);
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  position: relative;
+}
+
+.table-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #C079E0 25%, 
+    #817EE1 50%, 
+    #DEBEFF 75%, 
+    transparent 100%
+  );
+  animation: tableTopGlow 3s ease-in-out infinite;
+}
+
+@keyframes tableTopGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.table thead th {
+  background: linear-gradient(135deg, 
+    rgba(55, 47, 93, 0.95) 0%, 
+    rgba(45, 38, 77, 0.95) 100%
+  );
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 1.5rem 1.5rem;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  border-bottom: 2px solid rgba(192, 121, 224, 0.4);
+}
+
+
+.table tbody tr {
+  background: rgba(45, 38, 77, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+
+.table tbody tr:hover::before {
+  width: 100%;
+}
+
+.table tbody tr:hover {
+  background: rgba(192, 121, 224, 0.08);
+  
+  box-shadow: 
+    5px 0 15px rgba(192, 121, 224, 0.2),
+    -5px 0 15px rgba(129, 126, 225, 0.1);
+  border-color: rgba(192, 121, 224, 0.3);
+}
+.date-cell {
+  text-align: left !important;
+  padding-left: 0.5rem !important;
+}
+
+.table th,
+.table td {
+  padding: 1.2rem 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+}
+
+/* Badges de statut avec animations */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+
+.status-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.status-badge:hover::before {
+  left: 100%;
+}
+
+.status-normal {
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 135, 0.2), 
+    rgba(96, 211, 148, 0.2)
+  );
+  border: 1px solid rgba(0, 255, 135, 0.4);
+  color: #00FF87;
+  box-shadow: 0 0 15px rgba(0, 255, 135, 0.2);
+}
+
+.status-detected {
+  background: linear-gradient(135deg, 
+    rgba(255, 59, 92, 0.2), 
+    rgba(255, 107, 138, 0.2)
+  );
+  border: 1px solid rgba(255, 59, 92, 0.4);
+  color: #FF3B5C;
+  box-shadow: 0 0 15px rgba(255, 59, 92, 0.2);
+}
+
+/* Responsive design pour le score flottant */
+@media (max-width: 768px) {
+  .anomaly-score-float {
+    width: 300px;
+    height: 300px;
+    margin: 3rem auto 4rem;
+  }
+  
+  .anomaly-score-value {
+    font-size: 3.5rem;
+  }
+  
+  .anomaly-score-label {
+    font-size: 1.1rem;
+  }
+  
+  .anomaly-risk-badge {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .orbital-particle {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .anomaly-score-float {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .anomaly-score-value {
+    font-size: 2.8rem;
+  }
+  
+  .anomaly-score-label {
+    font-size: 1rem;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .summary-cards {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .anomaly-header h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .anomalies-container {
+    padding: 1rem 0;
+  }
+  
+  .summary-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .anomaly-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .chart-header h2,
+  .log-header h2 {
+    font-size: 2rem;
+  }
+  
+  .log-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .table th,
+  .table td {
+    padding: 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+}
+
+/* Animation d'entrée en cascade */
+.card {
+  animation: cardSlideIn 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes cardSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   MODE CLAIR - ANOMALIES (cohérent UI Realtime)
+   ============================================================ */
+body.light-mode .anomalies-container {
+  background: #f8f8fb;
+  color: #23233a;
+}
+body.light-mode .anomaly-header h1 {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #23233a;
+  opacity: 1;
+}
+body.light-mode .summary-cards {
+  gap: 2.5rem;
+}
+body.light-mode .card {
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(129,126,225,0.10);
+  box-shadow: 0 8px 32px rgba(129,126,225,0.07), 0 2px 8px rgba(129,126,225,0.02);
+  color: #222;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+body.light-mode .card:hover {
+  box-shadow: 0 16px 40px rgba(129,126,225,0.13), 0 6px 16px rgba(129,126,225,0.07);
+  border-color: rgba(192,121,224,0.17);
+}
+body.light-mode .card h3 {
+  color: #6c6c8a;
+  font-weight: 700;
+}
+body.light-mode .card .value {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #23233a;
+}
+body.light-mode .card-analyzed .value {
+  background: linear-gradient(135deg, #00D4FF, #5A9FD4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.light-mode .card-normal .value {
+  background: linear-gradient(135deg, #00FF87, #60D394);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.light-mode .card-detected .value {
+  background: linear-gradient(135deg, #FF3B5C, #FF6B8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.light-mode .card .sub {
+  color: #888;
+}
+
+body.light-mode .anomaly-chart-section,
+body.light-mode .anomaly-log-section {
+  background: rgba(255,255,255,0.95);
+  border-radius: 22px;
+  border: 1px solid rgba(129,126,225,0.08);
+  box-shadow: 0 8px 32px rgba(129,126,225,0.07), 0 2px 8px rgba(129,126,225,0.03);
+  margin-bottom: 3rem;
+}
+body.light-mode .anomaly-chart-section h2,
+body.light-mode .log-header h2 {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #222;
+}
+body.light-mode .chart-header p,
+body.light-mode .log-header p {
+  color: #5a5a7c;
+}
+
+body.light-mode .event-filter {
+  background: rgba(255,255,255,0.92);
+  color: #817EE1;
+  border: 1px solid rgba(129,126,225,0.17);
+}
+body.light-mode .event-filter:hover {
+  border-color: #C079E0;
+  box-shadow: 0 0 20px rgba(192,121,224,0.12);
+}
+body.light-mode .chart-wrapper {
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(129,126,225,0.11);
+  box-shadow: 0 4px 16px rgba(129,126,225,0.04);
+}
+
+/* Tableau mode clair */
+body.light-mode .table-wrapper {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(129,126,225,0.08);
+  box-shadow: 0 4px 16px rgba(129,126,225,0.05);
+}
+body.light-mode .table {
+  background: transparent;
+}
+body.light-mode .table thead th {
+  background: linear-gradient(135deg, rgba(192,121,224,0.08) 0%, rgba(129,126,225,0.10) 100%);
+  color: #23233a;
+  border-bottom: 2px solid rgba(192,121,224,0.11);
+}
+body.light-mode .table tbody tr {
+  background: rgba(240,240,255,0.14);
+}
+body.light-mode .table th,
+body.light-mode .table td {
+  color: #3c3c4f;
+}
+body.light-mode .table tbody tr:hover {
+  background: rgba(192,121,224,0.07);
+  box-shadow: 0 2px 8px rgba(192,121,224,0.10);
+}
+body.light-mode .date-cell .date-primary,
+body.light-mode .date-cell .date-secondary {
+  color: #6262a3;
+}
+body.light-mode .event-cell .event-name {
+  color: #47478a;
+  font-weight: 700;
+}
+
+/* Badges de statut mode clair */
+body.light-mode .status-badge.status-normal {
+  background: linear-gradient(135deg, rgba(0,255,135,0.12), rgba(96,211,148,0.11));
+  border: 1px solid rgba(0,255,135,0.19);
+  color: #13a666;
+  box-shadow: 0 0 8px rgba(0,255,135,0.07);
+}
+body.light-mode .status-badge.status-detected {
+  background: linear-gradient(135deg, rgba(255,59,92,0.13), rgba(255,107,138,0.12));
+  border: 1px solid rgba(255,59,92,0.20);
+  color: #c72545;
+  box-shadow: 0 0 8px rgba(255,59,92,0.09);
+}
+
+body.light-mode .info-cell .info-text {
+  color: #757599;
+}
+
+body.light-mode .score-value {
+  color: #817EE1;
+  font-weight: 700;
+}
+
+/* Pagination, selectors & boutons */
+body.light-mode .log-controls span,
+body.light-mode .log-controls label {
+  color: #47478a;
+  background: rgba(192,121,224,0.06);
+  border: 1px solid rgba(129,126,225,0.11);
+}
+body.light-mode .log-controls select {
+  background: rgba(255,255,255,0.88);
+  color: #464646;
+  border: 1px solid rgba(129,126,225,0.13);
+}
+body.light-mode .log-controls button {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  color: #fff;
+}
+body.light-mode .log-controls button:disabled {
+  opacity: 0.4;
+}
+
+/* Responsive en mode clair */
+@media (max-width: 768px) {
+  body.light-mode .summary-cards {
+    gap: 1rem;
+  }
+  body.light-mode .anomaly-chart-section,
+  body.light-mode .anomaly-log-section {
+    padding: 1rem 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  body.light-mode .card {
+    padding: 1.2rem 1rem;
+  }
+}

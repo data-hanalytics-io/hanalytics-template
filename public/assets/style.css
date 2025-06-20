@@ -1,0 +1,111 @@
+html, body {
+  height: 100%;          /* nécessaire pour le flex de .app-container */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+
+  /* Layout flex colonne pour pousser le footer en bas */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* App wrapper qui contient header/main/footer */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;               /* prend tout l’espace vertical dispo */
+}
+
+/* Main (entre header et footer) */
+.main {
+  flex: 1;               /* pousse le footer vers le bas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centre horizontalement le contenu principal */
+  padding: 1rem;
+}
+
+/* ============================================================
+   HEADER, NAVBAR & FOOTER
+   ============================================================ */
+/* === Header : logo à gauche, nav à droite, centrage vertical === */
+header {
+  display: flex;
+  align-items: center;            /* aligne logo + nav verticalement */
+  justify-content: space-between; /* logo à gauche, nav à droite */
+  background: rgba(46, 16, 101, 0.8);
+  backdrop-filter: blur(20px);
+  padding: 1rem 2rem;             /* plus d’air sur les côtés */
+}
+
+/* Logo : plus besoin de margin-right si on utilise space-between */
+header .logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Ajuste la taille du logo */
+header .logoimg {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+/* Nav : supprime le margin-top, et on ne centre plus ici */
+header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* Liens */
+header nav a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+header nav a.active,
+header nav a:hover {
+  background: linear-gradient(45deg, #C079E0, #817EE1);
+  color: #fff;
+}
+
+
+/* Mode clair - Variables globales */
+body.light-mode {
+  background: rgba(236, 235, 235, 0.95);
+  color: #2c2c2c;
+}
+
+/* Header en mode clair */
+body.light-mode header {
+  background: rgba(218, 217, 217, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(129, 126, 225, 0.1);
+  box-shadow: 0 2px 20px rgba(129, 126, 225, 0.1);
+}
+
+body.light-mode header nav a {
+  color: rgba(44, 44, 44, 0.8);
+}
+
+body.light-mode header nav a.active,
+body.light-mode header nav a:hover {
+  background: linear-gradient(45deg, #C079E0, #817EE1);
+  color: #fff;
+}

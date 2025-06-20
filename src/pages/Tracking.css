@@ -1,0 +1,519 @@
+.tracking-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #0a0a0a;
+  position: relative;
+  overflow-x: hidden;
+  padding: 2rem 0;
+  color: #f1f1f1;
+}
+
+
+/* === Header harmonisé avec les autres pages === */
+.tracking-header {
+  text-align: center;
+  margin-bottom: 6rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.tracking-header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 50%, #DEBEFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.tracking-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C079E0, #817EE1, #DEBEFF, transparent);
+}
+
+.tracking-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* === Section Graphique === */
+.chart-section {
+  max-width: 1400px;
+  margin: 6rem auto 4rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.chart-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.chart-title + p {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.chart-wrapper {
+  background: linear-gradient(145deg, 
+    rgba(46, 16, 101, 0.4) 0%, 
+    rgba(36, 31, 63, 0.6) 50%,
+    rgba(41, 35, 70, 0.4) 100%
+  );
+  border: 1px solid rgba(129, 126, 225, 0.2);
+  border-radius: 30px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  position: relative;
+  overflow: hidden;
+  max-width: none;
+  max-height: none;
+  margin: 0 0 4rem 0;
+}
+
+.chart-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(192, 121, 224, 0.03) 90deg,
+    rgba(129, 126, 225, 0.03) 180deg,
+    rgba(222, 190, 255, 0.03) 270deg,
+    transparent 360deg
+  );
+  animation: chartBgRotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes chartBgRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === Section Tables === */
+.table-section {
+  max-width: 1400px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.table-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.table-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.table-header p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.count-pill {
+  background: linear-gradient(135deg, #C079E0, #817EE1);
+  border: none;
+  border-radius: 15px;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.count-pill::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.count-pill:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.count-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(192, 121, 224, 0.4);
+}
+
+/* === Table avec design futuriste === */
+.table-wrapper {
+  background: linear-gradient(145deg, 
+    rgba(46, 16, 101, 0.3) 0%, 
+    rgba(36, 31, 63, 0.5) 50%,
+    rgba(41, 35, 70, 0.3) 100%
+  );
+  border: 1px solid rgba(129, 126, 225, 0.2);
+  border-radius: 25px;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.table-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #C079E0 25%, 
+    #817EE1 50%, 
+    #DEBEFF 75%, 
+    transparent 100%
+  );
+  animation: tableTopGlow 3s ease-in-out infinite;
+}
+
+@keyframes tableTopGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.table thead th {
+  background: linear-gradient(135deg, 
+    rgba(55, 47, 93, 0.95) 0%, 
+    rgba(45, 38, 77, 0.95) 100%
+  );
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 1.5rem 1.5rem;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  border-bottom: 2px solid rgba(192, 121, 224, 0.4);
+}
+
+
+.table tbody tr {
+  background: rgba(45, 38, 77, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease; /* Transition plus rapide */
+  position: relative;
+}
+
+
+.table tbody tr:hover::before {
+  width: 100%;
+}
+
+.table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03); 
+  border-color: rgba(192, 121, 224, 0.15);
+}
+
+.table th,
+.table td {
+  padding: 1.2rem 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  font-weight: 500;
+  position: relative;
+  max-width: 1800px;
+  white-space: normal;
+}
+
+/* === Status Cell avec badges animés === */
+.status-cell {
+  font-size: 1.2rem;
+}
+
+/* === Badges de paramètres avec design cohérent === */
+.param-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.8rem;
+  margin: 0.15rem;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(192, 121, 224, 0.2), 
+    rgba(129, 126, 225, 0.2)
+  );
+  border: 1px solid rgba(192, 121, 224, 0.4);
+  color: #DEBEFF;
+  box-shadow: 0 0 10px rgba(192, 121, 224, 0.1);
+  transition: all 0.3s ease;
+}
+
+.param-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.param-badge:hover::before {
+  left: 100%;
+}
+
+.param-badge.light {
+  background: linear-gradient(135deg, 
+    rgba(129, 126, 225, 0.15), 
+    rgba(222, 190, 255, 0.15)
+  );
+  border: 1px solid rgba(129, 126, 225, 0.3);
+  color: rgba(222, 190, 255, 0.8);
+  box-shadow: 0 0 8px rgba(129, 126, 225, 0.1);
+}
+
+/* === Responsive Design === */
+@media (max-width: 1200px) {
+  .tracking-header h1 {
+    font-size: 2.8rem;
+  }
+  
+  .chart-title,
+  .table-header h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tracking-container {
+    padding: 1rem 0;
+  }
+  
+  .chart-section,
+  .table-section {
+    padding: 0 1rem;
+  }
+  
+  .tracking-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .chart-title,
+  .table-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .chart-wrapper {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 15px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+  
+  .param-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    margin: 0.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tracking-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .chart-title,
+  .table-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* === Animations d'entrée === */
+.chart-wrapper,
+.table-wrapper {
+  animation: slideInUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.chart-wrapper { animation-delay: 0.2s; }
+.table-wrapper:nth-of-type(1) { animation-delay: 0.4s; }
+.table-wrapper:nth-of-type(2) { animation-delay: 0.6s; }
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   MODE CLAIR - TRACKING (cohérent UI Realtime/Anomalies/Overview)
+   ============================================================ */
+body.light-mode .tracking-container {
+  background: #f8f8fb;
+  color: #222;
+}
+body.light-mode .tracking-header h1 {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #23233a;
+  opacity: 1;
+}
+body.light-mode .tracking-header p {
+  color: #666;
+}
+body.light-mode .chart-section,
+body.light-mode .table-section {
+  background: rgba(255,255,255,0.95);
+  border-radius: 24px;
+  border: 1px solid rgba(129,126,225,0.08);
+  box-shadow: 0 8px 32px rgba(129,126,225,0.07), 0 2px 8px rgba(129,126,225,0.03);
+  margin-bottom: 3rem;
+}
+body.light-mode .chart-title,
+body.light-mode .table-header h2 {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #23233a;
+}
+body.light-mode .chart-title + p,
+body.light-mode .table-header p {
+  color: #5a5a7c;
+}
+body.light-mode .chart-wrapper {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(129,126,225,0.11);
+  box-shadow: 0 4px 16px rgba(129,126,225,0.04);
+}
+body.light-mode .count-pill {
+  background: linear-gradient(135deg, #C079E0 0%, #817EE1 100%);
+  color: #fff;
+  border: none;
+}
+body.light-mode .table-wrapper {
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(129,126,225,0.09);
+  box-shadow: 0 4px 16px rgba(129,126,225,0.04);
+}
+body.light-mode .table thead th {
+  background: linear-gradient(135deg, rgba(192,121,224,0.08) 0%, rgba(129,126,225,0.10) 100%);
+  color: #23233a;
+  border-bottom: 2px solid rgba(192,121,224,0.12);
+}
+body.light-mode .table tbody tr {
+  background: rgba(240,240,255,0.10);
+}
+body.light-mode .table th,
+body.light-mode .table td {
+  color: #3c3c4f;
+}
+body.light-mode .table tbody tr:hover {
+  background: rgba(192,121,224,0.07);
+  box-shadow: 0 2px 8px rgba(192,121,224,0.09);
+}
+body.light-mode .status-cell {
+  color: #dc3545;
+}
+body.light-mode .param-badge {
+  background: linear-gradient(135deg, rgba(129,126,225,0.13), rgba(222,190,255,0.11));
+  border: 1px solid rgba(129,126,225,0.18);
+  color: #7a68b3;
+  box-shadow: 0 0 8px rgba(129,126,225,0.06);
+}
+body.light-mode .param-badge.light {
+  background: linear-gradient(135deg, rgba(222,190,255,0.14), rgba(192,121,224,0.10));
+  border: 1px solid rgba(192,121,224,0.20);
+  color: #b38ce5;
+}
+@media (max-width: 768px) {
+  body.light-mode .chart-section,
+  body.light-mode .table-section {
+    padding: 1rem 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  body.light-mode .table-wrapper {
+    border-radius: 12px;
+  }
+}
