@@ -5,6 +5,7 @@ const { getDashboardMetrics, getEventAnomalies, getRealtimeEvents, getTrackingHe
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const serverlessExpress = require('@vendia/serverless-express');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -243,6 +244,4 @@ app.delete('/api/users/:id', requireAdmin, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`API server running on http://localhost:${PORT}`);
-}); 
+module.exports = serverlessExpress({ app }); 
