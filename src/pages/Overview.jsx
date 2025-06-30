@@ -1,37 +1,113 @@
-import React from 'react';
+// Overview.jsx
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  PieChart,
+  Pie
+} from 'recharts';
+import DateRangePicker from '../components/ui/DateRangePicker';
+import LoadingPage from '../components/ui/LoadingPage';
 
 const Overview = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [dateRange, setDateRange] = useState({
+    start: '',
+    end: '',
+    label: 'Selection Date'
+  });
+  const [datesReady, setDatesReady] = useState(false);
+
+  // --- CACHE ---
+  function getCacheKey() {
+    return JSON.stringify({
+      start: dateRange.start,
+      end: dateRange.end
+    });
+  }
+
+  // Période par défaut (30 derniers jours)
+  useEffect(() => {
+    if (!dateRange.start || !dateRange.end) {
+      const today = new Date();
+      const past = new Date();
+      past.setDate(today.getDate() - 29);
+      setDateRange({
+        start: past.toISOString().split('T')[0],
+        end: today.toISOString().split('T')[0],
+        label: 'Selection Date'
+      });
+    }
+    setDatesReady(true);
+  }, []);
+
+  // Fetch data
+  useEffect(() => {
+    if (!datesReady) return;
+    setLoading(true);
+    if (!window._overviewCache) window._overviewCache = {};
+    const cacheKey = getCacheKey();
+    if (window._overviewCache[cacheKey]) {
+      setData(window._overviewCache[cacheKey]);
+      setLoading(false);
+      fetchDataAndCache(cacheKey, true);
+      return;
+    }
+    fetchDataAndCache(cacheKey, false);
+    function fetchDataAndCache(cacheKey, silent) {
+      fetch(`http://localhost:4000/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
+        .then(res => res.json())
+        .then(result => {
+          window._overviewCache[cacheKey] = result.data;
+          setData(result.data);
+          if (!silent) setLoading(false);
+        })
+        .catch(() => {
+          setError("Error loading dashboard metrics");
+          setLoading(false);
+        });
+    }
+  }, [dateRange, datesReady]);
+
+  if (loading) return <LoadingPage />;
+  if (error)   return <div>{error}</div>;
+  if (!data)   return <div>No data</div>;
+
   const overviewData = {
-    totalEvents: 1200000,
-    validEvents: 900000,
-    errorEvents: 300000,
-    uniqueUsers: 50000,
-    errorRate: 25,
+    totalEvents: data.metrics.total_events,
+    validEvents: data.metrics.good_events,
+    errorEvents: data.metrics.error_events,
+    uniqueUsers: data.metrics.unique_users
   };
 
-  const eventTracking = [
-    { name: 'view_item_list', total: 500000, errors: 10 },
-    { name: 'page_view', total: 300000, errors: 5 },
-    { name: 'purchase', total: 10000, errors: 2 },
-  ];
-
-  const paramAnalysis = [
-    { name: 'page_type_level1', value: 48 },
-    { name: 'page_type_level2', value: 30 },
-    { name: 'page_type_level3', value: 22 },
-    { name: 'user_id', value: 1.5 },
-  ];
-
-  const barColors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7f50'];
-
-  const donutData = [
+  // Donut avec les bonnes couleurs de la charte
+  const donutData   = [
     { name: 'Valid', value: overviewData.validEvents },
-    { name: 'Errors', value: overviewData.errorEvents },
+    { name: 'Errors', value: overviewData.errorEvents }
   ];
+  const donutColors = ['#7F6F9D', '#ACA0C3'];
 
-  const donutColors = ['#00c49f', '#ff6b6b'];
+  // Event Tracking
+  const eventTracking = (data.eventStats || []).map(ev => ({
+    name: ev.event_name,
+    total: ev.hits,
+    errors: `${Number(ev.error_percentage).toFixed(1)}%`
+  }));
+
+  // Parameter Analysis
+  const paramAnalysis = (data.parametersAnalysis || []).map(param => ({
+    name: param.param_name,
+    value: Number(param.missing_percentage).toFixed(1)
+  }));
+  const barColors = ['#7F6F9D', '#ACA0C3', '#D5CEE4', '#E4E1EA'];
 
   return (
     <div className="dashboard-container">
@@ -39,51 +115,66 @@ const Overview = () => {
         <h1>Dashboard Overview</h1>
       </div>
 
-      <section className="overview-stats">
-        <div className="stat-card">
-          <h3>Total Events</h3>
-          <p>{overviewData.totalEvents.toLocaleString()}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Valid Events</h3>
-          <p>{overviewData.validEvents.toLocaleString()}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Error Events</h3>
-          <p>{overviewData.errorEvents.toLocaleString()}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Unique Users</h3>
-          <p>{overviewData.uniqueUsers.toLocaleString()}</p>
-        </div>
-        <div className="stat-card donut-card">
-          <h3>Error Rate</h3>
-          <div className="donut-chart-wrapper">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={donutData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={25}
-                  outerRadius={45}
-                  paddingAngle={5}
-                >
-                  {donutData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={donutColors[index % donutColors.length]} />
-                  ))}
-                </Pie>
-                <Tooltip formatter={(value) => value.toLocaleString()} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </section>
+      <div className="overview-date-picker-wrapper">
+        <DateRangePicker value={dateRange} onChange={setDateRange} />
+      </div>
 
+      {/* Stats */}
+      <div className="overview-stats-container">
+        <section className="overview-stats">
+          {/** Total Events **/}
+          <div className="stat-card">
+            <h3>Total Events</h3>
+            <p>{overviewData.totalEvents.toLocaleString()}</p>
+          </div>
+          {/** Valid **/}
+          <div className="stat-card">
+            <h3>Valid Events</h3>
+            <p>{overviewData.validEvents.toLocaleString()}</p>
+          </div>
+          {/** Errors **/}
+          <div className="stat-card">
+            <h3>Error Events</h3>
+            <p>{overviewData.errorEvents.toLocaleString()}</p>
+          </div>
+          {/** Users **/}
+          <div className="stat-card">
+            <h3>Unique Users</h3>
+            <p>{overviewData.uniqueUsers.toLocaleString()}</p>
+          </div>
+          {/** Donut **/}
+          <div className="stat-card donut-card">
+            <h3>Error Rate</h3>
+            <div className="donut-vertical-center">
+              <div className="donut-chart-wrapper">
+                <ResponsiveContainer width={70} height={70}>
+                  <PieChart>
+                    <Pie
+                      data={donutData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={18}
+                      outerRadius={28}
+                      paddingAngle={2}
+                    >
+                      {donutData.map((entry, i) => (
+                        <Cell key={i} fill={donutColors[i]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={v => v.toLocaleString()} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Event Tracking */}
       <section className="tracking-section">
-        <h2>Event Tracking</h2>
+        <h2 className="h2">Event tracking</h2>
         <table className="overview-event-table">
           <thead>
             <tr>
@@ -93,32 +184,29 @@ const Overview = () => {
             </tr>
           </thead>
           <tbody>
-            {eventTracking.map((event, index) => (
-              <tr key={index}>
-                <td>{event.name}</td>
-                <td>{event.total.toLocaleString()}</td>
-                <td>{event.errors}%</td>
+            {eventTracking.map((e, i) => (
+              <tr key={i}>
+                <td>{e.name}</td>
+                <td>{Number(e.total).toLocaleString()}</td>
+                <td>{e.errors}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </section>
 
+      {/* Parameter Analysis */}
       <section className="params-section">
-        <h2>Parameter Analysis</h2>
+        <h2 className="h2">Parameter analysis</h2>
         <div className="chart-wrapper">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart
-              data={paramAnalysis}
-              layout="vertical"
-              margin={{ top: 10, right: 30, left: 50, bottom: 10 }}
-            >
-              <XAxis type="number" domain={[0, 100]} tickFormatter={(val) => `${val}%`} />
-              <YAxis type="category" dataKey="name" width={150} />
-              <Tooltip formatter={(value) => `${value}%`} />
-              <Bar dataKey="value" radius={[5, 5, 0, 0]}>
-                {paramAnalysis.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={barColors[index % barColors.length]} />
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={paramAnalysis} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
+              <XAxis dataKey="name" tickLine={false} />
+              <YAxis tickFormatter={v => `${v}%`} />
+              <Tooltip formatter={v => `${v}%`} />
+              <Bar dataKey="value" radius={[4,4,0,0]}>
+                {paramAnalysis.map((_, i) => (
+                  <Cell key={i} fill={barColors[i % barColors.length]} />
                 ))}
               </Bar>
             </BarChart>

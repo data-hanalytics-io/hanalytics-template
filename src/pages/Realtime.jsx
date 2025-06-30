@@ -1,198 +1,256 @@
-import React, { useState } from 'react';
-import { eventTypes }    from '../data/eventTypes';
-import { pageLocations } from '../data/pageLocations';
-import { eventParams }   from '../data/eventParams';
-import { userParams }    from '../data/userParams';
-import { itemParams }    from '../data/itemParams';
+import React, { useState, useEffect } from 'react';
 import './Realtime.css';
+import LoadingPage from '../components/ui/LoadingPage';
 
 export default function Realtime() {
-  const [searchUrl, setSearchUrl] = useState('');
-  const filteredPages = pageLocations.filter(p =>
-    p.url.toLowerCase().includes(searchUrl.toLowerCase())
+  const [data, setData]       = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState(null);
+  const [searchPage, setSearchPage] = useState('');
+  const [showInfo, setShowInfo]     = useState(false);
+
+  // --- CACHE ---
+  useEffect(() => {
+    setLoading(true);
+    if (!window._realtimeCache) window._realtimeCache = {};
+    const cacheKey = 'main';
+    if (window._realtimeCache[cacheKey]) {
+      setData(window._realtimeCache[cacheKey]);
+      setLoading(false);
+      fetchDataAndCache(cacheKey, true);
+      return;
+    }
+    fetchDataAndCache(cacheKey, false);
+    function fetchDataAndCache(cacheKey, silent) {
+      fetch('http://localhost:4000/api/realtime')
+        .then(res => res.json())
+        .then(res => {
+          window._realtimeCache[cacheKey] = res.data || {};
+          setData(res.data || {});
+          if (!silent) setLoading(false);
+        })
+        .catch(() => { setError("Erreur de chargement"); setLoading(false); });
+    }
+  }, []);
+
+  if (loading) return <LoadingPage />;
+  if (error)   return <div>{error}</div>;
+
+  const {
+    eventStats = [],
+    pageStats  = [],
+    eventParams = [],
+    userParams  = [],
+    itemParams  = []
+  } = data;
+
+  const totalHits   = eventStats.reduce((a,e) => a + e.hits, 0);
+  const errorHits   = eventStats.reduce((a,e) => a + e.errors, 0);
+  const goodHits    = totalHits - errorHits;
+  const eventsCount = eventStats.length;
+  const userCount   = userParams.length;
+
+  const filteredPages = pageStats.filter(p =>
+    (p.page_location_value || '')
+      .toLowerCase()
+      .includes(searchPage.toLowerCase())
   );
 
   return (
-    <>
-      {/* === 1. Métriques principales en mode clair === */}
-      <div className="main-metrics-light">
-        <div className="main-metric-card">
-          <div className="main-metric-label">Number of Hits</div>
-          <div className="main-metric-value">549 336</div>
+    <div className="realtime-container">
+      {/* HEADER */}
+      <div className="realtime-header">
+        <button
+          className="info-btn"
+          onClick={() => setShowInfo(v => !v)}
+          title="Comment ça marche"
+        >
+          🕒
+        </button>
+        <h1>Realtime</h1>
+        {showInfo && (
+          <div className="info-popover">
+            <div className="popover-header">Comment ça marche</div>
+            <ul className="popover-list">
+              <li><strong>Avant midi :</strong> données depuis minuit hier.</li>
+              <li><strong>Après midi :</strong> données depuis minuit aujourd'hui.</li>
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* CARTES MÉTRIQUES */}
+      <div className="metrics-wrapper">
+        <div className="metrics-grid">
+          <div className="stat-card">
+            <h3>Number of Hits</h3>
+            <p>{totalHits.toLocaleString()}</p>
+          </div>
+          <div className="stat-card">
+            <h3>Error Rate</h3>
+            <p>
+              { totalHits
+                ? ((errorHits/totalHits)*100).toFixed(0) + '%'
+                : '0%'
+              }
+            </p>
+          </div>
+          <div className="stat-card">
+            <h3>Events</h3>
+            <p>{eventsCount}</p>
+          </div>
+          <div className="stat-card">
+            <h3>Good Hits</h3>
+            <p>{goodHits.toLocaleString()}</p>
+          </div>
+          <div className="stat-card">
+            <h3>User Params</h3>
+            <p>{userCount}</p>
+          </div>
         </div>
       </div>
 
-      {/* === 2. Disque & métriques dans container fixe (mode sombre uniquement) === */}
-      <div className="overview-container">
-        <div className="disk-wrapper">
-          <div className="pie-wrapper">
-            <div className="status-ring"></div>
-          </div>
-          <div className="metric-center">
-            <div className="metric-label">Number of Hits</div>
-            <div className="metric-value">549 336</div>
-          </div>
+      {/* TABLEAUX */}
+      {/** Event Tracking Checking **/}
+      <section className="tracker-section">
+        <h2 className="h2">Event tracking checking</h2>
+        <p>Performance des événements par type</p>
+        <span className="pill">{eventsCount} événements</span>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Hits</th>
+                <th>Errors</th>
+                <th>%Error</th>
+                <th>Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventStats.map((e,i) => (
+                <tr key={i}>
+                  <td>{e.event_name}</td>
+                  <td>{e.hits.toLocaleString()}</td>
+                  <td>{e.errors.toLocaleString()}</td>
+                  <td>{Number(e.error_percentage).toFixed(1)}%</td>
+                  <td>{e.error_percentage===0 ? 'Ok' : 'Attention'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <div className="metrics-around">
-          <div className="metric-card top">
-            <div className="metric-value-small">100%</div>
-            <div className="metric-desc">Error Rate</div>
-          </div>
-          <div className="metric-card left">
-            <div className="metric-value-small">7</div>
-            <div className="metric-desc">Events</div>
-          </div>
-          <div className="metric-card right">
-            <div className="metric-value-small">0</div>
-            <div className="metric-desc">Good Hits</div>
-          </div>
-          <div className="metric-card bottom">
-            <div className="metric-value-small">1</div>
-            <div className="metric-desc">User Params</div>
-          </div>
+      </section>
+
+      {/** Page Location **/}
+      <section className="tracker-section">
+        <h2>Page location</h2>
+        <p>URLs avec le plus d'erreurs</p>
+        <input
+          type="text"
+          placeholder="Rechercher une URL…"
+          value={searchPage}
+          onChange={e => setSearchPage(e.target.value)}
+        />
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Page Location</th>
+                <th>%Error</th>
+                <th>Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredPages.map((p,i) => (
+                <tr key={i}>
+                  <td className="url-cell">{p.page_location_value}</td>
+                  <td>{Number(p.error_percentage).toFixed(1)}%</td>
+                  <td>{p.error_percentage===0 ? 'Ok' : 'Attention'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </div>
+      </section>
 
-      {/* === 3. Tableaux en pleine largeur === */}
-      <div className="tables-wrapper">
-        <section className="tracker-check">
-          <h2>Event Tracking Checking</h2>
-          <p>Performance des événements par type</p>
-          <div className="pill">{eventTypes.length} événements</div>
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Event</th>
-                  <th>Hits</th>
-                  <th>%Error</th>
-                  <th>Quality</th>
+      {/** Event Params **/}
+      <section className="tracker-section">
+        <h2>Event params</h2>
+        <p>Paramètres manquants</p>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Param</th>
+                <th>%</th>
+                <th>Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventParams.map((p,i) => (
+                <tr key={i}>
+                  <td>{p.param_key}</td>
+                  <td>{Number(p.missing_percentage).toFixed(1)}%</td>
+                  <td>{p.missing_percentage===0 ? 'Ok' : 'Critical'}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {eventTypes.map(e => (
-                  <tr key={e.id}>
-                    <td>{e.event}</td>
-                    <td>{e.hits.toLocaleString()}</td>
-                    <td>{e.errorRate}</td>
-                    <td>{e.quality}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-        <section className="tracker-check">
-          <h2>Page Location</h2>
-          <p>URLs avec le plus d'erreurs</p>
-          <input
-            type="text"
-            placeholder="Rechercher une URL..."
-            value={searchUrl}
-            onChange={e => setSearchUrl(e.target.value)}
-          />
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Page Location</th>
-                  <th>%Error</th>
-                  <th>Quality</th>
+      {/** User Params **/}
+      <section className="tracker-section">
+        <h2>User params</h2>
+        <p>Paramètres manquants</p>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Param</th>
+                <th>%Error</th>
+                <th>Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userParams.map((p,i) => (
+                <tr key={i}>
+                  <td>{p.param_key}</td>
+                  <td>{Number(p.missing_percentage).toFixed(1)}%</td>
+                  <td>{p.missing_percentage===0 ? 'Ok' : 'Critical'}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredPages.map(p => (
-                  <tr key={p.id}>
-                    <td>
-                      <a href={p.url} target="_blank" rel="noopener noreferrer">
-                        {p.url}
-                      </a>
-                    </td>
-                    <td>{p.errorRate}</td>
-                    <td>{p.quality}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-        <section className="tracker-check">
-          <h2>Event Params</h2>
-          <p>Paramètres manquants</p>
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Param</th>
-                  <th>%</th>
-                  <th>Quality</th>
+      {/** Item Params **/}
+      <section className="tracker-section">
+        <h2>Item params</h2>
+        <p>Paramètres manquants</p>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Param</th>
+                <th>%</th>
+                <th>Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              {itemParams.map((p,i) => (
+                <tr key={i}>
+                  <td>{p.param_key}</td>
+                  <td>{Number(p.missing_percentage).toFixed(1)}%</td>
+                  <td>{p.missing_percentage===0 ? 'Ok' : 'Critical'}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {eventParams.map(p => (
-                  <tr key={p.id}>
-                    <td>{p.param}</td>
-                    <td>{p.errorRate}</td>
-                    <td>{p.quality}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="tracker-check">
-          <h2>User Params</h2>
-          <p>Paramètres manquants</p>
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Param</th>
-                  <th>%</th>
-                  <th>Quality</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userParams.map(p => (
-                  <tr key={p.id}>
-                    <td>{p.param}</td>
-                    <td>{p.errorRate}</td>
-                    <td>{p.quality}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="tracker-check">
-          <h2>Item Params</h2>
-          <p>Paramètres manquants</p>
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Param</th>
-                  <th>%</th>
-                  <th>Quality</th>
-                </tr>
-              </thead>
-              <tbody>
-                {itemParams.map(p => (
-                  <tr key={p.id}>
-                    <td>{p.param}</td>
-                    <td>{p.errorRate}</td>
-                    <td>{p.quality}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-    </>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
   );
 }
