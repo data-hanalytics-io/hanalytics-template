@@ -5,7 +5,12 @@ import { createPortal } from 'react-dom';
 export default function Header() {
   // State pour le mode (garde la préférence en localStorage)
   const [isLight, setIsLight] = React.useState(() => {
-    return localStorage.getItem('theme') === 'light';
+    const stored = localStorage.getItem('theme');
+    if (stored === null) {
+      localStorage.setItem('theme', 'light');
+      return true;
+    }
+    return stored === 'light';
   });
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
   const navigate = useNavigate();
