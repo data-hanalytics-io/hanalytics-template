@@ -8,11 +8,24 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const serverlessExpress = require('@vendia/serverless-express');
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+const buildPath = path.join(__dirname, '../frontend/build');
+app.use(express.static(buildPath));
+
+// Gestion explicite du favicon
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(buildPath, 'favicon.ico'));
+});
+
+// Toutes les routes non-API/non-statiques renvoient index.html
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
 
 // Endpoint pour les métriques du dashboard (corrigé)
 app.get('/api/dashboard', async (req, res) => {
@@ -243,12 +256,6 @@ app.delete('/api/users/:id', requireAdmin, async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, error: 'Erreur lors de la suppression de l\'utilisateur' });
   }
-});
-
-// Route catch-all compatible Vercel/Express
-app.get('/*', (req, res) => {
-  if (req.path.startsWith('/api')) return res.status(404).send('Not found');
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 // Lancement du serveur

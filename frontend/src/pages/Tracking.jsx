@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Tracking.css';
-import { ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from 'recharts';
+import { ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
 
@@ -26,7 +26,6 @@ function normalizeEventDetail(event) {
 }
 
 export default function Tracking() {
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dateRange, setDateRange] = useState({
@@ -130,10 +129,8 @@ export default function Tracking() {
 
   // Pagination pour Events tracking plan
   const trackingPlanTotalItems = apiData.trackingPlan.length;
-  const trackingPlanTotalPages = Math.ceil(trackingPlanTotalItems / perPage);
   const trackingPlanStartIdx = (page - 1) * perPage;
   const trackingPlanEndIdx = trackingPlanStartIdx + perPage;
-  const trackingPlanPage = apiData.trackingPlan.slice(trackingPlanStartIdx, trackingPlanEndIdx);
 
   // Pagination pour Events with missing parameters
   const eventsDetailTotalItems = apiData.pagination?.totalItems || apiData.eventsDetail.length;
