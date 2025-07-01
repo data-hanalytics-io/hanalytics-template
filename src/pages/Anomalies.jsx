@@ -36,12 +36,7 @@ export default function Anomalies() {
   const [availableEvents, setAvailableEvents] = useState([]);
 
   // --- CACHE ---
-  function getCacheKey() {
-    return JSON.stringify({
-      start: dateRange.start,
-      end: dateRange.end
-    });
-  }
+  // function getCacheKey() { ... } // SUPPRIMÉ
 
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) {
@@ -60,7 +55,10 @@ export default function Anomalies() {
     if (!dateRange.start || !dateRange.end) return;
     setLoading(true);
     if (!window._anomaliesCache) window._anomaliesCache = {};
-    const cacheKey = getCacheKey();
+    const cacheKey = JSON.stringify({
+      start: dateRange.start,
+      end: dateRange.end
+    });
     if (window._anomaliesCache[cacheKey]) {
       setAnomalies(window._anomaliesCache[cacheKey]);
       setLoading(false);
@@ -85,7 +83,7 @@ export default function Anomalies() {
           setLoading(false);
         });
     }
-  }, [dateRange, getCacheKey]);
+  }, [dateRange]);
 
   if (loading) return <LoadingPage />;
   if (error) return <div>{error}</div>;

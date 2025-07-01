@@ -27,12 +27,7 @@ const Overview = () => {
   const [datesReady, setDatesReady] = useState(false);
 
   // --- CACHE ---
-  function getCacheKey() {
-    return JSON.stringify({
-      start: dateRange.start,
-      end: dateRange.end
-    });
-  }
+  // function getCacheKey() { ... } // SUPPRIMÉ
 
   // Période par défaut (30 derniers jours)
   useEffect(() => {
@@ -54,7 +49,10 @@ const Overview = () => {
     if (!datesReady) return;
     setLoading(true);
     if (!window._overviewCache) window._overviewCache = {};
-    const cacheKey = getCacheKey();
+    const cacheKey = JSON.stringify({
+      start: dateRange.start,
+      end: dateRange.end
+    });
     if (window._overviewCache[cacheKey]) {
       setData(window._overviewCache[cacheKey]);
       setLoading(false);
@@ -75,7 +73,7 @@ const Overview = () => {
           setLoading(false);
         });
     }
-  }, [dateRange, datesReady, getCacheKey]);
+  }, [dateRange, datesReady]);
 
   if (loading) return <LoadingPage />;
   if (error)   return <div>{error}</div>;

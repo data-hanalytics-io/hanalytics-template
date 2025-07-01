@@ -41,15 +41,6 @@ export default function Tracking() {
   const [apiData, setApiData] = useState({ eventsDetail: [], pagination: {}, trackingPlan: [], chartData: [], stats: {} });
 
   // --- CACHE ---
-  function getCacheKey() {
-    return JSON.stringify({
-      start: dateRange.start,
-      end: dateRange.end,
-      event: selectedEvent,
-      page,
-      perPage
-    });
-  }
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) {
       const today = new Date();
@@ -68,7 +59,13 @@ export default function Tracking() {
     setLoading(true);
     setError(null);
     if (!window._trackingCache) window._trackingCache = {};
-    const cacheKey = getCacheKey();
+    const cacheKey = JSON.stringify({
+      start: dateRange.start,
+      end: dateRange.end,
+      event: selectedEvent,
+      page,
+      perPage
+    });
     if (window._trackingCache[cacheKey]) {
       setApiData(window._trackingCache[cacheKey]);
       setLoading(false);
@@ -116,13 +113,7 @@ export default function Tracking() {
           setLoading(false);
         });
     }
-  }, [dateRange, selectedEvent, page, perPage, getCacheKey]);
-
-  // Gestion sécurisée de la pagination
-  const isFirstPage = apiData.pagination?.currentPage === 1;
-  const isLastPage = apiData.pagination?.currentPage === apiData.pagination?.totalPages;
-  const totalPages = apiData.pagination?.totalPages || 1;
-  const currentPage = apiData.pagination?.currentPage || 1;
+  }, [dateRange, selectedEvent, page, perPage]);
 
   // Correction : formatage des dates pour l'axe X du graphique (évite [object Object])
   const chartDataWithFormattedDates = (apiData.chartData || []).map(point => {
