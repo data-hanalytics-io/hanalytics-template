@@ -1,0 +1,123 @@
+/* Reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+  background: #fff;
+}
+
+/* Header */
+header {
+  background: #F5F5F5;
+  border-bottom: 1px solid #E8E0F0;
+  height: 64px;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+header .logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+/* Nav */
+header nav {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;            /* scrollable sur mobile */
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+header nav a {
+  color: #9B86F0;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 2px 0;
+  border-bottom: 2.5px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+header nav a.active,
+header nav a[aria-current="page"] {
+  border-bottom-color: #9B86F0;
+}
+
+/* Boutons (mode & compte) */
+.mode-toggle,
+.account-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+}
+
+/* Dropdown */
+.header-menu {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background: #F5F5F5;
+  border: 1px solid #E8E0F0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(155,134,240,0.1);
+  min-width: 160px;
+  z-index: 3000;
+}
+
+.header-menu a,
+.header-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 15px;
+  font-family: inherit;
+  background: none;
+  border: none;
+}
+
+/* Responsive */
+/* Tablettes et petits écrans */
+@media (max-width: 768px) {
+  header {
+    padding: 0 16px;
+  }
+  header nav {
+    gap: 16px;
+  }
+  .mode-toggle,
+  .account-btn {
+    font-size: 16px;
+  }
+}
+
+/* Mobiles étroits */
+@media (max-width: 480px) {
+  header {
+    flex-wrap: wrap;
+    padding: 0 12px;
+    height: auto;
+  }
+  header nav {
+    flex: 1 1 100%;
+    margin-top: 8px;
+  }
+  .mode-toggle,
+  .account-btn {
+    margin-left: 16px;
+  }
+}

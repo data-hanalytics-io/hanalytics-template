@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Endpoint pour les métriques du dashboard (corrigé)
 app.get('/api/dashboard', async (req, res) => {
@@ -244,11 +245,14 @@ app.delete('/api/users/:id', requireAdmin, async (req, res) => {
   }
 });
 
-// Remplacer l'export direct par une condition pour local/serverless
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Serveur lancé sur le port ${PORT}`);
-  });
-} else {
-  module.exports = serverlessExpress({ app });
-} 
+// Route catch-all pour le frontend (après toutes les routes API)
+app.get('*', (req, res) => {
+  // Si la route commence par /api, on ne sert pas le frontend
+  if (req.path.startsWith('/api')) return res.status(404).send('Not found');
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
+
+// Lancement du serveur
+app.listen(PORT, () => {
+  console.log(`Serveur lancé sur le port ${PORT}`);
+}); 
