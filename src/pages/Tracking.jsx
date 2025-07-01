@@ -381,7 +381,7 @@ export default function Tracking() {
                       </span>
                     ) : '-'}</td>
                     <td style={{padding: '12px 18px', textAlign: 'center', verticalAlign: 'middle'}}>{event.is_event_with_missing_params === 'true' ? <span style={{color:'#FF3F52',padding: '0 8px'}}>❌</span> : <span style={{color:'#6CD386',padding: '0 8px'}}>✔️</span>}</td>
-                    <td style={{padding: '12px 18px', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', verticalAlign: 'middle', wordBreak: 'break-all', whiteSpace: 'normal'}} title={event.page_location_value}>{event.page_location_value ? (event.page_location_value.length > 60 ? event.page_location_value.slice(0, 60) + '…' : event.page_location_value) : '-'}</td>
+                    <td style={{padding: '12px 18px', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', verticalAlign: 'middle', wordBreak: 'break-all', whiteSpace: 'normal'}} title={event.page_location_value}>{event.page_location_value ? (event.page_location_value.length > 60 ? event.page_location_value.slice(0, 60) + '…' : event.page_location_value) : '-'}</td>
                   </tr>
                 );
               })}

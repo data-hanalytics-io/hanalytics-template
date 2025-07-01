@@ -244,4 +244,11 @@ app.delete('/api/users/:id', requireAdmin, async (req, res) => {
   }
 });
 
-module.exports = serverlessExpress({ app }); 
+// Remplacer l'export direct par une condition pour local/serverless
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Serveur lancé sur le port ${PORT}`);
+  });
+} else {
+  module.exports = serverlessExpress({ app });
+} 
