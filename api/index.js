@@ -245,9 +245,8 @@ app.delete('/api/users/:id', requireAdmin, async (req, res) => {
   }
 });
 
-// Route catch-all pour le frontend (après toutes les routes API)
-app.get('*', (req, res) => {
-  // Si la route commence par /api, on ne sert pas le frontend
+// Route catch-all compatible Vercel/Express
+app.get('/:catchAll(.*)', (req, res) => {
   if (req.path.startsWith('/api')) return res.status(404).send('Not found');
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
