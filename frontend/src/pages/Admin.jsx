@@ -26,7 +26,7 @@ export default function Admin() {
       setError('');
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:4000/api/users', {
+        const res = await fetch('/api/users', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -52,7 +52,7 @@ export default function Admin() {
     if (!form.prenom || !form.email || !form.password) return setError('Tous les champs sont requis');
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:4000/api/users', {
+      const res = await fetch('/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function Admin() {
     if (!window.confirm('Confirmer la suppression de cet utilisateur ?')) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:4000/api/users/${id}`, {
+      const res = await fetch(`/api/users/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });

@@ -61,7 +61,7 @@ const Overview = () => {
     }
     fetchDataAndCache(cacheKey, false);
     function fetchDataAndCache(cacheKey, silent) {
-      fetch(`http://localhost:4000/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
+      fetch(`/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
         .then(res => res.json())
         .then(result => {
           window._overviewCache[cacheKey] = result.data;

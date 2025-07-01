@@ -73,7 +73,7 @@ export default function Tracking() {
     }
     fetchDataAndCache(cacheKey, false);
     function fetchDataAndCache(cacheKey, silent) {
-      fetch(`http://localhost:4000/api/tracking?start=${dateRange.start}&end=${dateRange.end}&event=${selectedEvent}&page=${page}&pageSize=${perPage}`)
+      fetch(`/api/tracking?start=${dateRange.start}&end=${dateRange.end}&event=${selectedEvent}&page=${page}&pageSize=${perPage}`)
         .then(res => res.json())
         .then(result => {
           const data = result.data || {};

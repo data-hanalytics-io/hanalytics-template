@@ -22,7 +22,7 @@ export default function Realtime() {
     }
     fetchDataAndCache(cacheKey, false);
     function fetchDataAndCache(cacheKey, silent) {
-      fetch('http://localhost:4000/api/realtime')
+      fetch('/api/realtime')
         .then(res => res.json())
         .then(res => {
           window._realtimeCache[cacheKey] = res.data || {};
