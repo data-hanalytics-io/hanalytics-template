@@ -34,7 +34,6 @@ export default function Tracking() {
     label: '30 derniers jours'
   });
   const [selectedEvent, setSelectedEvent] = useState('all');
-  const [availableEvents, setAvailableEvents] = useState([]);
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [apiData, setApiData] = useState({ eventsDetail: [], pagination: {}, trackingPlan: [], chartData: [], stats: {} });
@@ -128,11 +127,6 @@ export default function Tracking() {
   });
 
   // Pagination pour Events tracking plan
-  const trackingPlanTotalItems = apiData.trackingPlan.length;
-  const trackingPlanStartIdx = (page - 1) * perPage;
-  const trackingPlanEndIdx = trackingPlanStartIdx + perPage;
-
-  // Pagination pour Events with missing parameters
   const eventsDetailTotalItems = apiData.pagination?.totalItems || apiData.eventsDetail.length;
   const eventsDetailTotalPages = Math.ceil(eventsDetailTotalItems / perPage);
   const eventsDetailStartIdx = (page - 1) * perPage;
@@ -153,7 +147,6 @@ export default function Tracking() {
           <label htmlFor="event-select">Filtrer par événement :</label>
           <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
             <option value="all">Tous les événements</option>
-            {availableEvents.map(ev => <option key={ev} value={ev}>{ev}</option>)}
           </select>
         </div>
       </div>
@@ -222,7 +215,7 @@ export default function Tracking() {
                       interval={Math.floor((completedData.length || 0) / 8)}
                       tickFormatter={value => {
                         if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                          const [year, month, day] = value.split('-');
+                          const [, month, day] = value.split('-');
                           return `${day}/${month}`;
                         }
                         return value;
@@ -234,8 +227,8 @@ export default function Tracking() {
                       contentStyle={{background:'#fff', border:'1px solid #B5A2D8', color:'#2E1065', fontFamily:'Inter'}}
                       labelFormatter={label => {
                         if (typeof label === 'string' && label.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                          const [year, month, day] = label.split('-');
-                          const date = new Date(year, month - 1, day);
+                          const [, month, day] = label.split('-');
+                          const date = new Date(label.split('-')[0], month - 1, day);
                           return date.toLocaleDateString('fr-FR', {
                             weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
                           });
