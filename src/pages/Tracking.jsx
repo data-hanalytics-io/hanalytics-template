@@ -4,20 +4,6 @@ import { ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, L
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
 
-// Fonction utilitaire pour transformer n'importe quelle valeur en array de string safe
-function safeArray(val) {
-  if (Array.isArray(val)) {
-    return val.map(v => typeof v === 'object' && v !== null && 'value' in v ? String(v.value) : String(v));
-  }
-  if (val && typeof val === 'object' && 'value' in val) {
-    return [String(val.value)];
-  }
-  if (typeof val === 'string' && val.length > 0) {
-    return [val];
-  }
-  return [];
-}
-
 // Fonction utilitaire pour normaliser un event detail à la structure attendue
 function normalizeEventDetail(event) {
   return {
@@ -75,7 +61,7 @@ export default function Tracking() {
         label: '30 derniers jours'
       });
     }
-  }, []);
+  }, [dateRange.start, dateRange.end]);
 
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) return;
@@ -130,7 +116,7 @@ export default function Tracking() {
           setLoading(false);
         });
     }
-  }, [dateRange, selectedEvent, page, perPage]);
+  }, [dateRange, selectedEvent, page, perPage, getCacheKey]);
 
   // Gestion sécurisée de la pagination
   const isFirstPage = apiData.pagination?.currentPage === 1;

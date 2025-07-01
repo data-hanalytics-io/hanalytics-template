@@ -47,7 +47,7 @@ const Overview = () => {
       });
     }
     setDatesReady(true);
-  }, []);
+  }, [dateRange.start, dateRange.end]);
 
   // Fetch data
   useEffect(() => {
@@ -75,7 +75,7 @@ const Overview = () => {
           setLoading(false);
         });
     }
-  }, [dateRange, datesReady]);
+  }, [dateRange, datesReady, getCacheKey]);
 
   if (loading) return <LoadingPage />;
   if (error)   return <div>{error}</div>;

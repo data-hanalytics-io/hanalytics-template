@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Anomalies.css';
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line, CartesianGrid
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, CartesianGrid
 } from 'recharts';
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
@@ -54,7 +54,7 @@ export default function Anomalies() {
         label: '7 derniers jours'
       });
     }
-  }, []);
+  }, [dateRange.start, dateRange.end]);
 
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) return;
@@ -85,7 +85,7 @@ export default function Anomalies() {
           setLoading(false);
         });
     }
-  }, [dateRange]);
+  }, [dateRange, getCacheKey]);
 
   if (loading) return <LoadingPage />;
   if (error) return <div>{error}</div>;
