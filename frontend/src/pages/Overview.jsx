@@ -8,9 +8,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Cell,
-  PieChart,
-  Pie
+  Cell
 } from 'recharts';
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
@@ -86,12 +84,10 @@ const Overview = () => {
     uniqueUsers: data.metrics.unique_users
   };
 
-  // Donut avec les bonnes couleurs de la charte
-  const donutData   = [
-    { name: 'Valid', value: overviewData.validEvents },
-    { name: 'Errors', value: overviewData.errorEvents }
-  ];
-  const donutColors = ['#7F6F9D', '#ACA0C3'];
+  // Calcul du taux d'erreur en pourcentage
+  const errorRate = overviewData.totalEvents > 0
+    ? ((overviewData.errorEvents / overviewData.totalEvents) * 100).toFixed(1)
+    : '0.0';
 
   // Event Tracking
   const eventTracking = (data.eventStats || []).map(ev => ({
@@ -143,29 +139,7 @@ const Overview = () => {
           {/** Donut **/}
           <div className="stat-card donut-card">
             <h3>Error Rate</h3>
-            <div className="donut-vertical-center">
-              <div className="donut-chart-wrapper">
-                <ResponsiveContainer width={70} height={70}>
-                  <PieChart>
-                    <Pie
-                      data={donutData}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={18}
-                      outerRadius={28}
-                      paddingAngle={2}
-                    >
-                      {donutData.map((entry, i) => (
-                        <Cell key={i} fill={donutColors[i]} />
-                      ))}
-                    </Pie>
-                    <Tooltip formatter={v => v.toLocaleString()} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
+            <p>{errorRate}%</p>
           </div>
         </section>
       </div>

@@ -121,3 +121,31 @@ header nav a[aria-current="page"] {
     margin-left: 16px;
   }
 }
+
+/* Styles globaux pour le mode sombre (header + menu utilisateur) */
+body:not(.light-mode) header {
+  background: #1D0A41 !important;
+  color: #fff !important;
+}
+body:not(.light-mode) header .logoimg {
+  filter: brightness(1.2) contrast(1.2);
+}
+body:not(.light-mode) header nav a,
+body:not(.light-mode) header nav .mode-toggle {
+  color: #fff !important;
+}
+body:not(.light-mode) .user-menu-pop {
+  background: #27124a !important;
+  border: 1px solid #4B2B7F !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .user-menu-pop div {
+  color: #fff !important;
+  border-bottom: 1px solid #3a2062 !important;
+}
+body:not(.light-mode) .user-menu-pop div:last-child {
+  color: #FF3F52 !important;
+}
+body:not(.light-mode) .user-menu-pop div:hover {
+  background: #32205a !important;
+}
