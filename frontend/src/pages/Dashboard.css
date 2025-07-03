@@ -77,6 +77,17 @@
   padding: 2rem;
 }
 
+/* Wrapper des cases métriques mode sombre (Overview) */
+body:not(.light-mode) .dashboard-container .overview-stats-container {
+  background: #4C386F !important;
+}
+
+/* Wrappers Event tracking & Parameter analysis mode sombre (Overview) */
+body:not(.light-mode) .dashboard-container .tracking-section,
+body:not(.light-mode) .dashboard-container .params-section {
+  background: #4C386F !important;
+}
+
 /* ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* STAT CARDS */
 .dashboard-container .overview-stats {
@@ -112,6 +123,16 @@
   color: #2E1065;
   margin: 0;
   margin-top: 2.2rem;
+}
+
+/* Stat cards mode sombre (Overview) */
+body:not(.light-mode) .dashboard-container .stat-card {
+  background: #67519D !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .dashboard-container .stat-card h3,
+body:not(.light-mode) .dashboard-container .stat-card p {
+  color: #fff !important;
 }
 
 /* ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -176,6 +197,23 @@
 }
 .dashboard-container .overview-event-table tr:last-child td {
   border-bottom: none;
+}
+
+/* Table header mode sombre (Overview) */
+body:not(.light-mode) .dashboard-container .overview-event-table th {
+  color: #B5A2D8 !important;
+}
+/* Bordure basse des tableaux mode sombre */
+body:not(.light-mode) .dashboard-container .overview-event-table th {
+  border-bottom: 2px solid #675191 !important;
+}
+body:not(.light-mode) .dashboard-container .overview-event-table td {
+  border-bottom: 1px dashed #675191 !important;
+}
+/* Titres h1 et h2 mode sombre */
+body:not(.light-mode) .dashboard-container .dashboard-header h1,
+body:not(.light-mode) .dashboard-container h2.h2 {
+  color: #B5A2D8 !important;
 }
 
 /* ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -290,4 +328,15 @@ body:not(.light-mode) .user-menu-pop div:last-child {
 }
 body:not(.light-mode) .user-menu-pop div:hover {
   background: #32205a !important;
+}
+
+/* Textes tableaux et graphes mode sombre (Overview) */
+body:not(.light-mode) .dashboard-container .overview-event-table th,
+body:not(.light-mode) .dashboard-container .overview-event-table td,
+body:not(.light-mode) .dashboard-container .recharts-cartesian-axis-tick text,
+body:not(.light-mode) .dashboard-container .recharts-label,
+body:not(.light-mode) .dashboard-container .params-section,
+body:not(.light-mode) .dashboard-container .tracking-section {
+  color: #fff !important;
+  fill: #fff !important;
 }

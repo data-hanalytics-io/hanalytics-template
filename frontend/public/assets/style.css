@@ -149,3 +149,19 @@ body:not(.light-mode) .user-menu-pop div:last-child {
 body:not(.light-mode) .user-menu-pop div:hover {
   background: #32205a !important;
 }
+
+/* Fond général sombre */
+body:not(.light-mode),
+body:not(.light-mode) html {
+  background: #1D0A41 !important;
+}
+
+/* Stat cards mode sombre (Overview) */
+body:not(.light-mode) .dashboard-container .stat-card {
+  background: #67519D !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .dashboard-container .stat-card h3,
+body:not(.light-mode) .dashboard-container .stat-card p {
+  color: #fff !important;
+}
