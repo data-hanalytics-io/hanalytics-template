@@ -166,3 +166,20 @@ body:not(.light-mode) .dashboard-container .stat-card h3,
 body:not(.light-mode) .dashboard-container .stat-card p {
   color: #fff !important;
 }
+
+/* Sélecteur de date global mode sombre : fond violet foncé, dates en blanc */
+body:not(.light-mode) .date-range-picker-btn,
+body:not(.light-mode) .date-range-picker-btn span,
+body:not(.light-mode) .date-range-picker-btn strong {
+  background: #4C386F !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .date-range-picker-dropdown {
+  background: #4C386F !important;
+  color: #fff !important;
+  border: 1px solid #B5A2D8 !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .date-range-picker-dropdown * {
+  color: #fff !important;
+}

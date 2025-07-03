@@ -43,7 +43,7 @@ export default function Header() {
   };
 
   return (
-    <header style={{ width: '100%', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 20 }}>
+    <header style={{ width: '100%', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.03)', padding: '0 32px', height: 48, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 20 }}>
       <div className="logo" style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
         <img 
           src={isLight ? "/assets/logo-light.png" : "/assets/logo.png"} 

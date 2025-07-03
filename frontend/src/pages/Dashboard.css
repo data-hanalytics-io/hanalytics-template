@@ -20,7 +20,7 @@
 /* HEADER "Dashboard Overview" */
 .dashboard-container .dashboard-header {
   text-align: center;
-  margin: 2rem 2rem 1rem;
+  margin: 1rem 2rem 1rem;
   position: relative;
 }
 .dashboard-container .dashboard-header h1 {
@@ -32,6 +32,7 @@
   color: #B5A2D8;
   text-transform: uppercase;
   margin: 0;
+  margin-top: 0.5rem;
 }
 /* Sous-ligne dégradée */
 .dashboard-container .dashboard-header h1::after {
