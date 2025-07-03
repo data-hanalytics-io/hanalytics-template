@@ -30,6 +30,9 @@ export default function DateRangePicker({ value, onChange }) {
   const [customEnd, setCustomEnd] = useState(value?.end || '');
   const ref = useRef();
 
+  // Ajout détection mode sombre
+  const isDark = typeof document !== 'undefined' && !document.body.classList.contains('light-mode');
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -68,25 +71,25 @@ export default function DateRangePicker({ value, onChange }) {
           width: 180,
           padding: '6px 10px',
           borderRadius: 8,
-          border: '1px solid #817EE1',
-          background: '#fff',
-          color: '#817EE1',
+          border: isDark ? '1px solid #B5A2D8' : '1px solid #817EE1',
+          background: isDark ? '#4C386F' : '#fff',
+          color: '#fff',
           fontWeight: 600,
           fontSize: 14,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           cursor: 'pointer',
-          boxShadow: open ? '0 4px 24px rgba(129,126,225,0.10)' : 'none',
+          boxShadow: 'none',
         }}
       >
-        <span style={{ fontSize: 14 }}>
+        <span style={{ fontSize: 14, color: '#fff' }}>
           {value?.label || `${formatDate(value?.start)} – ${formatDate(value?.end)}`}
-          <span style={{ display: 'block', fontWeight: 400, fontSize: 11, color: '#666' }}>
+          <span style={{ display: 'block', fontWeight: 400, fontSize: 11, color: '#fff' }}>
             {formatDate(value?.start)} – {formatDate(value?.end)}
           </span>
         </span>
-        <span style={{ marginLeft: 8, fontSize: 15, color: '#817EE1' }}>▼</span>
+        <span style={{ marginLeft: 8, fontSize: 15, color: isDark ? '#B5A2D8' : '#817EE1' }}>▼</span>
       </button>
       {open && (
         <div
@@ -96,15 +99,16 @@ export default function DateRangePicker({ value, onChange }) {
             left: 0,
             zIndex: 1000,
             minWidth: 200,
-            background: '#fff',
-            border: '1px solid #eee',
+            background: isDark ? '#4C386F' : '#fff',
+            border: isDark ? '1px solid #B5A2D8' : '1px solid #eee',
             borderRadius: 10,
-            boxShadow: '0 8px 32px rgba(129,126,225,0.13)',
+            boxShadow: 'none',
             padding: 0,
             marginTop: 0,
+            color: '#fff',
           }}
         >
-          <div style={{ padding: '12px 0 0 0', fontWeight: 700, fontSize: 12, color: '#817EE1', paddingLeft: 14, letterSpacing: 1 }}>
+          <div style={{ padding: '12px 0 0 0', fontWeight: 700, fontSize: 12, color: isDark ? '#B5A2D8' : '#817EE1', paddingLeft: 14, letterSpacing: 1 }}>
             SÉLECTIONNER UNE PÉRIODE
           </div>
           {PRESETS.map(preset => {
@@ -118,8 +122,8 @@ export default function DateRangePicker({ value, onChange }) {
                   width: '100%',
                   textAlign: 'left',
                   padding: '10px 8px 10px 20px',
-                  background: selected ? 'rgba(129,126,225,0.13)' : 'transparent',
-                  color: selected ? '#817EE1' : '#222',
+                  background: selected ? (isDark ? '#675191' : 'rgba(129,126,225,0.13)') : 'transparent',
+                  color: '#fff',
                   border: 'none',
                   fontWeight: selected ? 700 : 500,
                   fontSize: 13,
@@ -127,12 +131,12 @@ export default function DateRangePicker({ value, onChange }) {
                   outline: 'none',
                   borderRadius: 10,
                   overflow: 'hidden',
-                  borderLeft: selected ? '3px solid #817EE1' : '3px solid transparent',
+                  borderLeft: selected ? (isDark ? '3px solid #B5A2D8' : '3px solid #817EE1') : '3px solid transparent',
                   marginBottom: 0,
                 }}
               >
-                <div>{preset.label}</div>
-                <div style={{ fontSize: 11, color: '#666', fontWeight: 400 }}>
+                <div style={{ color: '#fff' }}>{preset.label}</div>
+                <div style={{ fontSize: 11, color: '#fff', fontWeight: 400 }}>
                   {formatDate(range.start)} – {formatDate(range.end)}
                 </div>
               </button>
@@ -144,8 +148,8 @@ export default function DateRangePicker({ value, onChange }) {
               width: '100%',
               textAlign: 'left',
               padding: '10px 8px 10px 20px',
-              background: showCustom ? 'rgba(129,126,225,0.13)' : 'transparent',
-              color: '#817EE1',
+              background: showCustom ? (isDark ? '#675191' : 'rgba(129,126,225,0.13)') : 'transparent',
+              color: '#fff',
               border: 'none',
               fontWeight: 600,
               fontSize: 13,
@@ -153,20 +157,20 @@ export default function DateRangePicker({ value, onChange }) {
               outline: 'none',
               borderRadius: 10,
               overflow: 'hidden',
-              borderLeft: showCustom ? '3px solid #817EE1' : '3px solid transparent',
+              borderLeft: showCustom ? (isDark ? '3px solid #B5A2D8' : '3px solid #817EE1') : '3px solid transparent',
               marginBottom: 0,
             }}
           >
             Période personnalisée
           </button>
           {showCustom && (
-            <div style={{ padding: '12px 14px', borderTop: '1px solid #eee', background: '#f8f8fb' }}>
+            <div style={{ padding: '12px 14px', borderTop: isDark ? '1px solid #B5A2D8' : '1px solid #eee', background: isDark ? '#4C386F' : '#f8f8fb' }}>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-                <label style={{ fontSize: 12, color: '#666' }}>
+                <label style={{ fontSize: 12, color: '#fff' }}>
                   Début :
                   <input type="date" value={customStart} onChange={e => setCustomStart(e.target.value)} style={{ marginLeft: 6 }} />
                 </label>
-                <label style={{ fontSize: 12, color: '#666' }}>
+                <label style={{ fontSize: 12, color: '#fff' }}>
                   Fin :
                   <input type="date" value={customEnd} onChange={e => setCustomEnd(e.target.value)} style={{ marginLeft: 6 }} />
                 </label>
@@ -175,8 +179,8 @@ export default function DateRangePicker({ value, onChange }) {
                   style={{
                     padding: '4px 12px',
                     borderRadius: 7,
-                    border: '1px solid #817EE1',
-                    background: '#817EE1',
+                    border: '1px solid #B5A2D8',
+                    background: '#B5A2D8',
                     color: '#fff',
                     fontWeight: 600,
                     fontSize: 12,
