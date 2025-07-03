@@ -83,9 +83,9 @@ export default function DateRangePicker({ value, onChange }) {
           boxShadow: 'none',
         }}
       >
-        <span style={{ fontSize: 14, color: '#fff' }}>
+        <span style={{ fontSize: 14, color: isDark ? '#fff' : '#222' }}>
           {value?.label || `${formatDate(value?.start)} – ${formatDate(value?.end)}`}
-          <span style={{ display: 'block', fontWeight: 400, fontSize: 11, color: '#fff' }}>
+          <span style={{ display: 'block', fontWeight: 400, fontSize: 11, color: isDark ? '#fff' : '#666' }}>
             {formatDate(value?.start)} – {formatDate(value?.end)}
           </span>
         </span>
@@ -135,8 +135,8 @@ export default function DateRangePicker({ value, onChange }) {
                   marginBottom: 0,
                 }}
               >
-                <div style={{ color: '#fff' }}>{preset.label}</div>
-                <div style={{ fontSize: 11, color: '#fff', fontWeight: 400 }}>
+                <div style={{ color: isDark ? '#fff' : '#222' }}>{preset.label}</div>
+                <div style={{ fontSize: 11, color: isDark ? '#fff' : '#666', fontWeight: 400 }}>
                   {formatDate(range.start)} – {formatDate(range.end)}
                 </div>
               </button>

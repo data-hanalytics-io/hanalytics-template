@@ -444,3 +444,47 @@ select, .per-page-selector select {
 .events-detail-table th:nth-child(10), .events-detail-table td:nth-child(10) {
   min-width: 200px;
 }
+
+/* Mode sombre Tracking */
+body:not(.light-mode) .tracking-container {
+  background: #240C4F !important;
+}
+body:not(.light-mode) .tracking-container table thead th {
+  background: #B5A2D8 !important;
+  color: #2E1065 !important;
+}
+body:not(.light-mode) .tracking-container table tbody td {
+  background: #675191 !important;
+  color: #fff !important;
+  border-bottom: 1px dashed rgba(255,255,255,0.5) !important;
+}
+body:not(.light-mode) .tracking-container .tracking-section,
+body:not(.light-mode) .tracking-container .tracking-table-wrapper,
+body:not(.light-mode) .tracking-container .tracking-graph-wrapper {
+  background: #4C386F !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .tracking-container h1,
+body:not(.light-mode) .tracking-container h2 {
+  color: #B5A2D8 !important;
+}
+body:not(.light-mode) .tracking-container .pill-count {
+  background: rgba(236,230,240,0.15) !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .tracking-container .event-selector,
+body:not(.light-mode) .tracking-container .event-selector * {
+  background: rgba(236,230,240,0.15) !important;
+  color: #fff !important;
+}
+/* Couleurs du graphe évolution des événements */
+body:not(.light-mode) .tracking-container .chart-bar-total {
+  fill: #C7B0CA !important;
+}
+body:not(.light-mode) .tracking-container .chart-bar-error {
+  fill: rgba(255,63,82,0.7) !important;
+}
+
+body:not(.light-mode) .tracking-container table tbody td {
+  border-bottom: 1px dashed rgba(255,255,255,0.5) !important;
+}

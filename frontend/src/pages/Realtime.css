@@ -384,3 +384,11 @@ body:not(.light-mode) .realtime-container * {
   color: #fff !important;
   box-shadow: none !important;
 }
+
+/* Popup horloge mode sombre (Realtime) */
+body:not(.light-mode) .realtime-container .popup-horloge,
+body:not(.light-mode) .realtime-container .popup-horloge * {
+  background: #675191 !important;
+  color: #ECE6F0 !important;
+  border: 1px solid #B5A2D8 !important;
+}

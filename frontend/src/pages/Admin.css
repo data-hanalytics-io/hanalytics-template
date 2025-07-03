@@ -1,0 +1,62 @@
+/* Mode sombre Admin */
+body:not(.light-mode) .admin-container {
+  background: #240C4F !important;
+}
+body:not(.light-mode) .admin-container h1,
+body:not(.light-mode) .admin-container h2 {
+  color: #B5A2D8 !important;
+}
+body:not(.light-mode) .admin-container table thead th {
+  background: #B5A2D8 !important;
+  color: #2E1065 !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+body:not(.light-mode) .admin-container table tbody td {
+  background: #675191 !important;
+  color: #fff !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+body:not(.light-mode) .admin-container .admin-table-wrapper {
+  background: #4C386F !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .admin-container .user-create-card {
+  background: #B5A2D8 !important;
+  color: #2E1065 !important;
+}
+body:not(.light-mode) .admin-container .btn-create {
+  background: #C7B0CA !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .admin-container .btn-create-user {
+  background: rgba(155,111,157,0.5) !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .admin-container .btn-status-actif {
+  background: rgba(108,211,134,0.15) !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .admin-container .btn-status-supprime {
+  background: rgba(255,63,82,0.15) !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .admin-container,
+body:not(.light-mode) .admin-container * {
+  color: #fff !important;
+  box-shadow: none !important;
+}
+/* Bordures uniquement aux extrémités des tableaux */
+body:not(.light-mode) .admin-container table thead th:first-child,
+body:not(.light-mode) .admin-container table tbody td:first-child {
+  border-left: 1px solid #fff !important;
+}
+body:not(.light-mode) .admin-container table thead th:last-child,
+body:not(.light-mode) .admin-container table tbody td:last-child {
+  border-right: 1px solid #fff !important;
+} 

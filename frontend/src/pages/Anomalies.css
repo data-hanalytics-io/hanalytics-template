@@ -658,3 +658,96 @@
     border-radius: 8px !important;
   }
 }
+
+/* Mode sombre Anomalies */
+body:not(.light-mode) .anomalies-container {
+  background: #240C4F !important;
+}
+body:not(.light-mode) .anomalies-container .stat-card {
+  background: #675191 !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .anomalies-container .anomalies-stats-container,
+body:not(.light-mode) .anomalies-container .anomalies-section,
+body:not(.light-mode) .anomalies-container .anomalies-table-wrapper,
+body:not(.light-mode) .anomalies-container .anomalies-graph-wrapper {
+  background: #4C386F !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .anomalies-container h1,
+body:not(.light-mode) .anomalies-container h2 {
+  color: #B5A2D8 !important;
+}
+body:not(.light-mode) .anomalies-container table thead th {
+  background: #B5A2D8 !important;
+  color: #2E1065 !important;
+}
+body:not(.light-mode) .anomalies-container table tbody td {
+  background: #675191 !important;
+  color: #fff !important;
+  border-bottom: 1px dashed rgba(255,255,255,0.5) !important;
+}
+body:not(.light-mode) .anomalies-container .pagination,
+body:not(.light-mode) .anomalies-container .pagination *,
+body:not(.light-mode) .anomalies-container .show-count {
+  background: rgba(236,230,240,0.15) !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .anomalies-container .mad-score-block {
+  background: #4C386F !important;
+  color: #fff !important;
+  border: 1px solid #B5A2D8 !important;
+}
+body:not(.light-mode) .anomalies-container,
+body:not(.light-mode) .anomalies-container * {
+  color: #fff !important;
+  box-shadow: none !important;
+}
+/* Couleurs du graphe évolution des événements */
+body:not(.light-mode) .anomalies-container .chart-bar-normal {
+  fill: #BDA0C3 !important;
+}
+body:not(.light-mode) .anomalies-container .chart-bar-anomaly {
+  fill: rgba(255,63,82,0.7) !important;
+}
+
+/* Chevrons de pagination mode sombre (Anomalies) */
+body:not(.light-mode) .anomalies-container .pagination .chevron,
+body:not(.light-mode) .anomalies-container .pagination .chevron * {
+  color: #B5A2D8 !important;
+  fill: #B5A2D8 !important;
+}
+
+/* Sélecteur d'événements mode sombre (Anomalies) */
+body:not(.light-mode) .anomalies-container .event-selector,
+body:not(.light-mode) .anomalies-container .event-selector * {
+  background: rgba(236,230,240,0.15) !important;
+  color: #fff !important;
+}
+/* Couleurs du graphe évolution des événements (Anomalies) */
+body:not(.light-mode) .anomalies-container .chart-bar-event {
+  fill: #C7B0CA !important;
+}
+body:not(.light-mode) .anomalies-container .chart-bar-anomaly {
+  fill: rgba(255,63,82,0.7) !important;
+}
+
+body:not(.light-mode) .anomalies-container table tbody tr:hover td {
+  background: #675191 !important;
+  color: #fff !important;
+}
+
+.anomalies-container .mad-score-popup {
+  margin-top: 18px !important;
+}
+
+body:not(.light-mode) .anomalies-container .event-selector-dropdown {
+  background: #4C386F !important;
+  color: #fff !important;
+  border: 1px solid #B5A2D8 !important;
+}
+body:not(.light-mode) .anomalies-container .event-selector-dropdown * {
+  color: #fff !important;
+}
