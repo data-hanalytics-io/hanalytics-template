@@ -373,6 +373,22 @@ body:not(.light-mode) .overview-date-picker-wrapper .date-range-picker-btn {
   background: #4C386F !important;
   color: #fff !important;
   border: 1px solid #B5A2D8 !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .overview-date-picker-wrapper .date-range-picker-btn span,
+body:not(.light-mode) .overview-date-picker-wrapper .date-range-picker-btn strong {
+  color: #fff !important;
+}
+
+/* Dropdown du sélecteur de date mode sombre */
+body:not(.light-mode) .date-range-picker-dropdown {
+  background: #4C386F !important;
+  color: #fff !important;
+  border: 1px solid #B5A2D8 !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .date-range-picker-dropdown * {
+  color: #fff !important;
 }
 
 /* Centrage vertical des données dans les cases métriques */
@@ -381,4 +397,12 @@ body:not(.light-mode) .overview-date-picker-wrapper .date-range-picker-btn {
 }
 .dashboard-container .stat-card p {
   margin-top: 0 !important;
+}
+
+/* Suppression des halos/lumières (box-shadow) en mode sombre */
+body:not(.light-mode) .dashboard-container .overview-stats-container,
+body:not(.light-mode) .dashboard-container .tracking-section,
+body:not(.light-mode) .dashboard-container .params-section,
+body:not(.light-mode) .dashboard-container .stat-card {
+  box-shadow: none !important;
 }

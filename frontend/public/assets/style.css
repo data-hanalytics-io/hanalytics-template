@@ -126,6 +126,7 @@ header nav a[aria-current="page"] {
 body:not(.light-mode) header {
   background: #1D0A41 !important;
   color: #fff !important;
+  border-bottom: none !important;
 }
 body:not(.light-mode) header .logoimg {
   filter: brightness(1.2) contrast(1.2);
