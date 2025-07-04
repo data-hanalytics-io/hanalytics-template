@@ -43,7 +43,8 @@ export default function Tracking() {
 
   // Couleurs pour le graphe
   const COLOR_TOTAL = isLight ? '#C7B0CA' : '#B5A2D8';
-  const COLOR_ERROR = isLight ? 'rgba(255,63,82,0.7)' : '#FFB3D6';
+  // Ligne : ROSE en clair, ROUGE en sombre
+  const COLOR_ERROR = isLight ? '#FFB3D6' : '#FF3F52';
 
   // --- CACHE ---
   useEffect(() => {
@@ -139,9 +140,7 @@ export default function Tracking() {
   // Pagination pour Events tracking plan
   const eventsDetailTotalItems = apiData.pagination?.totalItems || apiData.eventsDetail.length;
   const eventsDetailTotalPages = Math.ceil(eventsDetailTotalItems / perPage);
-  const eventsDetailStartIdx = (page - 1) * perPage;
-  const eventsDetailEndIdx = eventsDetailStartIdx + perPage;
-  const eventsDetailPage = apiData.eventsDetail.slice(eventsDetailStartIdx, eventsDetailEndIdx);
+  const eventsDetailPage = apiData.eventsDetail;
 
   if (loading) return <LoadingPage />;
   if (error) return <div>{error}</div>;
@@ -252,10 +251,10 @@ export default function Tracking() {
                     <Bar yAxisId="left" dataKey="total_events" fill={COLOR_TOTAL} fillOpacity={0.7} name="Total events" />
                     <Line yAxisId="right" type="monotone" dataKey="pct_events_with_missing_params" stroke={COLOR_ERROR} strokeWidth={2} name="Events with anomalies" dot={false} legendType="line" />
                     <Legend formatter={value => {
-                      if (isLight && value === 'Total events') {
+                      if (value === 'Total events') {
                         return <span style={{color: COLOR_TOTAL}}>Total events</span>;
                       }
-                      if (!isLight && value === 'Events with anomalies') {
+                      if (value === 'Events with anomalies') {
                         return <span style={{color: COLOR_ERROR}}>Events with anomalies</span>;
                       }
                       return null;

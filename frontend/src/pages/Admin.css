@@ -175,4 +175,68 @@
   cursor: pointer;
   background: rgba(255,63,82,0.15);
   color: #FF3F52;
+}
+body:not(.light-mode) .admin-container {
+  background: #1D0A41;
+}
+body:not(.light-mode) .admin-main-section {
+  background: #4C386F;
+  box-shadow: 8px 6px 15px rgba(181,162,216,0.10);
+}
+body:not(.light-mode) .admin-title {
+  color: #B5A2D8;
+}
+body:not(.light-mode) .admin-subtitle {
+  color: #B5A2D8;
+}
+body:not(.light-mode) .admin-card {
+  background: #675191;
+  box-shadow: 4px 5px 6px rgba(181,162,216,0.10);
+}
+body:not(.light-mode) .admin-h2 {
+  color: #fff;
+}
+body:not(.light-mode) .admin-btn-create-user {
+  background: #aca0c34d;
+  color: #fff;
+}
+body:not(.light-mode) .admin-create-form {
+  background: #675191;
+  box-shadow: 4px 5px 6px rgba(181,162,216,0.10);
+}
+body:not(.light-mode) .admin-create-form-title {
+  color: #fff;
+}
+body:not(.light-mode) .admin-input, body:not(.light-mode) .admin-select {
+  background: #4C386F;
+  color: #fff;
+}
+body:not(.light-mode) .admin-btn-create {
+  background: #B5A2D8;
+  color: #fff;
+}
+body:not(.light-mode) .admin-table-section {
+  background: #4C386F;
+  box-shadow: 8px 6px 15px rgba(181,162,216,0.10);
+}
+body:not(.light-mode) .admin-table thead {
+  background: #675191;
+}
+body:not(.light-mode) .admin-table th {
+  color: #B5A2D8;
+}
+body:not(.light-mode) .admin-table td {
+  color: #fff;
+}
+body:not(.light-mode) .admin-status-actif {
+  background: rgba(108,211,134,0.15);
+  color: #6CD386;
+}
+body:not(.light-mode) .admin-status-inactif {
+  background: rgba(255,63,82,0.15);
+  color: #FF3F52;
+}
+body:not(.light-mode) .admin-btn-delete {
+  background: rgba(255,63,82,0.15);
+  color: #FF3F52;
 } 

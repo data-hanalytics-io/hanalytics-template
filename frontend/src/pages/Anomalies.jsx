@@ -187,7 +187,7 @@ export default function Anomalies() {
                     <Cell key={`cell-${index}`} fill={DONUT_COLORS[index]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip contentStyle={{background: isLight ? '#fff' : '#1D0A41', color: isLight ? '#2E1065' : '#fff', border: '1px solid #B5A2D8', fontWeight: 600, fontSize: 15}} />
                 <Legend iconType="circle" />
               </PieChart>
             </ResponsiveContainer>

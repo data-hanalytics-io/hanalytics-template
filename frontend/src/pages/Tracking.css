@@ -536,3 +536,17 @@ body:not(.light-mode) .tracking-container .pagination-buttons svg {
   width: 24px !important;
   height: 24px !important;
 }
+body:not(.light-mode) .tracking-container .per-page-selector select {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  outline: none !important;
+}
+body:not(.light-mode) .tracking-container .per-page-selector select option {
+  background: #675191 !important;
+  color: #fff !important;
+}
