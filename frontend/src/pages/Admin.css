@@ -319,3 +319,119 @@ body:not(.light-mode) .admin-create-user-btn {
 body:not(.light-mode) .admin-create-user-btn:hover {
   background: #7F6F9D;
 } 
+
+/* Mode sombre : harmonisation avec les autres pages */
+body:not(.light-mode) .admin-container {
+  background: #240C4F !important;
+}
+body:not(.light-mode) .admin-main-section {
+  background: #4C386F !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .admin-title,
+body:not(.light-mode) .admin-h2 {
+  color: #B5A2D8 !important;
+}
+body:not(.light-mode) .admin-subtitle {
+  color: #B5A2D8 !important;
+  opacity: 0.7 !important;
+}
+body:not(.light-mode) .admin-card,
+body:not(.light-mode) .admin-table-section {
+  background: #4C386F !important;
+  box-shadow: none !important;
+}
+body:not(.light-mode) .admin-table {
+  background: #675191 !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .admin-table th {
+  background: #B5A2D8 !important;
+  color: #2E1065 !important;
+}
+body:not(.light-mode) .admin-table td {
+  background: #675191 !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .admin-status-actif {
+  background: rgba(108,211,134,0.15) !important;
+  color: #6CD386 !important;
+}
+body:not(.light-mode) .admin-status-inactif {
+  background: rgba(255,63,82,0.15) !important;
+  color: #FF3F52 !important;
+}
+body:not(.light-mode) .admin-btn-delete {
+  background: #FF3F52 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 8px 18px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(255,63,82,0.10) !important;
+  transition: background 0.2s !important;
+}
+body:not(.light-mode) .admin-btn-delete:hover {
+  background: #B5A2D8 !important;
+  color: #fff !important;
+}
+
+/* Mode clair : harmonisation avec les autres pages */
+.admin-container {
+  background: #F5F5F5 !important;
+}
+.admin-main-section {
+  background: #fff !important;
+  box-shadow: 0 8px 32px rgba(181,162,216,0.13) !important;
+}
+.admin-title, .admin-h2 {
+  color: #B5A2D8 !important;
+}
+.admin-subtitle {
+  color: #2E1065 !important;
+  opacity: 0.7 !important;
+}
+.admin-card, .admin-table-section {
+  background: #F5F1FA !important;
+  box-shadow: 0 4px 24px rgba(181,162,216,0.10) !important;
+}
+.admin-table {
+  background: #ECE6F0 !important;
+  color: #2E1065 !important;
+}
+.admin-table th {
+  background: #D9D1E3 !important;
+  color: #7F6F9D !important;
+}
+.admin-table td {
+  background: #ECE6F0 !important;
+  color: #2E1065 !important;
+}
+.admin-status-actif {
+  background: rgba(108,211,134,0.15) !important;
+  color: #6CD386 !important;
+}
+.admin-status-inactif {
+  background: rgba(255,63,82,0.15) !important;
+  color: #FF3F52 !important;
+}
+.admin-btn-delete {
+  background: #FF3F52 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 8px 18px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  font-family: Inter, Arial, sans-serif !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(255,63,82,0.10) !important;
+  transition: background 0.2s !important;
+}
+.admin-btn-delete:hover {
+  background: #B5A2D8 !important;
+  color: #fff !important;
+} 
