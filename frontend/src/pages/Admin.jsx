@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../components/ui/LoadingPage';
-import { ThemeContext } from '../theme/ThemeContext';
 
 export default function Admin() {
-  const { isLight } = useContext(ThemeContext);
   const [users, setUsers] = useState([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [form, setForm] = useState({ prenom: '', email: '', password: '', role: 'user' });
