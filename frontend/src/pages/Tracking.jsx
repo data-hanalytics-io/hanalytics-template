@@ -137,13 +137,13 @@ export default function Tracking() {
     };
   });
 
-  // Pagination pour Events tracking plan (nouvelle version côté client)
-  const allEventsDetail = apiData.eventsDetail;
-  const eventsDetailTotalItems = allEventsDetail.length;
-  const eventsDetailTotalPages = Math.ceil(eventsDetailTotalItems / perPage);
-  const startIdx = (page - 1) * perPage;
-  const endIdx = startIdx + perPage;
-  const eventsDetailPage = allEventsDetail.slice(startIdx, endIdx);
+  // Pagination côté client pour Events tracking plan
+  const allTrackingPlan = apiData.trackingPlan;
+  const trackingPlanTotalItems = allTrackingPlan.length;
+  const trackingPlanTotalPages = Math.ceil(trackingPlanTotalItems / perPage);
+  const trackingPlanStartIdx = (page - 1) * perPage;
+  const trackingPlanEndIdx = trackingPlanStartIdx + perPage;
+  const trackingPlanPage = allTrackingPlan.slice(trackingPlanStartIdx, trackingPlanEndIdx);
 
   if (loading) return <LoadingPage />;
   if (error) return <div>{error}</div>;
@@ -279,26 +279,57 @@ export default function Tracking() {
               </tr>
             </thead>
             <tbody>
-              {apiData.trackingPlan.map((ev, idx) => (
+              {trackingPlanPage.map((ev, idx) => (
                 <tr key={idx} style={{verticalAlign: 'middle'}}>
                   <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}>{ev.expected_event_name}</td>
                   <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}} className="status-cell">{ev.status}</td>
                   <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}>{ev.total_events}</td>
                   <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}>{ev.events_with_errors}</td>
-                  <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}><strong>{ev.error_percentage?.toFixed ? ev.error_percentage.toFixed(1) : ev.error_percentage}%</strong></td>
+                  <td style={{padding: '14px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}><strong>{ev.error_percentage?.toFixed ? ev.error_percentage.toFixed(1) : ev.error_percentage}%</strong></td>
                   <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}>{ev.first_error_date}</td>
                   <td style={{padding: '12px 18px', fontSize: 12, color: '#2E1065', verticalAlign: 'middle', width: '90px'}}>{ev.last_error_date}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="tracking-log-controls">
+            <span className="tracking-page-info">
+              Page {page} sur {trackingPlanTotalPages} ({trackingPlanTotalItems} événements)
+            </span>
+            <label className="tracking-per-page-selector">
+              Afficher&nbsp;
+              <select 
+                value={perPage} 
+                onChange={e => { 
+                  setPerPage(+e.target.value); 
+                  setPage(1); 
+                }}
+              >
+                {[5, 10, 20, 50, 100].map(n => (
+                  <option key={n} value={n}>{n} par page</option>
+                ))}
+              </select>
+            </label>
+            <div className="tracking-pagination-buttons">
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="tracking-pager-btn prev" aria-label="Page précédente">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 16L8 10L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <button onClick={() => setPage(p => Math.min(trackingPlanTotalPages, p + 1))} disabled={page === trackingPlanTotalPages} className="tracking-pager-btn next" aria-label="Page suivante">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 4L12 10L7 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
       <section className="table-section" style={{marginBottom: '1.5rem'}}>
         <div>
           <h2 className="h2">Events with missing parameters</h2>
           <p>Détail des événements avec paramètres manquants (erreurs en premier)</p>
-          <button className="count-pill">{eventsDetailTotalItems} ERREURS AU TOTAL</button>
+          <button className="count-pill">{apiData.eventsDetail.length} ERREURS AU TOTAL</button>
         </div>
         <div className="events-detail-table-wrapper table-wrapper" style={{width: '100%', paddingBottom: 8, marginLeft: 0}}>
           <table className="table events-detail-table" style={{borderCollapse: 'separate', borderSpacing: 0, fontSize: '13px', tableLayout: 'fixed', minWidth: 0}}>
@@ -319,7 +350,7 @@ export default function Tracking() {
               </tr>
             </thead>
             <tbody>
-              {eventsDetailPage.map((rawEvent, index) => {
+              {apiData.eventsDetail.map((rawEvent, index) => {
                 const event = normalizeEventDetail(rawEvent);
                 return (
                   <tr key={`${event.event_timestamp}-${index}`} style={{verticalAlign: 'middle'}}>
@@ -370,7 +401,7 @@ export default function Tracking() {
           </table>
           <div className="tracking-log-controls">
             <span className="tracking-page-info">
-              Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
+              Page {page} sur {Math.ceil(apiData.eventsDetail.length / perPage)} ({apiData.eventsDetail.length} événements)
             </span>
             <label className="tracking-per-page-selector">
               Afficher&nbsp;
@@ -392,7 +423,7 @@ export default function Tracking() {
                   <path d="M13 16L8 10L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="tracking-pager-btn next" aria-label="Page suivante">
+              <button onClick={() => setPage(p => Math.min(Math.ceil(apiData.eventsDetail.length / perPage), p + 1))} disabled={page === Math.ceil(apiData.eventsDetail.length / perPage)} className="tracking-pager-btn next" aria-label="Page suivante">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 4L12 10L7 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
