@@ -122,12 +122,6 @@ export default function Admin() {
   const deleteBg = 'rgba(255,63,82,0.15)';
   const deleteColor = '#FF3F52';
 
-  // Adapter les couleurs de statuts, backgrounds, etc. selon isLight
-  const activeBgLight = 'rgba(108,211,134,0.2)';
-  const activeColorLight = '#6CD386';
-  const deleteBgLight = 'rgba(255,63,82,0.2)';
-  const deleteColorLight = '#FF3F52';
-
   return (
     <div style={{ minHeight: '100vh', background: mainBg, fontFamily }}>
       <div style={{ maxWidth: 1200, margin: '40px auto', background: '#FFFFFF', borderRadius: radius, boxShadow: innerShadow, padding: 48 }}>

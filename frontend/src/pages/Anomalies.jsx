@@ -23,7 +23,6 @@ function Accordion({ title, children }) {
 }
 
 export default function Anomalies() {
-  const { isLight } = useContext(ThemeContext);
   const [anomalies, setAnomalies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
