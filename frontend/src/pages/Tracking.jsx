@@ -137,10 +137,13 @@ export default function Tracking() {
     };
   });
 
-  // Pagination pour Events tracking plan
-  const eventsDetailTotalItems = apiData.pagination?.totalItems || apiData.eventsDetail.length;
+  // Pagination pour Events tracking plan (nouvelle version côté client)
+  const allEventsDetail = apiData.eventsDetail;
+  const eventsDetailTotalItems = allEventsDetail.length;
   const eventsDetailTotalPages = Math.ceil(eventsDetailTotalItems / perPage);
-  const eventsDetailPage = apiData.eventsDetail;
+  const startIdx = (page - 1) * perPage;
+  const endIdx = startIdx + perPage;
+  const eventsDetailPage = allEventsDetail.slice(startIdx, endIdx);
 
   if (loading) return <LoadingPage />;
   if (error) return <div>{error}</div>;
