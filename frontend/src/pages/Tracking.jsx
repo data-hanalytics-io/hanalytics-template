@@ -365,11 +365,11 @@ export default function Tracking() {
               })}
             </tbody>
           </table>
-          <div className="log-controls">
-            <span className="page-info">
+          <div className="tracking-log-controls">
+            <span className="tracking-page-info">
               Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
             </span>
-            <label className="per-page-selector">
+            <label className="tracking-per-page-selector">
               Afficher&nbsp;
               <select 
                 value={perPage} 
@@ -383,13 +383,13 @@ export default function Tracking() {
                 ))}
               </select>
             </label>
-            <div className="pagination-buttons">
-              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="anomaly-pager-btn prev" aria-label="Page précédente">
+            <div className="tracking-pagination-buttons">
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="tracking-pager-btn prev" aria-label="Page précédente">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13 16L8 10L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="anomaly-pager-btn next" aria-label="Page suivante">
+              <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="tracking-pager-btn next" aria-label="Page suivante">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 4L12 10L7 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>

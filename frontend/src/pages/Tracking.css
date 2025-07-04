@@ -550,3 +550,78 @@ body:not(.light-mode) .tracking-container .per-page-selector select option {
   background: #675191 !important;
   color: #fff !important;
 }
+
+.tracking-log-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+.tracking-page-info {
+  background: #ECE6F0;
+  border-radius: 12px;
+  padding: 0.3rem 0.8rem;
+  font-size: 13px;
+  color: rgba(155,111,157,0.5);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+.tracking-per-page-selector {
+  background: #ECE6F0;
+  border-radius: 12px;
+  padding: 0.3rem 0.8rem;
+  font-size: 13px;
+  color: rgba(210,199,210,0.5);
+  font-weight: 700;
+}
+.tracking-per-page-selector select {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  color: #2E1065;
+}
+.tracking-pagination-buttons {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  background: none;
+  border-radius: 12px;
+  padding: 0.2rem 0.2rem;
+}
+.tracking-pager-btn {
+  background: #ECE6F0;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(181,162,216,0.12);
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 18px;
+  color: #7F6F9D;
+  transition: background 0.2s, color 0.2s;
+  margin: 0 0.2rem;
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tracking-pager-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.tracking-pager-btn:not(:disabled):hover {
+  background: #D9D1E3;
+  color: #2E1065;
+}
+.tracking-pager-btn svg {
+  display: block;
+  margin: auto;
+  stroke: #7F6F9D;
+  transition: stroke 0.2s;
+}
+.tracking-pager-btn:not(:disabled):hover svg {
+  stroke: #2E1065;
+}

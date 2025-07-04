@@ -176,9 +176,10 @@ body:not(.light-mode) .date-range-picker-btn strong {
   color: #fff !important;
 }
 body:not(.light-mode) .date-range-picker-dropdown {
-  background: #fff !important;
-  border: 1px solid #817EE1 !important;
-  box-shadow: 0 4px 16px rgba(181,162,216,0.10);
+  background: #4C386F !important;
+  border: 1px solid #B5A2D8 !important;
+  color: #fff !important;
+  box-shadow: none !important;
 }
 body:not(.light-mode) .date-range-picker-dropdown * {
   color: #fff !important;
