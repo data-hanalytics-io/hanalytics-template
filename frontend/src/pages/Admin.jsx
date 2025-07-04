@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../components/ui/LoadingPage';
+import { ThemeContext } from '../theme/ThemeContext';
 
 export default function Admin() {
+  const { isLight } = useContext(ThemeContext);
   const [users, setUsers] = useState([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [form, setForm] = useState({ prenom: '', email: '', password: '', role: 'user' });
@@ -119,6 +121,12 @@ export default function Admin() {
   const activeColor = '#6CD386';
   const deleteBg = 'rgba(255,63,82,0.15)';
   const deleteColor = '#FF3F52';
+
+  // Adapter les couleurs de statuts, backgrounds, etc. selon isLight
+  const activeBgLight = 'rgba(108,211,134,0.2)';
+  const activeColorLight = '#6CD386';
+  const deleteBgLight = 'rgba(255,63,82,0.2)';
+  const deleteColorLight = '#FF3F52';
 
   return (
     <div style={{ minHeight: '100vh', background: mainBg, fontFamily }}>

@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { ThemeContext } from '../../theme/ThemeContext';
 
 const PRESETS = [
   { label: '7 derniers jours', days: 7 },
@@ -30,8 +31,9 @@ export default function DateRangePicker({ value, onChange }) {
   const [customEnd, setCustomEnd] = useState(value?.end || '');
   const ref = useRef();
 
-  // Ajout détection mode sombre
-  const isDark = typeof document !== 'undefined' && !document.body.classList.contains('light-mode');
+  // Ajout détection mode sombre via contexte
+  const { isLight } = useContext(ThemeContext);
+  const isDark = !isLight;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -124,7 +126,7 @@ export default function DateRangePicker({ value, onChange }) {
                   padding: '10px 8px 10px 20px',
                   background: selected ? (isDark ? '#675191' : 'rgba(129,126,225,0.13)') : 'transparent',
                   color: '#fff',
-                  border: 'none',
+                  border: 'none', // Force aucune bordure
                   fontWeight: selected ? 700 : 500,
                   fontSize: 13,
                   cursor: 'pointer',
@@ -150,7 +152,7 @@ export default function DateRangePicker({ value, onChange }) {
               padding: '10px 8px 10px 20px',
               background: showCustom ? (isDark ? '#675191' : 'rgba(129,126,225,0.13)') : 'transparent',
               color: '#fff',
-              border: 'none',
+              border: 'none', // Force aucune bordure
               fontWeight: 600,
               fontSize: 13,
               cursor: 'pointer',

@@ -10,6 +10,7 @@ import Anomalies from './pages/Anomalies.jsx';
 import Tracking from './pages/Tracking.jsx';
 import Admin from './pages/Admin.jsx';
 import Header from './components/Header';
+import { ThemeProvider } from './theme/ThemeContext';
 
 function AuthGuard({ children }) {
   const location = useLocation();
@@ -66,6 +67,10 @@ function App() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
+);
 
 export default App;

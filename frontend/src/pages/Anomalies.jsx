@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Anomalies.css';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, CartesianGrid
 } from 'recharts';
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
+import { ThemeContext } from '../theme/ThemeContext';
 
 function Accordion({ title, children }) {
   const [open, setOpen] = useState(false);
@@ -22,6 +23,7 @@ function Accordion({ title, children }) {
 }
 
 export default function Anomalies() {
+  const { isLight } = useContext(ThemeContext);
   const [anomalies, setAnomalies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -136,6 +138,10 @@ export default function Anomalies() {
     const dateStr = d.toISOString().split('T')[0];
     completeChart.push(chartMap.get(dateStr) || { event_date: dateStr, total_events: 0, anomaly_events: 0 });
   }
+
+  // Couleurs pour le graphe évolution des événements
+  const BAR_COLOR_NORM = '#BDA0C3';
+  const BAR_COLOR_ANOM = 'rgba(255,63,82,0.7)';
 
   return (
     <div className="anomalies-container">
@@ -291,10 +297,10 @@ export default function Anomalies() {
               <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
               <XAxis dataKey="event_date" stroke="#888" />
               <YAxis stroke="#888" />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="total_events" fill="#B5A2D8" name="Événements" />
-              <Bar dataKey="anomaly_events" fill="rgba(255,63,82,0.3)" name="Anomalies" />
+              <Tooltip contentStyle={{background: '#1D0A41', color: '#fff', border: '1px solid #B5A2D8', fontWeight: 600, fontSize: 15}} />
+              <Legend formatter={(value) => value === 'Événements' || value === 'Normaux' ? <span style={{color: BAR_COLOR_NORM}}>Normaux</span> : <span style={{color: BAR_COLOR_ANOM}}>Anomalies</span>} />
+              <Bar dataKey="total_events" fill={BAR_COLOR_NORM} name="Normaux" />
+              <Bar dataKey="anomaly_events" fill={BAR_COLOR_ANOM} name="Anomalies" />
             </BarChart>
           </ResponsiveContainer>
         </div>

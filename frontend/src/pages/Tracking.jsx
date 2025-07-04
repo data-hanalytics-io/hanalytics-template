@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Tracking.css';
-import { ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
+import { ThemeContext } from '../theme/ThemeContext';
 
 // Fonction utilitaire pour normaliser un event detail à la structure attendue
 function normalizeEventDetail(event) {
@@ -26,6 +27,7 @@ function normalizeEventDetail(event) {
 }
 
 export default function Tracking() {
+  const { isLight } = useContext(ThemeContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dateRange, setDateRange] = useState({
@@ -37,6 +39,11 @@ export default function Tracking() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [apiData, setApiData] = useState({ eventsDetail: [], pagination: {}, trackingPlan: [], chartData: [], stats: {} });
+  const [availableEvents, setAvailableEvents] = useState([]);
+
+  // Couleurs pour le graphe
+  const COLOR_TOTAL = '#C7B0CA';
+  const COLOR_ERROR = 'rgba(255,63,82,0.7)';
 
   // --- CACHE ---
   useEffect(() => {
@@ -104,6 +111,9 @@ export default function Tracking() {
           };
           window._trackingCache[cacheKey] = apiData;
           setApiData(apiData);
+          // Extraction des événements uniques pour le sélecteur
+          const events = Array.from(new Set((apiData.trackingPlan || []).map(e => e.expected_event_name))).sort();
+          setAvailableEvents(events);
           if (!silent) setLoading(false);
         })
         .catch(() => {
@@ -147,6 +157,9 @@ export default function Tracking() {
           <label htmlFor="event-select">Filtrer par événement :</label>
           <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
             <option value="all">Tous les événements</option>
+            {availableEvents.map(ev => (
+              <option key={ev} value={ev}>{ev}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -224,7 +237,7 @@ export default function Tracking() {
                     <YAxis yAxisId="left" stroke="#B5A2D8" tick={{fill:'#7F6F9D', fontSize:12, fontFamily:'Inter'}} />
                     <YAxis yAxisId="right" orientation="right" stroke="#FFB3D6" tick={{fill:'#FFB3D6', fontSize:12, fontFamily:'Inter'}} domain={[0, 'auto']} />
                     <Tooltip
-                      contentStyle={{background:'#fff', border:'1px solid #B5A2D8', color:'#2E1065', fontFamily:'Inter'}}
+                      contentStyle={{background:isLight?'#fff':'#4C386F', color:isLight?'#2E1065':'#fff', border:'1px solid #B5A2D8'}}
                       labelFormatter={label => {
                         if (typeof label === 'string' && label.match(/^\d{4}-\d{2}-\d{2}$/)) {
                           const [, month, day] = label.split('-');
@@ -236,8 +249,9 @@ export default function Tracking() {
                         return label;
                       }}
                     />
-                    <Bar yAxisId="left" dataKey="total_events" fill="#B5A2D8" fillOpacity={0.7} name="Total events" />
-                    <Line yAxisId="right" type="monotone" dataKey="pct_events_with_missing_params" stroke="#FFB3D6" strokeWidth={2} name="Events With Errors" dot={false} />
+                    <Bar yAxisId="left" dataKey="total_events" fill={COLOR_TOTAL} fillOpacity={0.7} name="Total events" />
+                    <Line yAxisId="right" type="monotone" dataKey="pct_events_with_missing_params" stroke={COLOR_ERROR} strokeWidth={2} name="Events with anomalies" dot={false} legendType="line" />
+                    <Legend formatter={value => value === 'Events with anomalies' ? <span style={{color: COLOR_ERROR}}>Events with anomalies</span> : <span>{value}</span>} />
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>

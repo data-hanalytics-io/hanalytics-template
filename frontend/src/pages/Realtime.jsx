@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Realtime.css';
 import LoadingPage from '../components/ui/LoadingPage';
+import { ThemeContext } from '../theme/ThemeContext';
 
 export default function Realtime() {
+  const { isLight } = useContext(ThemeContext);
   const [data, setData]       = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState(null);

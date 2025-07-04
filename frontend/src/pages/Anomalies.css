@@ -751,3 +751,54 @@ body:not(.light-mode) .anomalies-container .event-selector-dropdown {
 body:not(.light-mode) .anomalies-container .event-selector-dropdown * {
   color: #fff !important;
 }
+body:not(.light-mode) .anomalies-container .mad-accordion-header {
+  background: #675191 !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .anomalies-container .mad-score-popup {
+  background: #675191 !important;
+  color: #fff !important;
+  margin-top: 24px !important;
+}
+
+body:not(.light-mode) .anomalies-container .page-info,
+body:not(.light-mode) .anomalies-container .per-page-selector {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .anomalies-container .pagination-buttons button,
+body:not(.light-mode) .anomalies-container .pagination-buttons .anomaly-pager-btn {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #B5A2D8 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body:not(.light-mode) .anomalies-container .pagination-buttons svg {
+  color: #B5A2D8 !important;
+  fill: #B5A2D8 !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+body:not(.light-mode) .anomalies-container .anomaly-chart-section select {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  outline: none !important;
+}
+body:not(.light-mode) .anomalies-container .anomaly-chart-section select option {
+  background: #675191 !important;
+  color: #fff !important;
+}

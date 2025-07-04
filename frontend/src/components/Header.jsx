@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import { ThemeContext } from '../theme/ThemeContext';
 
 export default function Header() {
-  // State pour le mode (garde la préférence en localStorage)
-  const [isLight, setIsLight] = React.useState(() => {
-    const stored = localStorage.getItem('theme');
-    if (stored === null) {
-      localStorage.setItem('theme', 'light');
-      return true;
-    }
-    return stored === 'light';
-  });
+  const { isLight, toggleTheme } = useContext(ThemeContext);
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const userBtnRef = React.useRef(null);
@@ -19,7 +12,6 @@ export default function Header() {
 
   useEffect(() => {
     document.body.classList.toggle('light-mode', isLight);
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
   }, [isLight]);
 
   React.useEffect(() => {
@@ -59,7 +51,7 @@ export default function Header() {
         <NavLink to="/tracking">Tracking</NavLink>
         <button
           className="mode-toggle"
-          onClick={() => setIsLight(l => !l)}
+          onClick={toggleTheme}
           style={{
             marginLeft: 8,
             border: 'none',

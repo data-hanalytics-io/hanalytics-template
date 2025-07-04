@@ -1,6 +1,13 @@
 /* Mode sombre Admin */
 body:not(.light-mode) .admin-container {
+  background: #1D0A41 !important;
+}
+body:not(.light-mode) .admin-container .admin-main-section {
   background: #240C4F !important;
+}
+body:not(.light-mode) .admin-container .admin-table-wrapper {
+  background: #4C386F !important;
+  box-shadow: none !important;
 }
 body:not(.light-mode) .admin-container h1,
 body:not(.light-mode) .admin-container h2 {
@@ -17,10 +24,6 @@ body:not(.light-mode) .admin-container table tbody td {
   color: #fff !important;
   border-left: none !important;
   border-right: none !important;
-}
-body:not(.light-mode) .admin-container .admin-table-wrapper {
-  background: #4C386F !important;
-  box-shadow: none !important;
 }
 body:not(.light-mode) .admin-container .user-create-card {
   background: #B5A2D8 !important;

@@ -488,3 +488,51 @@ body:not(.light-mode) .tracking-container .chart-bar-error {
 body:not(.light-mode) .tracking-container table tbody td {
   border-bottom: 1px dashed rgba(255,255,255,0.5) !important;
 }
+
+body:not(.light-mode) .tracking-container label,
+body:not(.light-mode) .tracking-container p {
+  color: #fff !important;
+}
+
+body:not(.light-mode) .tracking-container select {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  outline: none !important;
+}
+body:not(.light-mode) .tracking-container select option {
+  background: #675191 !important;
+  color: #fff !important;
+}
+
+body:not(.light-mode) .tracking-container .page-info,
+body:not(.light-mode) .tracking-container .per-page-selector {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .tracking-container .pagination-buttons button,
+body:not(.light-mode) .tracking-container .pagination-buttons .anomaly-pager-btn {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #B5A2D8 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body:not(.light-mode) .tracking-container .pagination-buttons svg {
+  color: #B5A2D8 !important;
+  fill: #B5A2D8 !important;
+  width: 24px !important;
+  height: 24px !important;
+}

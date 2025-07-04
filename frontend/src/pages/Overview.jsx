@@ -1,5 +1,5 @@
 // Overview.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Dashboard.css';
 import {
   BarChart,
@@ -12,8 +12,10 @@ import {
 } from 'recharts';
 import DateRangePicker from '../components/ui/DateRangePicker';
 import LoadingPage from '../components/ui/LoadingPage';
+import { ThemeContext } from '../theme/ThemeContext';
 
 const Overview = () => {
+  const { isLight } = useContext(ThemeContext);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -101,7 +103,9 @@ const Overview = () => {
     name: param.param_name,
     value: Number(param.missing_percentage).toFixed(1)
   }));
-  const barColors = ['#7F6F9D', '#ACA0C3', '#D5CEE4', '#E4E1EA'];
+  const barColors = isLight
+    ? ['#7F6F9D', '#ACA0C3', '#D5CEE4', '#E4E1EA']
+    : ['#BDA0C3', '#ACA0C3', '#7F6F9D', '#675191'];
 
   return (
     <div className="dashboard-container">
@@ -175,7 +179,7 @@ const Overview = () => {
             <BarChart data={paramAnalysis} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
               <XAxis dataKey="name" tickLine={false} />
               <YAxis tickFormatter={v => `${v}%`} />
-              <Tooltip formatter={v => `${v}%`} />
+              <Tooltip formatter={v => `${v}%`} contentStyle={{background: isLight ? '#fff' : '#4C386F', color: isLight ? '#2E1065' : '#fff', border: isLight ? '1px solid #B5A2D8' : '1px solid #B5A2D8'}} />
               <Bar dataKey="value" radius={[4,4,0,0]}>
                 {paramAnalysis.map((_, i) => (
                   <Cell key={i} fill={barColors[i % barColors.length]} />
