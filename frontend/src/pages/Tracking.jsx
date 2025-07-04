@@ -224,7 +224,7 @@ export default function Tracking() {
                       }}
                     />
                     <YAxis yAxisId="left" stroke="#B5A2D8" tick={{fill:'#7F6F9D', fontSize:12, fontFamily:'Inter'}} />
-                    <YAxis yAxisId="right" orientation="right" stroke="#FFB3D6" tick={{fill:'#FFB3D6', fontSize:12, fontFamily:'Inter'}} domain={[0, 'auto']} />
+                    <YAxis yAxisId="right" orientation="right" stroke={isLight ? '#FFB3D6' : '#FF3F52'} tick={{fill: isLight ? '#FFB3D6' : '#FF3F52', fontSize:12, fontFamily:'Inter'}} domain={[0, 'auto']} />
                     <Tooltip
                       contentStyle={{background:isLight?'#fff':'#4C386F', color:isLight?'#2E1065':'#fff', border:'1px solid #B5A2D8'}}
                       labelFormatter={label => {

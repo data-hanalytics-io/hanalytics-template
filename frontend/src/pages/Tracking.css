@@ -551,6 +551,27 @@ body:not(.light-mode) .tracking-container .per-page-selector select option {
   color: #fff !important;
 }
 
+body:not(.light-mode) .tracking-container .pagination-buttons {
+  background: #aca0c34d !important;
+  border-radius: 12px !important;
+  padding: 0.2rem 0.2rem !important;
+}
+body:not(.light-mode) .tracking-container .anomaly-pager-btn {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+body:not(.light-mode) .tracking-container .anomaly-pager-btn:disabled {
+  opacity: 0.5 !important;
+  cursor: default !important;
+}
+body:not(.light-mode) .tracking-container .anomaly-pager-btn:not(:disabled):hover {
+  background: #B5A2D8 !important;
+  color: #2E1065 !important;
+}
+
 .tracking-log-controls {
   display: flex;
   align-items: center;
