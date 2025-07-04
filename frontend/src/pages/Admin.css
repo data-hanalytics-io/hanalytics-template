@@ -1,65 +1,178 @@
-/* Mode sombre Admin */
-body:not(.light-mode) .admin-container {
-  background: #1D0A41 !important;
+/* === ADMIN PAGE CLASSES POUR SUPPRIMER LES STYLES INLINE === */
+.admin-container {
+  min-height: 100vh;
+  font-family: Inter, Arial, sans-serif;
+  background: #F5F5F5;
 }
-body:not(.light-mode) .admin-container .admin-main-section {
-  background: #240C4F !important;
+.admin-main-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 8px 6px 15px rgba(181,162,216,0.25);
+  padding: 48px;
 }
-body:not(.light-mode) .admin-container .admin-table-wrapper {
-  background: #4C386F !important;
-  box-shadow: none !important;
+.admin-title {
+  font-size: 40px;
+  font-weight: 900;
+  color: #B5A2D8;
+  text-align: center;
+  margin: 0;
 }
-body:not(.light-mode) .admin-container h1,
-body:not(.light-mode) .admin-container h2 {
-  color: #B5A2D8 !important;
+.admin-title-bar {
+  width: 60px;
+  height: 2px;
+  margin: 8px auto;
+  background: linear-gradient(to right, rgba(181,162,216,0) 0%, rgba(181,162,216,1) 50%, rgba(181,162,216,0) 100%);
 }
-body:not(.light-mode) .admin-container table thead th {
-  background: #B5A2D8 !important;
-  color: #2E1065 !important;
-  border-left: none !important;
-  border-right: none !important;
+.admin-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2E1065;
+  text-align: center;
+  margin: 8px 0 24px;
 }
-body:not(.light-mode) .admin-container table tbody td {
-  background: #675191 !important;
-  color: #fff !important;
-  border-left: none !important;
-  border-right: none !important;
+.admin-card {
+  background: rgba(199,183,227,0.15);
+  border-radius: 12px;
+  box-shadow: 4px 5px 6px rgba(181,162,216,0.35);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
 }
-body:not(.light-mode) .admin-container .user-create-card {
-  background: #B5A2D8 !important;
-  color: #2E1065 !important;
+.admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
-body:not(.light-mode) .admin-container .btn-create {
-  background: #C7B0CA !important;
-  color: #fff !important;
-  border: none !important;
+.admin-h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #B5A2D8;
+  text-transform: uppercase;
+  margin: 0;
 }
-body:not(.light-mode) .admin-container .btn-create-user {
-  background: rgba(155,111,157,0.5) !important;
-  color: #fff !important;
-  border: none !important;
+.admin-btn-create-user {
+  background: rgba(155,111,157,0.15);
+  color: #9B6F9D;
+  border: none;
+  border-radius: 12px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: Inter, Arial, sans-serif;
+  cursor: pointer;
 }
-body:not(.light-mode) .admin-container .btn-status-actif {
-  background: rgba(108,211,134,0.15) !important;
-  color: #fff !important;
-  border: none !important;
+.admin-create-form {
+  background: rgba(199,183,227,0.15);
+  border-radius: 12px;
+  box-shadow: 4px 5px 6px rgba(181,162,216,0.35);
+  padding: 32px;
+  margin-bottom: 24px;
 }
-body:not(.light-mode) .admin-container .btn-status-supprime {
-  background: rgba(255,63,82,0.15) !important;
-  color: #fff !important;
-  border: none !important;
+.admin-create-form-title {
+  font-size: 14px;
+  font-weight: 900;
+  color: #B5A2D8;
+  opacity: 0.5;
+  margin-bottom: 18px;
+  text-transform: uppercase;
 }
-body:not(.light-mode) .admin-container,
-body:not(.light-mode) .admin-container * {
-  color: #fff !important;
-  box-shadow: none !important;
+.admin-create-form-fields {
+  display: flex;
+  gap: 24px;
 }
-/* Bordures uniquement aux extrémités des tableaux */
-body:not(.light-mode) .admin-container table thead th:first-child,
-body:not(.light-mode) .admin-container table tbody td:first-child {
-  border-left: 1px solid #fff !important;
+.admin-input, .admin-select {
+  flex: 1;
+  padding: 16px;
+  background: #ECE6F0;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: Inter, Arial, sans-serif;
+  color: #2E1065;
 }
-body:not(.light-mode) .admin-container table thead th:last-child,
-body:not(.light-mode) .admin-container table tbody td:last-child {
-  border-right: 1px solid #fff !important;
+.admin-btn-create {
+  margin-left: 16px;
+  background: #B5A2D8;
+  color: #FFF;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Inter, Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(181,162,216,0.15);
+}
+.admin-error {
+  margin-top: 10px;
+  color: #FF3F52;
+  font-weight: 700;
+  font-size: 14px;
+}
+.admin-success {
+  margin-top: 10px;
+  color: #6CD386;
+  font-weight: 700;
+  font-size: 14px;
+}
+.admin-table-section {
+  background: rgba(255,255,255,0.5);
+  border-radius: 12px;
+  box-shadow: 8px 6px 15px rgba(181,162,216,0.25);
+  padding: 32px;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  font-family: Inter, Arial, sans-serif;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.admin-table thead {
+  background: #ECE6F0;
+}
+.admin-table th {
+  padding: 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2E1065;
+  text-transform: uppercase;
+  text-align: left;
+}
+.admin-table td {
+  padding: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #2E1065;
+}
+.admin-status {
+  border: none;
+  border-radius: 0;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: Inter, Arial, sans-serif;
+  cursor: pointer;
+}
+.admin-status-actif {
+  background: rgba(108,211,134,0.15);
+  color: #6CD386;
+}
+.admin-status-inactif {
+  background: rgba(255,63,82,0.15);
+  color: #FF3F52;
+}
+.admin-btn-delete {
+  border: none;
+  border-radius: 0;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: Inter, Arial, sans-serif;
+  cursor: pointer;
+  background: rgba(255,63,82,0.15);
+  color: #FF3F52;
 } 

@@ -42,8 +42,8 @@ export default function Tracking() {
   const [availableEvents, setAvailableEvents] = useState([]);
 
   // Couleurs pour le graphe
-  const COLOR_TOTAL = '#C7B0CA';
-  const COLOR_ERROR = 'rgba(255,63,82,0.7)';
+  const COLOR_TOTAL = isLight ? '#C7B0CA' : '#B5A2D8';
+  const COLOR_ERROR = isLight ? 'rgba(255,63,82,0.7)' : '#FFB3D6';
 
   // --- CACHE ---
   useEffect(() => {
@@ -251,7 +251,15 @@ export default function Tracking() {
                     />
                     <Bar yAxisId="left" dataKey="total_events" fill={COLOR_TOTAL} fillOpacity={0.7} name="Total events" />
                     <Line yAxisId="right" type="monotone" dataKey="pct_events_with_missing_params" stroke={COLOR_ERROR} strokeWidth={2} name="Events with anomalies" dot={false} legendType="line" />
-                    <Legend formatter={value => value === 'Events with anomalies' ? <span style={{color: COLOR_ERROR}}>Events with anomalies</span> : <span>{value}</span>} />
+                    <Legend formatter={value => {
+                      if (isLight && value === 'Total events') {
+                        return <span style={{color: COLOR_TOTAL}}>Total events</span>;
+                      }
+                      if (!isLight && value === 'Events with anomalies') {
+                        return <span style={{color: COLOR_ERROR}}>Events with anomalies</span>;
+                      }
+                      return null;
+                    }} />
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>
@@ -368,11 +376,11 @@ export default function Tracking() {
               })}
             </tbody>
           </table>
-          <div className="log-controls" style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16 }}>
-            <span className="page-info" style={{ background: '#ECE6F0', color: 'rgba(155,111,157,0.5)', borderRadius: 18, padding: '0.3rem 0.8rem', fontWeight: 700, fontSize: 13, letterSpacing: 0.2, display: 'inline-block', marginRight: '0.5rem' }}>
+          <div className="log-controls">
+            <span className="page-info">
               Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
             </span>
-            <label className="per-page-selector" style={{ background: '#ECE6F0', color: 'rgba(210,199,210,0.5)', borderRadius: 18, padding: '0.3rem 0.8rem', fontWeight: 700, fontSize: 13, letterSpacing: 0.2, display: 'inline-block', margin: 0 }}>
+            <label className="per-page-selector">
               Afficher:
               <select 
                 value={perPage} 
@@ -380,29 +388,19 @@ export default function Tracking() {
                   setPerPage(+e.target.value); 
                   setPage(1); 
                 }}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#2E1065',
-                  fontWeight: 700,
-                  fontSize: 13,
-                  outline: 'none',
-                  marginLeft: 8,
-                  minWidth: 60
-                }}
               >
                 {[5, 10, 20, 50, 100].map(n => (
                   <option key={n} value={n}>{n} par page</option>
                 ))}
               </select>
             </label>
-            <div className="pagination-buttons" style={{ display: 'flex', gap: 8 }}>
-              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="anomaly-pager-btn prev" aria-label="Page précédente" style={{ background: '#ECE6F0', borderRadius: '50%', width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', color: '#7F6F9D', fontSize: 18, opacity: page === 1 ? 0.5 : 1, cursor: page === 1 ? 'not-allowed' : 'pointer', transition: 'opacity 0.2s' }}>
+            <div className="pagination-buttons">
+              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="anomaly-pager-btn prev" aria-label="Page précédente">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13 16L8 10L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="anomaly-pager-btn next" aria-label="Page suivante" style={{ background: '#ECE6F0', borderRadius: '50%', width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', color: '#7F6F9D', fontSize: 18, opacity: page === eventsDetailTotalPages ? 0.5 : 1, cursor: page === eventsDetailTotalPages ? 'not-allowed' : 'pointer', transition: 'opacity 0.2s' }}>
+              <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="anomaly-pager-btn next" aria-label="Page suivante">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 4L12 10L7 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>

@@ -802,3 +802,10 @@ body:not(.light-mode) .anomalies-container .anomaly-chart-section select option 
   background: #675191 !important;
   color: #fff !important;
 }
+body:not(.light-mode) .anomalies-container .mad-accordion-panel {
+  background: #675191 !important;
+  color: #fff !important;
+}
+body:not(.light-mode) .anomalies-container .mad-accordion-panel > div {
+  color: #fff !important;
+}
