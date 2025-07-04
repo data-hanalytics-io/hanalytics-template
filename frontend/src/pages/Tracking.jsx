@@ -164,16 +164,6 @@ export default function Tracking() {
       </div>
       <section className="chart-section" style={{marginTop: '2.5rem', marginBottom: '1.5rem', minHeight: 480}}>
         <h2 className="h2">Total des événements et pourcentage d'erreurs</h2>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 8, marginLeft: 8 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 16, height: 16, background: '#B5A2D8', borderRadius: 4 }}></div>
-            <span style={{ color: '#7F6F9D', fontSize: 13 }}>Total events</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 16, height: 16, background: '#FFB3D6', borderRadius: 8 }}></div>
-            <span style={{ color: '#FFB3D6', fontSize: 13 }}>% Events With Errors</span>
-          </div>
-        </div>
         <div className="chart-wrapper">
           {(() => {
             // Normalisation des dates au format YYYY-MM-DD

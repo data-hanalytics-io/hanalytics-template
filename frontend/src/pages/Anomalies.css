@@ -788,6 +788,13 @@ body:not(.light-mode) .anomalies-container .pagination-buttons svg {
   width: 24px !important;
   height: 24px !important;
 }
+body:not(.light-mode) .anomalies-container .per-page-selector select {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  color: #aca0c34d !important;;
+}
 body:not(.light-mode) .anomalies-container .anomaly-chart-section select {
   background: #aca0c34d !important;
   color: #fff !important;

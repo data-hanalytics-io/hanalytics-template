@@ -95,19 +95,15 @@ export default function DateRangePicker({ value, onChange }) {
       </button>
       {open && (
         <div
+          className="date-range-picker-dropdown"
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',
             left: 0,
             zIndex: 1000,
             minWidth: 200,
-            background: isDark ? '#4C386F' : '#fff',
-            border: isDark ? '1px solid #B5A2D8' : '1px solid #eee',
-            borderRadius: 10,
-            boxShadow: 'none',
             padding: 0,
             marginTop: 0,
-            color: '#fff',
           }}
         >
           <div style={{ padding: '12px 0 0 0', fontWeight: 700, fontSize: 12, color: isDark ? '#B5A2D8' : '#817EE1', paddingLeft: 14, letterSpacing: 1 }}>

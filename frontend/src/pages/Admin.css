@@ -8,35 +8,38 @@
   max-width: 1200px;
   margin: 40px auto;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 8px 6px 15px rgba(181,162,216,0.25);
-  padding: 48px;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(181,162,216,0.13);
+  padding: 48px 32px 32px 32px;
 }
 .admin-title {
-  font-size: 40px;
+  font-size: 48px;
   font-weight: 900;
   color: #B5A2D8;
   text-align: center;
-  margin: 0;
+  margin: 0 0 8px 0;
+  letter-spacing: -1px;
 }
 .admin-title-bar {
-  width: 60px;
-  height: 2px;
-  margin: 8px auto;
-  background: linear-gradient(to right, rgba(181,162,216,0) 0%, rgba(181,162,216,1) 50%, rgba(181,162,216,0) 100%);
+  width: 180px;
+  height: 3px;
+  margin: 8px auto 0 auto;
+  background: linear-gradient(90deg, rgba(181,162,216,0) 0%, rgba(181,162,216,0.5) 30%, rgba(181,162,216,1) 50%, rgba(181,162,216,0.5) 70%, rgba(181,162,216,0) 100%);
+  border-radius: 2px;
 }
 .admin-subtitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: #2E1065;
   text-align: center;
-  margin: 8px 0 24px;
+  margin: 8px 0 32px 0;
+  opacity: 0.7;
 }
 .admin-card {
-  background: rgba(199,183,227,0.15);
-  border-radius: 12px;
-  box-shadow: 4px 5px 6px rgba(181,162,216,0.35);
-  padding: 40px;
+  background: #F5F1FA;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(181,162,216,0.10);
+  padding: 40px 32px 32px 32px;
   display: flex;
   flex-direction: column;
 }
@@ -47,35 +50,41 @@
   margin-bottom: 24px;
 }
 .admin-h2 {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 900;
   color: #B5A2D8;
-  text-transform: uppercase;
+  text-transform: none;
   margin: 0;
+  letter-spacing: -1px;
 }
 .admin-btn-create-user {
-  background: rgba(155,111,157,0.15);
-  color: #9B6F9D;
+  background: #B5A2D8;
+  color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: 16px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 700;
   font-family: Inter, Arial, sans-serif;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(181,162,216,0.10);
+  transition: background 0.2s;
+}
+.admin-btn-create-user:hover {
+  background: #7F6F9D;
 }
 .admin-create-form {
-  background: rgba(199,183,227,0.15);
-  border-radius: 12px;
-  box-shadow: 4px 5px 6px rgba(181,162,216,0.35);
-  padding: 32px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(181,162,216,0.10);
+  padding: 32px 24px 24px 24px;
   margin-bottom: 24px;
 }
 .admin-create-form-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 900;
   color: #B5A2D8;
-  opacity: 0.5;
+  opacity: 0.7;
   margin-bottom: 18px;
   text-transform: uppercase;
 }
@@ -89,9 +98,10 @@
   background: #ECE6F0;
   border: none;
   border-radius: 12px;
-  font-size: 14px;
+  font-size: 15px;
   font-family: Inter, Arial, sans-serif;
   color: #2E1065;
+  box-shadow: 0 1px 4px rgba(181,162,216,0.07);
 }
 .admin-btn-create {
   margin-left: 16px;
@@ -104,7 +114,11 @@
   font-weight: 700;
   font-family: Inter, Arial, sans-serif;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(181,162,216,0.15);
+  box-shadow: 0 2px 8px rgba(181,162,216,0.10);
+  transition: background 0.2s;
+}
+.admin-btn-create:hover {
+  background: #7F6F9D;
 }
 .admin-error {
   margin-top: 10px;
@@ -119,47 +133,70 @@
   font-size: 14px;
 }
 .admin-table-section {
-  background: rgba(255,255,255,0.5);
-  border-radius: 12px;
-  box-shadow: 8px 6px 15px rgba(181,162,216,0.25);
-  padding: 32px;
+  background: #F5F1FA;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(181,162,216,0.10);
+  padding: 32px 16px 16px 16px;
 }
 .admin-table {
   width: 100%;
   border-collapse: separate;
   font-family: Inter, Arial, sans-serif;
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
+  background: #ECE6F0;
+  box-shadow: 0 1px 8px rgba(181,162,216,0.07);
 }
 .admin-table thead {
-  background: #ECE6F0;
+  background: #D9D1E3;
 }
 .admin-table th {
   padding: 18px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #2E1065;
+  color: #7F6F9D;
   text-transform: uppercase;
   text-align: left;
+  background: #D9D1E3;
+  border: none;
 }
 .admin-table td {
   padding: 18px;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 500;
   color: #2E1065;
+  background: #ECE6F0;
+  border: none;
+}
+.admin-table tr {
+  border-bottom: 1px dashed #D9D1E3;
+}
+.admin-table tr:last-child {
+  border-bottom: none;
+}
+.admin-table th:first-child {
+  border-top-left-radius: 20px;
+}
+.admin-table th:last-child {
+  border-top-right-radius: 20px;
+}
+.admin-table tr:last-child td:first-child {
+  border-bottom-left-radius: 20px;
+}
+.admin-table tr:last-child td:last-child {
+  border-bottom-right-radius: 20px;
 }
 .admin-status {
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   padding: 8px 16px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   font-family: Inter, Arial, sans-serif;
   cursor: pointer;
-}
-.admin-status-actif {
   background: rgba(108,211,134,0.15);
   color: #6CD386;
+  margin-right: 6px;
 }
 .admin-status-inactif {
   background: rgba(255,63,82,0.15);
@@ -167,76 +204,118 @@
 }
 .admin-btn-delete {
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   padding: 8px 16px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   font-family: Inter, Arial, sans-serif;
   cursor: pointer;
   background: rgba(255,63,82,0.15);
   color: #FF3F52;
+  margin-left: 0;
+  margin-right: 0;
+  transition: background 0.2s;
 }
-body:not(.light-mode) .admin-container {
-  background: #1D0A41;
+.admin-btn-delete:hover {
+  background: #FF3F52;
+  color: #fff;
 }
-body:not(.light-mode) .admin-main-section {
-  background: #4C386F;
-  box-shadow: 8px 6px 15px rgba(181,162,216,0.10);
+
+/* === CRÉATION UTILISATEUR MAQUETTE === */
+.admin-create-user-block {
+  background: #F5F1FA;
+  border-radius: 32px;
+  box-shadow: 0 4px 24px rgba(181,162,216,0.10);
+  padding: 40px 32px 32px 32px;
+  margin-bottom: 32px;
 }
-body:not(.light-mode) .admin-title {
+.admin-create-user-title {
+  font-size: 2.2rem;
+  font-weight: 900;
   color: #B5A2D8;
+  opacity: 0.7;
+  margin-bottom: 24px;
+  text-align: left;
 }
-body:not(.light-mode) .admin-subtitle {
+.admin-create-user-form {
+  background: #E6DFF2;
+  border-radius: 28px;
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.admin-create-user-fields {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+.admin-create-user-input, .admin-create-user-select {
+  flex: 1;
+  padding: 24px 20px;
+  background: #F5F1FA;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  font-family: Inter, Arial, sans-serif;
   color: #B5A2D8;
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(181,162,216,0.07);
 }
-body:not(.light-mode) .admin-card {
+.admin-create-user-input::placeholder {
+  color: #B5A2D8;
+  opacity: 0.6;
+  font-weight: 700;
+  text-align: left;
+}
+.admin-create-user-select {
+  color: #B5A2D8;
+  font-weight: 700;
+}
+.admin-create-user-btn {
+  background: #7F6F9D;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 18px 48px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Inter, Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(181,162,216,0.10);
+  transition: background 0.2s;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+.admin-create-user-btn:hover {
+  background: #B5A2D8;
+}
+
+/* Mode sombre pour le bloc création utilisateur */
+body:not(.light-mode) .admin-create-user-block {
+  background: #4C386F;
+}
+body:not(.light-mode) .admin-create-user-title {
+  color: #fff;
+  opacity: 0.8;
+}
+body:not(.light-mode) .admin-create-user-form {
   background: #675191;
-  box-shadow: 4px 5px 6px rgba(181,162,216,0.10);
 }
-body:not(.light-mode) .admin-h2 {
-  color: #fff;
-}
-body:not(.light-mode) .admin-btn-create-user {
-  background: #aca0c34d;
-  color: #fff;
-}
-body:not(.light-mode) .admin-create-form {
-  background: #675191;
-  box-shadow: 4px 5px 6px rgba(181,162,216,0.10);
-}
-body:not(.light-mode) .admin-create-form-title {
-  color: #fff;
-}
-body:not(.light-mode) .admin-input, body:not(.light-mode) .admin-select {
+body:not(.light-mode) .admin-create-user-input, body:not(.light-mode) .admin-create-user-select {
   background: #4C386F;
   color: #fff;
 }
-body:not(.light-mode) .admin-btn-create {
+body:not(.light-mode) .admin-create-user-input::placeholder {
+  color: #fff;
+  opacity: 0.6;
+}
+body:not(.light-mode) .admin-create-user-btn {
   background: #B5A2D8;
   color: #fff;
 }
-body:not(.light-mode) .admin-table-section {
-  background: #4C386F;
-  box-shadow: 8px 6px 15px rgba(181,162,216,0.10);
-}
-body:not(.light-mode) .admin-table thead {
-  background: #675191;
-}
-body:not(.light-mode) .admin-table th {
-  color: #B5A2D8;
-}
-body:not(.light-mode) .admin-table td {
-  color: #fff;
-}
-body:not(.light-mode) .admin-status-actif {
-  background: rgba(108,211,134,0.15);
-  color: #6CD386;
-}
-body:not(.light-mode) .admin-status-inactif {
-  background: rgba(255,63,82,0.15);
-  color: #FF3F52;
-}
-body:not(.light-mode) .admin-btn-delete {
-  background: rgba(255,63,82,0.15);
-  color: #FF3F52;
+body:not(.light-mode) .admin-create-user-btn:hover {
+  background: #7F6F9D;
 } 
