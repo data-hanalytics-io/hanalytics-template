@@ -370,7 +370,7 @@ export default function Tracking() {
               Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
             </span>
             <label className="per-page-selector">
-              Afficher:
+              Afficher&nbsp;
               <select 
                 value={perPage} 
                 onChange={e => { 

@@ -381,13 +381,13 @@ body:not(.light-mode) .overview-date-picker-wrapper .date-range-picker-btn stron
   color: #fff !important;
 }
 
-/* Dropdown du sélecteur de date mode sombre */
-body:not(.light-mode) .date-range-picker-dropdown {
+/* Dropdown du sélecteur de date mode sombre (supprimé pour laisser le style global agir partout) */
+/* body:not(.light-mode) .date-range-picker-dropdown {
   background: #4C386F !important;
   color: #fff !important;
   border: 1px solid #B5A2D8 !important;
   box-shadow: none !important;
-}
+} */
 body:not(.light-mode) .date-range-picker-dropdown * {
   color: #fff !important;
 }
@@ -406,4 +406,10 @@ body:not(.light-mode) .dashboard-container .tracking-section,
 body:not(.light-mode) .dashboard-container .params-section,
 body:not(.light-mode) .dashboard-container .stat-card {
   box-shadow: none !important;
+}
+
+.date-range-picker-dropdown {
+  background: #fff !important;
+  border: 1px solid #817EE1 !important;
+  box-shadow: 0 4px 16px rgba(181,162,216,0.10);
 }
