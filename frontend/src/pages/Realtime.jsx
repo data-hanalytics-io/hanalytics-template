@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Realtime.css';
 import LoadingPage from '../components/ui/LoadingPage';
-import { ThemeContext } from '../theme/ThemeContext';
 
 export default function Realtime() {
   const [data, setData]       = useState({});
