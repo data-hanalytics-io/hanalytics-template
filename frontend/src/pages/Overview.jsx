@@ -113,9 +113,9 @@ const Overview = () => {
         <h1>Dashboard Overview</h1>
       </div>
 
-      <div className="overview-date-picker-wrapper">
+      
         <DateRangePicker value={dateRange} onChange={setDateRange} />
-      </div>
+      
 
       {/* Stats */}
       <div className="overview-stats-container">
