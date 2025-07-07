@@ -150,7 +150,6 @@ export default function Tracking() {
   const eventsDetailTotalItems = apiData.pagination?.totalItems || apiData.eventsDetail.length;
   const eventsDetailTotalPages = apiData.pagination?.totalPages || 1;
 
-  if (loading) return <LoadingPage />;
   if (error) return <div>{error}</div>;
 
   return (
