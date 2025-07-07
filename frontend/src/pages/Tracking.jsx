@@ -306,104 +306,110 @@ export default function Tracking() {
           <button className="count-pill">{eventsDetailTotalItems} ERREURS AU TOTAL</button>
         </div>
         <div className="events-detail-table-wrapper table-wrapper" style={{width: '100%', paddingBottom: 8, marginLeft: 0}}>
-          <table className="table events-detail-table" style={{borderCollapse: 'separate', borderSpacing: 0, fontSize: '13px', tableLayout: 'fixed', minWidth: 0}}>
-            <thead>
-              <tr>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>TIMESTAMP</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>DEVICE CATEGORY</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>DEVICE OS</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>BROWSER</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>SESSION ID</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>EVENT</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING EVENT PARAMS</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING ITEM PARAMS</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING USER PARAMS</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING E-COMMERCE PARAMS</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>STATUS</th>
-                <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>URL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {eventsDetailPage.map((rawEvent, index) => {
-                const event = normalizeEventDetail(rawEvent);
-                return (
-                  <tr key={`${event.event_timestamp}-${index}`} style={{verticalAlign: 'middle'}}>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.event_timestamp ? new Date(event.event_timestamp).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '-'}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.device_category}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.device_operating_system}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.device_browser}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.session_id}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.event_name}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_event_params.length > 0 ? (
-                      <span>
-                        {event.missing_event_params.slice(0,2).map((param, i) => (
-                          <span key={i} className="param-badge" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
-                        ))}
-                        {event.missing_event_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_event_params.length-2}</span>}
-                      </span>
-                    ) : '-'}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_item_params.length > 0 ? (
-                      <span>
-                        {event.missing_item_params.slice(0,2).map((param, i) => (
-                          <span key={i} className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
-                        ))}
-                        {event.missing_item_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_item_params.length-2}</span>}
-                      </span>
-                    ) : '-'}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_user_params.length > 0 ? (
-                      <span>
-                        {event.missing_user_params.slice(0,2).map((param, i) => (
-                          <span key={i} className="param-badge" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
-                        ))}
-                        {event.missing_user_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_user_params.length-2}</span>}
-                      </span>
-                    ) : '-'}</td>
-                    <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_ecommerce_params.length > 0 ? (
-                      <span>
-                        {event.missing_ecommerce_params.slice(0,2).map((param, i) => (
-                          <span key={i} className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
-                        ))}
-                        {event.missing_ecommerce_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_ecommerce_params.length-2}</span>}
-                      </span>
-                    ) : '-'}</td>
-                    <td style={{padding: '12px 18px', textAlign: 'center', verticalAlign: 'middle'}}>{event.is_event_with_missing_params === 'true' ? <span style={{color:'#FF3F52',padding: '0 8px'}}>❌</span> : <span style={{color:'#6CD386',padding: '0 8px'}}>✔️</span>}</td>
-                    <td style={{padding: '12px 18px', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', verticalAlign: 'middle', wordBreak: 'break-all', whiteSpace: 'normal'}} title={event.page_location_value}>{event.page_location_value ? (event.page_location_value.length > 60 ? event.page_location_value.slice(0, 60) + '…' : event.page_location_value) : '-'}</td>
+          {loading ? (
+            <LoadingPage />
+          ) : (
+            <>
+              <table className="table events-detail-table" style={{borderCollapse: 'separate', borderSpacing: 0, fontSize: '13px', tableLayout: 'fixed', minWidth: 0}}>
+                <thead>
+                  <tr>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>TIMESTAMP</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>DEVICE CATEGORY</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>DEVICE OS</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>BROWSER</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>SESSION ID</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>EVENT</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING EVENT PARAMS</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING ITEM PARAMS</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING USER PARAMS</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>MISSING E-COMMERCE PARAMS</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>STATUS</th>
+                    <th style={{padding: '16px 10px', fontWeight: 700, color: '#2E1065', textTransform: 'uppercase', wordBreak: 'break-word', textAlign: 'center'}}>URL</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <div className="tracking-log-controls">
-            <span className="tracking-page-info">
-              Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
-            </span>
-            <label className="tracking-per-page-selector">
-              Afficher&nbsp;
-              <select 
-                value={perPage} 
-                onChange={e => { 
-                  setPerPage(+e.target.value); 
-                  setPage(1); 
-                }}
-              >
-                {[5, 10, 20, 50, 100].map(n => (
-                  <option key={n} value={n}>{n} par page</option>
-                ))}
-              </select>
-            </label>
-            <div className="tracking-pagination-buttons">
-              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="tracking-pager-btn prev" aria-label="Page précédente">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13 16L8 10L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-              <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="tracking-pager-btn next" aria-label="Page suivante">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 4L12 10L7 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-            </div>
-          </div>
+                </thead>
+                <tbody>
+                  {eventsDetailPage.map((rawEvent, index) => {
+                    const event = normalizeEventDetail(rawEvent);
+                    return (
+                      <tr key={`${event.event_timestamp}-${index}`} style={{verticalAlign: 'middle'}}>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.event_timestamp ? new Date(event.event_timestamp).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '-'}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.device_category}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.device_operating_system}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.device_browser}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.session_id}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.event_name}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_event_params.length > 0 ? (
+                          <span>
+                            {event.missing_event_params.slice(0,2).map((param, i) => (
+                              <span key={i} className="param-badge" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
+                            ))}
+                            {event.missing_event_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_event_params.length-2}</span>}
+                          </span>
+                        ) : '-'}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_item_params.length > 0 ? (
+                          <span>
+                            {event.missing_item_params.slice(0,2).map((param, i) => (
+                              <span key={i} className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
+                            ))}
+                            {event.missing_item_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_item_params.length-2}</span>}
+                          </span>
+                        ) : '-'}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_user_params.length > 0 ? (
+                          <span>
+                            {event.missing_user_params.slice(0,2).map((param, i) => (
+                              <span key={i} className="param-badge" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
+                            ))}
+                            {event.missing_user_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_user_params.length-2}</span>}
+                          </span>
+                        ) : '-'}</td>
+                        <td style={{padding: '12px 18px', color: '#2E1065', verticalAlign: 'middle'}}>{event.missing_ecommerce_params.length > 0 ? (
+                          <span>
+                            {event.missing_ecommerce_params.slice(0,2).map((param, i) => (
+                              <span key={i} className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>{param}</span>
+                            ))}
+                            {event.missing_ecommerce_params.length > 2 && <span className="param-badge light" style={{padding: '4px 10px', borderRadius: 8, background: '#ECE6F0', color: '#2E1065', marginRight: 6, fontSize: 13, display: 'inline-block'}}>+{event.missing_ecommerce_params.length-2}</span>}
+                          </span>
+                        ) : '-'}</td>
+                        <td style={{padding: '12px 18px', textAlign: 'center', verticalAlign: 'middle'}}>{event.is_event_with_missing_params === 'true' ? <span style={{color:'#FF3F52',padding: '0 8px'}}>❌</span> : <span style={{color:'#6CD386',padding: '0 8px'}}>✔️</span>}</td>
+                        <td style={{padding: '12px 18px', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', verticalAlign: 'middle', wordBreak: 'break-all', whiteSpace: 'normal'}} title={event.page_location_value}>{event.page_location_value ? (event.page_location_value.length > 60 ? event.page_location_value.slice(0, 60) + '…' : event.page_location_value) : '-'}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <div className="tracking-log-controls">
+                <span className="tracking-page-info">
+                  Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
+                </span>
+                <label className="tracking-per-page-selector">
+                  Afficher&nbsp;
+                  <select 
+                    value={perPage} 
+                    onChange={e => { 
+                      setPerPage(+e.target.value); 
+                      setPage(1); 
+                    }}
+                  >
+                    {[5, 10, 20, 50, 100].map(n => (
+                      <option key={n} value={n}>{n} par page</option>
+                    ))}
+                  </select>
+                </label>
+                <div className="tracking-pagination-buttons">
+                  <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="tracking-pager-btn prev" aria-label="Page précédente">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13 16L8 10L13 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <button onClick={() => setPage(p => Math.min(eventsDetailTotalPages, p + 1))} disabled={page === eventsDetailTotalPages} className="tracking-pager-btn next" aria-label="Page suivante">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 4L12 10L7 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
     </div>
