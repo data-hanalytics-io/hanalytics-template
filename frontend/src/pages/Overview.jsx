@@ -104,7 +104,7 @@ const Overview = () => {
     value: Number(param.missing_percentage).toFixed(1)
   }));
   const barColors = isLight
-    ? ['#7F6F9D', '#ACA0C3', '#D5CEE4', '#E4E1EA']
+    ? ['#6C4AB6', '#ACA0C3', '#D5CEE4', '#E4E1EA']
     : ['#BDA0C3', '#ACA0C3', '#7F6F9D', '#675191'];
 
   return (
@@ -185,7 +185,7 @@ const Overview = () => {
               <XAxis type="number" tickFormatter={v => `${v}%`} domain={[0, 100]} />
               <YAxis type="category" dataKey="name" width={120} />
               <Tooltip formatter={v => `${v}%`} contentStyle={{background: isLight ? '#fff' : '#4C386F', color: isLight ? '#2E1065' : '#fff', border: isLight ? '1px solid #B5A2D8' : '1px solid #B5A2D8'}} />
-              <Bar dataKey="value" radius={[4, 4, 4, 4]} className={isLight ? 'bar-light' : 'bar-dark'}>
+              <Bar dataKey="value" radius={[4, 4, 4, 4]} className={isLight ? 'bar-light' : 'bar-dark'} barSize={22}>
                 {paramAnalysis.map((_, i) => (
                   <Cell key={i} fill={barColors[i % barColors.length]} />
                 ))}

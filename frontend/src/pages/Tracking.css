@@ -495,7 +495,7 @@ body:not(.light-mode) .tracking-container p {
 }
 
 body:not(.light-mode) .tracking-container .tracking-per-page-selector select {
-  background: #aca0c34d !important;
+  background: transparent !important;
   color: #fff !important;
   border: none !important;
 }

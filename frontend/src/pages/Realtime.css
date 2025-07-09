@@ -500,22 +500,68 @@ body:not(.light-mode) .realtime-container .refresh-time {
 }
 
 .realtime-header {
-  display: grid;
-  grid-template-columns: 40px 1fr 140px;
+  display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   margin-bottom: 0.2rem;
+  min-height: 64px;
 }
-.realtime-header h1 {
-  justify-self: center;
-  text-align: center;
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.header-center {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.header-center h1 {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 1;
+  color: #B5A2D8;
+  text-transform: uppercase;
+  position: relative;
+}
+.header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .realtime-header .info-btn {
-  justify-self: start;
+  position: static;
+  margin-left: 0;
+  margin-right: 1.5rem;
 }
 .realtime-header .refresh-btn {
-  justify-self: end;
-  margin-left: 0;
+  margin-left: 1.5rem;
+}
+@media (max-width: 768px) {
+  .realtime-header {
+    flex-direction: column;
+    min-height: unset;
+    gap: 0.5rem;
+  }
+  .header-left, .header-center, .header-right {
+    flex: unset;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+  .realtime-header .info-btn, .realtime-header .refresh-btn {
+    margin: 0 0.5rem;
+  }
+  .header-center h1 {
+    font-size: 28px;
+  }
 }
 .refresh-info-centered {
   text-align: center;

@@ -72,20 +72,26 @@ export default function Realtime() {
     <div className="realtime-container">
       {/* HEADER */}
       <div className="realtime-header">
-        <button
-          className="info-btn"
-          onClick={() => setShowInfo(v => !v)}
-          title="Comment ça marche"
-        >
-          🕒
-        </button>
-        <h1>Realtime</h1>
-        <button
-          className={`refresh-btn ${theme}`}
-          onClick={refreshData}
-        >
-          Actualiser
-        </button>
+        <div className="header-left">
+          <button
+            className="info-btn"
+            onClick={() => setShowInfo(v => !v)}
+            title="Comment ça marche"
+          >
+            🕒
+          </button>
+        </div>
+        <div className="header-center">
+          <h1>Realtime</h1>
+        </div>
+        <div className="header-right">
+          <button
+            className={`refresh-btn ${theme}`}
+            onClick={refreshData}
+          >
+            Actualiser
+          </button>
+        </div>
         {showInfo && (
           <div className="info-popover">
             <div className="popover-header">Comment ça marche</div>
