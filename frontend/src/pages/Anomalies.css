@@ -144,6 +144,13 @@
   margin-left: auto;
   margin-right: auto;
 }
+.anomalies-container .summary-cards,
+.anomalies-container .anomaly-pie {
+  flex: 1 1 0;
+  min-width: 320px;
+  max-width: 420px;
+  width: 100%;
+}
 .anomalies-container .summary-cards {
   background: var(--bg-wrapper) !important;
   box-shadow: 4px 5px 6px var(--shadow-strong) !important;
@@ -796,12 +803,9 @@ body:not(.light-mode) .anomalies-container .pagination-buttons svg {
   height: 24px !important;
 }
 body:not(.light-mode) .anomalies-container .per-page-selector select {
-  background: #4C386F !important;
+  background: #aca0c34d !important;
   color: #fff !important;
   border: none !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-  outline: none !important;
 }
 body:not(.light-mode) .anomalies-container .per-page-selector select option {
   background: #675191 !important;

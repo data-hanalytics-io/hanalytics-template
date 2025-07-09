@@ -42,7 +42,7 @@ export default function Tracking() {
   const [availableEvents, setAvailableEvents] = useState([]);
 
   // Couleurs pour le graphe
-  const COLOR_TOTAL = isLight ? '#C7B0CA' : '#B5A2D8';
+  const COLOR_TOTAL = isLight ? '#7F6F9D' : '#B5A2D8';
   // Ligne : ROSE en clair, ROUGE en sombre
   const COLOR_ERROR = isLight ? '#FFB3D6' : '#FF3F52';
 

@@ -175,12 +175,17 @@ const Overview = () => {
       <section className="params-section">
         <h2 className="h2">Parameter analysis</h2>
         <div className="chart-wrapper">
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={paramAnalysis} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
-              <XAxis dataKey="name" tickLine={false} />
-              <YAxis tickFormatter={v => `${v}%`} />
+          <ResponsiveContainer width="100%" height={36 * paramAnalysis.length + 40}>
+            <BarChart
+              data={paramAnalysis}
+              layout="vertical"
+              margin={{ top: 10, right: 30, left: 30, bottom: 10 }}
+              barCategoryGap={16}
+            >
+              <XAxis type="number" tickFormatter={v => `${v}%`} domain={[0, 100]} />
+              <YAxis type="category" dataKey="name" width={120} />
               <Tooltip formatter={v => `${v}%`} contentStyle={{background: isLight ? '#fff' : '#4C386F', color: isLight ? '#2E1065' : '#fff', border: isLight ? '1px solid #B5A2D8' : '1px solid #B5A2D8'}} />
-              <Bar dataKey="value" radius={[4,4,0,0]}>
+              <Bar dataKey="value" radius={[4, 4, 4, 4]} className={isLight ? 'bar-light' : 'bar-dark'}>
                 {paramAnalysis.map((_, i) => (
                   <Cell key={i} fill={barColors[i % barColors.length]} />
                 ))}

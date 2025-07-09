@@ -414,3 +414,16 @@ body:not(.light-mode) .dashboard-container .stat-card {
   border: 1px solid #817EE1 !important;
   box-shadow: 0 4px 16px rgba(181,162,216,0.10);
 }
+
+.recharts-bar-rectangle.bar-light:hover {
+  filter: brightness(0.92);
+  stroke: #B5A2D8;
+  stroke-width: 2px;
+  fill: #E3DAF7 !important;
+}
+.recharts-bar-rectangle.bar-dark:hover {
+  filter: brightness(1.1);
+  stroke: #B5A2D8;
+  stroke-width: 2px;
+  fill: #4C386F !important;
+}
