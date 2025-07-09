@@ -406,3 +406,51 @@ body:not(.light-mode) .realtime-container .info-popover .popover-header {
 body:not(.light-mode) .realtime-container .info-popover .popover-list strong {
   color: #fff !important;
 }
+
+/* TOPBAR pour info et bouton actualiser */
+.realtime-container .realtime-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+.realtime-container .realtime-topbar-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.realtime-container .refresh-btn {
+  background: #ECE6F0;
+  color: #2E1065;
+  border: 1px solid #D9D1E3;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 0.2rem;
+  transition: background 0.2s, color 0.2s;
+}
+.realtime-container .refresh-btn:hover {
+  background: #B5A2D8;
+  color: #fff;
+}
+.realtime-container .refresh-time {
+  font-size: 12px;
+  color: #7F6F9D;
+  margin-top: 0.1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+body:not(.light-mode) .realtime-container .refresh-btn {
+  background: #4C386F;
+  color: #fff;
+  border: 1px solid #B5A2D8;
+}
+body:not(.light-mode) .realtime-container .refresh-btn:hover {
+  background: #B5A2D8;
+  color: #2E1065;
+}
+body:not(.light-mode) .realtime-container .refresh-time {
+  color: #B5A2D8;
+}

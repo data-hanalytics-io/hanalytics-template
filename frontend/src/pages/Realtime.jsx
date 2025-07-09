@@ -8,9 +8,10 @@ export default function Realtime() {
   const [error, setError]     = useState(null);
   const [searchPage, setSearchPage] = useState('');
   const [showInfo, setShowInfo]     = useState(false);
+  const [lastRefresh, setLastRefresh] = useState(new Date());
 
   // --- CACHE ---
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
     if (!window._realtimeCache) window._realtimeCache = {};
     const cacheKey = 'main';
@@ -31,7 +32,17 @@ export default function Realtime() {
         })
         .catch(() => { setError("Erreur de chargement"); setLoading(false); });
     }
+  };
+
+  useEffect(() => {
+    fetchData();
+    setLastRefresh(new Date());
   }, []);
+
+  const handleRefresh = () => {
+    fetchData();
+    setLastRefresh(new Date());
+  };
 
   if (loading) return <LoadingPage />;
   if (error)   return <div>{error}</div>;
@@ -58,15 +69,25 @@ export default function Realtime() {
 
   return (
     <div className="realtime-container">
-      {/* HEADER */}
-      <div className="realtime-header">
+      {/* TOP BAR : info à gauche, bouton actualiser à droite */}
+      <div className="realtime-topbar">
         <button
           className="info-btn"
+          style={{ marginLeft: '1.5rem' }}
           onClick={() => setShowInfo(v => !v)}
           title="Comment ça marche"
         >
           🕒
         </button>
+        <div className="realtime-topbar-right">
+          <button className="refresh-btn" onClick={handleRefresh}>Actualiser</button>
+          <div className="refresh-time">
+            dernière actualisation : {lastRefresh.toLocaleTimeString()}
+          </div>
+        </div>
+      </div>
+      {/* HEADER */}
+      <div className="realtime-header">
         <h1>Realtime</h1>
         {showInfo && (
           <div className="info-popover">
