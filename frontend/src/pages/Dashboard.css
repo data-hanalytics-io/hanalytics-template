@@ -427,3 +427,15 @@ body:not(.light-mode) .dashboard-container .stat-card {
   stroke-width: 2px;
   fill: #4C386F !important;
 }
+
+/* Survol bar chart (highlight vertical) pour Overview */
+.dashboard-container .recharts-highlight-bar,
+.dashboard-container .recharts-reference-area-rect {
+  fill: #E3DAF7 !important;
+  opacity: 0.7 !important;
+}
+body:not(.light-mode) .dashboard-container .recharts-highlight-bar,
+body:not(.light-mode) .dashboard-container .recharts-reference-area-rect {
+  fill: #4C386F !important;
+  opacity: 0.7 !important;
+}

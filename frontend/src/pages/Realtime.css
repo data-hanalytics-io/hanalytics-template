@@ -536,11 +536,7 @@ body:not(.light-mode) .realtime-container .refresh-time {
   align-items: center;
   justify-content: flex-end;
 }
-.realtime-header .info-btn {
-  position: static;
-  margin-left: 0;
-  margin-right: 1.5rem;
-}
+
 .realtime-header .refresh-btn {
   margin-left: 1.5rem;
 }

@@ -844,3 +844,15 @@ body:not(.light-mode) .anomalies-container .recharts-bar-rectangle.recharts-acti
   fill: #4C386F !important;
   opacity: 0.85 !important;
 }
+
+/* Survol bar chart évolution des événements (highlight vertical) */
+.anomalies-container .recharts-highlight-bar,
+.anomalies-container .recharts-reference-area-rect {
+  fill: #E3DAF7 !important;
+  opacity: 0.7 !important;
+}
+body:not(.light-mode) .anomalies-container .recharts-highlight-bar,
+body:not(.light-mode) .anomalies-container .recharts-reference-area-rect {
+  fill: #4C386F !important;
+  opacity: 0.7 !important;
+}

@@ -180,7 +180,7 @@ export default function Anomalies() {
         <div className="anomaly-pie">
           <h2 className="h2">Répartition des événements</h2>
           <div style={{ width: '100%', height: 220 }}>
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height={220}>
               <PieChart>
                 <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} innerRadius={60}>
                   {pieData.map((entry, index) => (
