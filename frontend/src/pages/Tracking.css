@@ -494,7 +494,7 @@ body:not(.light-mode) .tracking-container p {
   color: #fff !important;
 }
 
-body:not(.light-mode) .tracking-container .per-page-selector select {
+body:not(.light-mode) .tracking-container .tracking-per-page-selector select {
   background: #aca0c34d !important;
   color: #fff !important;
   border: none !important;
@@ -504,7 +504,8 @@ body:not(.light-mode) .tracking-container .per-page-selector select {
   border-radius: 8px !important;
   outline: none !important;
 }
-body:not(.light-mode) .tracking-container .per-page-selector select option {
+
+body:not(.light-mode) .tracking-container .tracking-per-page-selector select option {
   background: #aca0c34d !important;
   color: #fff !important;
 }

@@ -83,7 +83,6 @@ export default function Realtime() {
         <button
           className={`refresh-btn ${theme}`}
           onClick={refreshData}
-          style={{ marginLeft: 'auto' }}
         >
           Actualiser
         </button>
@@ -97,8 +96,8 @@ export default function Realtime() {
           </div>
         )}
       </div>
-      {/* Affichage de la dernière actualisation */}
-      <div className={`refresh-info ${theme}`}>
+      {/* Affichage de la dernière actualisation, centré */}
+      <div className="refresh-info-centered">
         Dernière actualisation : {lastRefresh ? lastRefresh.toLocaleTimeString() : '...'}
       </div>
 

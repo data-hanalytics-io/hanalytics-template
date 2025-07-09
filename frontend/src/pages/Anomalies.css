@@ -188,7 +188,7 @@
   background: var(--bg-wrapper) !important;
   box-shadow: 4px 5px 6px var(--shadow-strong) !important;
   border-radius: var(--radius) !important;
-  padding: 2rem 2.5rem !important;
+  padding: 2rem 1.5rem !important;
   width: 320px;
   min-width: 220px;
   max-width: 420px;
@@ -199,6 +199,7 @@
   justify-content: center;
   margin: 0;
   height: auto;
+  text-align: center;
 }
 .anomalies-container .anomaly-pie h2 {
   font-size: 28px;
@@ -208,6 +209,12 @@
 }
 .anomalies-container .recharts-legend-wrapper {
   margin-top: 1rem !important;
+}
+.anomalies-container .anomaly-pie > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Responsive */
@@ -791,7 +798,7 @@ body:not(.light-mode) .anomalies-container .pagination-buttons svg {
 body:not(.light-mode) .anomalies-container .per-page-selector select {
   background: #4C386F !important;
   color: #fff !important;
-  border: 1px solid #B5A2D8 !important;
+  border: none !important;
   border-radius: 8px !important;
   box-shadow: none !important;
   outline: none !important;

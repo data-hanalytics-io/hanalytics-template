@@ -500,7 +500,32 @@ body:not(.light-mode) .realtime-container .refresh-time {
 }
 
 .realtime-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px 1fr 140px;
   align-items: center;
   position: relative;
+  margin-bottom: 0.2rem;
+}
+.realtime-header h1 {
+  justify-self: center;
+  text-align: center;
+}
+.realtime-header .info-btn {
+  justify-self: start;
+}
+.realtime-header .refresh-btn {
+  justify-self: end;
+  margin-left: 0;
+}
+.refresh-info-centered {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-size: 0.95em;
+  font-weight: 400;
+  transition: color 0.2s;
+  color: #666;
+}
+body:not(.light-mode) .refresh-info-centered {
+  color: #bbb;
 }
