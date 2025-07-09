@@ -80,14 +80,13 @@ export default function Realtime() {
           🕒
         </button>
         <h1>Realtime</h1>
-        <div className="refresh-btn-container">
-          <button
-            className={`refresh-btn ${theme}`}
-            onClick={refreshData}
-          >
-            Actualiser
-          </button>
-        </div>
+        <button
+          className={`refresh-btn ${theme}`}
+          onClick={refreshData}
+          style={{ marginLeft: 'auto' }}
+        >
+          Actualiser
+        </button>
         {showInfo && (
           <div className="info-popover">
             <div className="popover-header">Comment ça marche</div>

@@ -70,6 +70,7 @@
   font-size: 24px;
   color: var(--color-primary);
   cursor: pointer;
+  margin-left: 2.5rem;
 }
 .realtime-container .realtime-header p {
   font-size: 13px;
@@ -502,9 +503,4 @@ body:not(.light-mode) .realtime-container .refresh-time {
   display: flex;
   align-items: center;
   position: relative;
-}
-.refresh-btn-container {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
 }
