@@ -71,14 +71,15 @@ export default function Realtime() {
     <div className="realtime-container">
       {/* TOP BAR : info à gauche, bouton actualiser à droite */}
       <div className="realtime-topbar">
-        <button
-          className="info-btn"
-          style={{ marginLeft: '1.5rem' }}
-          onClick={() => setShowInfo(v => !v)}
-          title="Comment ça marche"
-        >
-          🕒
-        </button>
+        <div className="realtime-topbar-left">
+          <button
+            className="info-btn"
+            onClick={() => setShowInfo(v => !v)}
+            title="Comment ça marche"
+          >
+            🕒
+          </button>
+        </div>
         <div className="realtime-topbar-right">
           <button className="refresh-btn" onClick={handleRefresh}>Actualiser</button>
           <div className="refresh-time">
