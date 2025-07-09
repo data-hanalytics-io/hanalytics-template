@@ -35,9 +35,9 @@
 
 /* — HEADER & TITLE — */
 .realtime-container .realtime-header {
+  display: flex;
+  align-items: center;
   position: relative;
-  text-align: center;
-  margin: 2rem 0 1.5rem;
 }
 .realtime-container .realtime-header h1 {
   display: inline-block;
@@ -496,4 +496,15 @@ body:not(.light-mode) .realtime-container .refresh-time {
 }
 .refresh-info.dark {
   color: #bbb;
+}
+
+.realtime-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.refresh-btn-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
