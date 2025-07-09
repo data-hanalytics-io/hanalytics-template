@@ -411,23 +411,8 @@ body:not(.light-mode) .realtime-container .info-popover .popover-list strong {
 .realtime-container .realtime-topbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 1.2rem 2.5rem 0.2rem 2.5rem;
-  box-sizing: border-box;
-}
-.realtime-container .realtime-topbar-left {
-  display: flex;
-  align-items: center;
-}
-.realtime-container .info-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: var(--color-primary);
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
 }
 .realtime-container .realtime-topbar-right {
   display: flex;
@@ -468,4 +453,47 @@ body:not(.light-mode) .realtime-container .refresh-btn:hover {
 }
 body:not(.light-mode) .realtime-container .refresh-time {
   color: #B5A2D8;
+}
+
+/* Bouton Actualiser */
+.refresh-btn {
+  margin-left: 16px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.refresh-btn.light {
+  background: #f5f5f5;
+  color: #222;
+  border: 1px solid #ddd;
+}
+.refresh-btn.light:hover {
+  background: #e0e0e0;
+}
+.refresh-btn.dark {
+  background: #23272f;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
+.refresh-btn.dark:hover {
+  background: #333a45;
+}
+
+/* Texte dernière actualisation */
+.refresh-info {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-size: 0.95em;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.refresh-info.light {
+  color: #666;
+}
+.refresh-info.dark {
+  color: #bbb;
 }

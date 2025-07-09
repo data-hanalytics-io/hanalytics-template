@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Realtime.css';
 import LoadingPage from '../components/ui/LoadingPage';
+import { ThemeContext } from '../theme/ThemeContext';
 
 export default function Realtime() {
   const [data, setData]       = useState({});
@@ -8,10 +9,16 @@ export default function Realtime() {
   const [error, setError]     = useState(null);
   const [searchPage, setSearchPage] = useState('');
   const [showInfo, setShowInfo]     = useState(false);
-  const [lastRefresh, setLastRefresh] = useState(new Date());
+  const [lastRefresh, setLastRefresh] = useState(null); // Ajout pour l'heure de rafraîchissement
+  const { theme } = React.useContext(ThemeContext);
 
   // --- CACHE ---
-  const fetchData = () => {
+  useEffect(() => {
+    refreshData();
+    // eslint-disable-next-line
+  }, []);
+
+  function refreshData() {
     setLoading(true);
     if (!window._realtimeCache) window._realtimeCache = {};
     const cacheKey = 'main';
@@ -19,30 +26,24 @@ export default function Realtime() {
       setData(window._realtimeCache[cacheKey]);
       setLoading(false);
       fetchDataAndCache(cacheKey, true);
+      setLastRefresh(new Date());
       return;
     }
     fetchDataAndCache(cacheKey, false);
-    function fetchDataAndCache(cacheKey, silent) {
-      fetch('/api/realtime')
-        .then(res => res.json())
-        .then(res => {
-          window._realtimeCache[cacheKey] = res.data || {};
-          setData(res.data || {});
-          if (!silent) setLoading(false);
-        })
-        .catch(() => { setError("Erreur de chargement"); setLoading(false); });
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
     setLastRefresh(new Date());
-  }, []);
+  }
 
-  const handleRefresh = () => {
-    fetchData();
-    setLastRefresh(new Date());
-  };
+  function fetchDataAndCache(cacheKey, silent) {
+    fetch('/api/realtime')
+      .then(res => res.json())
+      .then(res => {
+        window._realtimeCache[cacheKey] = res.data || {};
+        setData(res.data || {});
+        if (!silent) setLoading(false);
+        setLastRefresh(new Date());
+      })
+      .catch(() => { setError("Erreur de chargement"); setLoading(false); });
+  }
 
   if (loading) return <LoadingPage />;
   if (error)   return <div>{error}</div>;
@@ -69,27 +70,22 @@ export default function Realtime() {
 
   return (
     <div className="realtime-container">
-      {/* TOP BAR : info à gauche, bouton actualiser à droite */}
-      <div className="realtime-topbar">
-        <div className="realtime-topbar-left">
-          <button
-            className="info-btn"
-            onClick={() => setShowInfo(v => !v)}
-            title="Comment ça marche"
-          >
-            🕒
-          </button>
-        </div>
-        <div className="realtime-topbar-right">
-          <button className="refresh-btn" onClick={handleRefresh}>Actualiser</button>
-          <div className="refresh-time">
-            dernière actualisation : {lastRefresh.toLocaleTimeString()}
-          </div>
-        </div>
-      </div>
       {/* HEADER */}
       <div className="realtime-header">
+        <button
+          className="info-btn"
+          onClick={() => setShowInfo(v => !v)}
+          title="Comment ça marche"
+        >
+          🕒
+        </button>
         <h1>Realtime</h1>
+        <button
+          className={`refresh-btn ${theme}`}
+          onClick={refreshData}
+        >
+          Actualiser
+        </button>
         {showInfo && (
           <div className="info-popover">
             <div className="popover-header">Comment ça marche</div>
@@ -99,6 +95,10 @@ export default function Realtime() {
             </ul>
           </div>
         )}
+      </div>
+      {/* Affichage de la dernière actualisation */}
+      <div className={`refresh-info ${theme}`}>
+        Dernière actualisation : {lastRefresh ? lastRefresh.toLocaleTimeString() : '...'}
       </div>
 
       {/* CARTES MÉTRIQUES */}
