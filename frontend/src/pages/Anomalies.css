@@ -317,8 +317,10 @@
   font-weight: 700;
 }
 .anomalies-container .per-page-selector select {
-  background: transparent;
+  background: transparent !important;
   border: none;
+  border-radius: 12px !important;
+  font-size: 11px !important;
   cursor: pointer;
   margin-left: 0.3rem;
   color: #2E1065;
@@ -467,14 +469,7 @@
   color: var(--color-secondary);
   margin-left: 1rem;
 }
-.anomalies-container .chart-header select {
-  background: #ECE6F0;
-  border: none;
-  border-radius: var(--radius);
-  padding: 0.4rem 0.8rem;
-  font-size: 12px;
-  cursor: pointer;
-}
+
 .anomalies-container .recharts-cartesian-grid line {
   stroke: var(--divider) !important;
   stroke-dasharray: 5 5;
@@ -482,7 +477,6 @@
 
 /* Sélecteurs */
 .anomalies-container .selection-date select,
-.anomalies-container .per-page-selector select,
 .anomalies-container .chart-header select {
   background: #ECE6F0;
   border: none;
