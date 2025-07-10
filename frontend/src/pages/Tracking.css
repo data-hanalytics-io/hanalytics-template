@@ -577,20 +577,20 @@ body:not(.light-mode) .tracking-container .anomaly-pager-btn:not(:disabled):hove
   flex-wrap: wrap;
 }
 .tracking-page-info {
-  background: #ECE6F0;
+  background: rgba(155, 111, 157, 0.5);
   border-radius: 12px;
   padding: 0.3rem 0.8rem;
   font-size: 13px;
-  color: rgba(155,111,157,0.5);
+  color: #2E1065;
   font-weight: 700;
   margin-right: 0.5rem;
 }
 .tracking-per-page-selector {
-  background: #ECE6F0;
+  background: rgba(210, 199, 210, 0.5);
   border-radius: 12px;
   padding: 0.3rem 0.8rem;
   font-size: 13px;
-  color: rgba(210,199,210,0.5);
+  color: #2E1065;
   font-weight: 700;
 }
 .tracking-per-page-selector select {
@@ -609,14 +609,14 @@ body:not(.light-mode) .tracking-container .anomaly-pager-btn:not(:disabled):hove
   padding: 0.2rem 0.2rem;
 }
 .tracking-pager-btn {
-  background: #ECE6F0;
+  background: rgba(210, 199, 210, 0.5);
   border: none;
   border-radius: 50%;
   box-shadow: 0 2px 6px rgba(181,162,216,0.12);
   padding: 0.3rem 0.6rem;
   cursor: pointer;
   font-size: 18px;
-  color: #7F6F9D;
+  color: #2E1065;
   transition: background 0.2s, color 0.2s;
   margin: 0 0.2rem;
   min-width: 36px;

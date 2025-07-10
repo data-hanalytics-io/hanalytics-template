@@ -182,7 +182,7 @@ export default function Anomalies() {
           <div style={{ width: '100%', height: 220 }}>
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
-                <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} innerRadius={60}>
+                <Pie data={pieData} dataKey="value" nameKey="name" cx="44%" cy="50%" outerRadius={90} innerRadius={60}>
                   {pieData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={DONUT_COLORS[index]} />
                   ))}
