@@ -115,7 +115,9 @@ export default function Anomalies() {
     { name: 'Normaux', value: normalCount },
     { name: 'Anomalies', value: anomalyCount }
   ];
-  const DONUT_COLORS = ['#7F6F9D', 'rgba(255,63,82,0.3)'];
+  const DONUT_COLORS = isLight
+    ? ['#7F6F9D', 'rgba(255,63,82,0.3)']
+    : ['#BDA0C3', 'rgba(255,63,82,0.3)'];
 
   // Filtrage par événement
   const filteredAnomalies = selectedEvent === 'all' ? anomalies : anomalies.filter(a => a.event_name === selectedEvent);
@@ -145,13 +147,13 @@ export default function Anomalies() {
 
   return (
     <div className="anomalies-container">
-      <div className="anomaly-toolbar" style={{display: 'flex', justifyContent: 'flex-end', marginTop: '2.5rem', marginBottom: '1.5rem'}}>
+      <div className="anomaly-header">
+        <h1>Score d'Anomalie: {anomalyScore}%</h1>
+      </div>
+      <div className="anomaly-toolbar" style={{display: 'flex', justifyContent: 'flex-end', marginTop: '2.5rem', marginBottom: '1.5rem', paddingRight: '4cm'}}>
         <div className="selection-date">
           <DateRangePicker value={dateRange} onChange={setDateRange} />
         </div>
-      </div>
-      <div className="anomaly-header">
-        <h1>Score d'Anomalie: {anomalyScore}%</h1>
       </div>
       <Accordion title="Détection d'anomalies par le score MAD">
         Le score MAD (Médiane des Écarts Absolus) est une méthode statistique robuste pour identifier les anomalies dans les données, calculée en trouvant d'abord la médiane de l'ensemble de données, puis en déterminant la médiane des écarts absolus entre chaque point et cette médiane centrale. Ce qui permet d'utiliser de calculer un score 2 modifié (0,6745 * valeur - médiane / MAD) pour chaque observation, où les valeurs dépassant un seuil prédéfini (généralement 3,0 ou 3,5) sont considérées comme des anomalies; cette approche présente l'avantage majeur d'être moins sensible aux valeurs extrêmes que les méthodes basées sur la moyenne et l'écart-type, le rendant particulièrement efficace pour des distributions non normales ou des ensembles de données contenant déjà des valeurs aberrantes.

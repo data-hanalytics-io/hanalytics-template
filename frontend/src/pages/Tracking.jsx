@@ -158,7 +158,7 @@ export default function Tracking() {
       <div className="tracking-header" style={{position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
         <h1>TRACKING PLAN</h1>
         <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 16}}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingLeft: '2cm' }}>
             <label htmlFor="event-select">Filtrer par événement :</label>
             <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
               <option value="all">Tous les événements</option>
@@ -167,7 +167,7 @@ export default function Tracking() {
               ))}
             </select>
           </div>
-          <div>
+          <div style={{ paddingRight: '2cm' }}>
             <DateRangePicker value={dateRange} onChange={setDateRange} />
           </div>
         </div>
