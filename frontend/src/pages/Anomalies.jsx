@@ -150,7 +150,7 @@ export default function Anomalies() {
       <div className="anomaly-header">
         <h1>Score d'Anomalie: {anomalyScore}%</h1>
       </div>
-      <div className="anomaly-toolbar" style={{display: 'flex', justifyContent: 'flex-end', marginTop: '2.5rem', marginBottom: '1.5rem', paddingRight: '4cm'}}>
+      <div className="anomaly-toolbar" style={{display: 'flex', justifyContent: 'flex-end', marginTop: '2.5rem', marginBottom: '-6rem', paddingRight: '2cm'}}>
         <div className="selection-date">
           <DateRangePicker value={dateRange} onChange={setDateRange} />
         </div>
