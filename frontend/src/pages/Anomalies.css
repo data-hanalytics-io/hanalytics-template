@@ -476,8 +476,7 @@
 }
 
 /* Sélecteurs */
-.anomalies-container .selection-date select,
-.anomalies-container .chart-header select {
+.anomalies-container .selection-date select {
   background: #ECE6F0;
   border: none;
   border-radius: var(--radius);
@@ -485,6 +484,17 @@
   font-weight: 500;
   color: var(--color-primary);
   padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  margin-left: 0.3rem;
+}
+.anomalies-container .chart-header select {
+  background: #ECE6F0;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary);
+  padding: 0.3rem 0.8rem;
   cursor: pointer;
   margin-left: 0.3rem;
 }
@@ -811,10 +821,10 @@ body:not(.light-mode) .anomalies-container .anomaly-chart-section select {
   background: #aca0c34d !important;
   color: #fff !important;
   border: none !important;
-  font-weight: 600 !important;
-  font-size: 15px !important;
-  padding: 8px 16px !important;
-  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  padding: 0.3rem 0.8rem !important;
+  border-radius: 12px !important;
   outline: none !important;
 }
 body:not(.light-mode) .anomalies-container .anomaly-chart-section select option {
