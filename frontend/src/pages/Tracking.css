@@ -642,3 +642,13 @@ body:not(.light-mode) .tracking-container .anomaly-pager-btn:not(:disabled):hove
 .tracking-pager-btn:not(:disabled):hover svg {
   stroke: #2E1065;
 }
+
+body:not(.light-mode) .tracking-header select {
+  background: #aca0c34d !important;
+  color: #fff !important;
+  border: none !important;
+}
+body:not(.light-mode) .tracking-header select option {
+  background: #675191 !important;
+  color: #fff !important;
+}
