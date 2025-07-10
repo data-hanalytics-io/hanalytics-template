@@ -155,22 +155,26 @@ export default function Tracking() {
   return (
     <div className="tracking-container">
       
-      <div className="tracking-header">
-        <h1>EVENTS TRACKING PLAN</h1>
-        <p>Statut des événements attendus</p>
-        <DateRangePicker value={dateRange} onChange={setDateRange} />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <label htmlFor="event-select">Filtrer par événement :</label>
-          <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
-            <option value="all">Tous les événements</option>
-            {availableEvents.map(ev => (
-              <option key={ev} value={ev}>{ev}</option>
-            ))}
-          </select>
+      <div className="tracking-header" style={{position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
+        <h1>TRACKING PLAN</h1>
+        <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 16}}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <label htmlFor="event-select">Filtrer par événement :</label>
+            <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
+              <option value="all">Tous les événements</option>
+              {availableEvents.map(ev => (
+                <option key={ev} value={ev}>{ev}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <DateRangePicker value={dateRange} onChange={setDateRange} />
+          </div>
         </div>
       </div>
       <section className="chart-section" style={{marginTop: '2.5rem', marginBottom: '1.5rem', minHeight: 480}}>
-        <h2 className="h2">Total des événements et pourcentage d'erreurs</h2>
+        <h2 className="h2">Events Tracking Plan</h2>
+        <p>Total des événements et pourcentage d'erreurs</p>
         <div className="chart-wrapper">
           {(() => {
             // Normalisation des dates au format YYYY-MM-DD

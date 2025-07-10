@@ -162,7 +162,11 @@ export default function Realtime() {
                   <td>{e.hits.toLocaleString()}</td>
                   <td>{e.errors.toLocaleString()}</td>
                   <td>{Number(e.error_percentage).toFixed(1)}%</td>
-                  <td>{e.error_percentage===0 ? 'Ok' : 'Attention'}</td>
+                  <td>{e.error_percentage===0 ? (
+                    <span className="quality-badge quality-ok">Ok</span>
+                  ) : (
+                    <span className="quality-badge quality-attention">Attention</span>
+                  )}</td>
                 </tr>
               ))}
             </tbody>
@@ -194,7 +198,11 @@ export default function Realtime() {
                 <tr key={i}>
                   <td className="url-cell">{p.page_location_value}</td>
                   <td>{Number(p.error_percentage).toFixed(1)}%</td>
-                  <td>{p.error_percentage===0 ? 'Ok' : 'Attention'}</td>
+                  <td>{p.error_percentage===0 ? (
+                    <span className="quality-badge quality-ok">Ok</span>
+                  ) : (
+                    <span className="quality-badge quality-attention">Attention</span>
+                  )}</td>
                 </tr>
               ))}
             </tbody>
@@ -220,7 +228,11 @@ export default function Realtime() {
                 <tr key={i}>
                   <td>{p.param_key}</td>
                   <td>{Number(p.missing_percentage).toFixed(1)}%</td>
-                  <td>{p.missing_percentage===0 ? 'Ok' : 'Critical'}</td>
+                  <td>{p.missing_percentage===0 ? (
+                    <span className="quality-badge quality-ok">Ok</span>
+                  ) : (
+                    <span className="quality-badge quality-critical">Critical</span>
+                  )}</td>
                 </tr>
               ))}
             </tbody>
@@ -246,7 +258,11 @@ export default function Realtime() {
                 <tr key={i}>
                   <td>{p.param_key}</td>
                   <td>{Number(p.missing_percentage).toFixed(1)}%</td>
-                  <td>{p.missing_percentage===0 ? 'Ok' : 'Critical'}</td>
+                  <td>{p.missing_percentage===0 ? (
+                    <span className="quality-badge quality-ok">Ok</span>
+                  ) : (
+                    <span className="quality-badge quality-critical">Critical</span>
+                  )}</td>
                 </tr>
               ))}
             </tbody>
@@ -272,7 +288,11 @@ export default function Realtime() {
                 <tr key={i}>
                   <td>{p.param_key}</td>
                   <td>{Number(p.missing_percentage).toFixed(1)}%</td>
-                  <td>{p.missing_percentage===0 ? 'Ok' : 'Critical'}</td>
+                  <td>{p.missing_percentage===0 ? (
+                    <span className="quality-badge quality-ok">Ok</span>
+                  ) : (
+                    <span className="quality-badge quality-critical">Critical</span>
+                  )}</td>
                 </tr>
               ))}
             </tbody>

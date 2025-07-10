@@ -57,7 +57,7 @@ body, .tracking-container {
   font-size: 28px;
   color: #B5A2D8;
   margin: 0 0 1.5rem 0;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .chart-section, .table-section {

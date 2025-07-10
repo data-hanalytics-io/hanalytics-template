@@ -57,11 +57,19 @@ export default function Header() {
             border: 'none',
             background: 'none',
             fontSize: '1.4rem',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            padding: 0,
+            display: 'flex',
+            alignItems: 'center',
+            height: 40
           }}
           title={isLight ? "Passer en mode sombre" : "Passer en mode clair"}
         >
-          {isLight ? '🌞' : '🌙'}
+          <img
+            src={isLight ? "/assets/Sun.png" : "/assets/Moon.png"}
+            alt={isLight ? "Mode clair" : "Mode sombre"}
+            style={{ width: 32, height: 32, objectFit: 'contain', display: 'block' }}
+          />
         </button>
         <span style={{ position: 'relative', display: 'inline-block', marginLeft: 16 }}>
           <button
