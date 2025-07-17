@@ -60,6 +60,15 @@ export default function Tracking() {
     }
   }, [dateRange.start, dateRange.end]);
 
+  // Invalider le cache à chaque changement de filtre pour éviter les effets de bord
+  useEffect(() => {
+    if (window._trackingCache) {
+      Object.keys(window._trackingCache).forEach(key => {
+        if (key.includes('event')) delete window._trackingCache[key];
+      });
+    }
+  }, [selectedEvent, dateRange]);
+
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) return;
     setLoading(true);
@@ -112,7 +121,7 @@ export default function Tracking() {
           };
           window._trackingCache[cacheKey] = apiData;
           setApiData(apiData);
-          // Extraction des événements uniques pour le sélecteur
+          // Extraction des événements uniques pour le sélecteur (toujours à jour)
           const events = Array.from(new Set((apiData.trackingPlan || []).map(e => e.expected_event_name))).sort();
           setAvailableEvents(events);
           if (!silent) setLoading(false);
@@ -159,9 +168,9 @@ export default function Tracking() {
         <h1>TRACKING PLAN</h1>
         <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: '50px'}}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingLeft: '2cm' }}>
-            <label htmlFor="event-select">Filtrer par événement :</label>
+            <label htmlFor="event-select">Filter by event:</label>
             <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
-              <option value="all">Tous les événements</option>
+              <option value="all">All events</option>
               {availableEvents.map(ev => (
                 <option key={ev} value={ev}>{ev}</option>
               ))}
@@ -174,7 +183,7 @@ export default function Tracking() {
       </div>
       <section className="chart-section" style={{marginTop: '2.5rem', marginBottom: '1.5rem', minHeight: 480}}>
         <h2 className="h2">Events Tracking Plan</h2>
-        <p>Total des événements et pourcentage d'erreurs</p>
+        <p>Total events and error percentage</p>
         <div className="chart-wrapper">
           {(() => {
             // Normalisation des dates au format YYYY-MM-DD
@@ -235,11 +244,13 @@ export default function Tracking() {
                       }}
                     />
                     <YAxis yAxisId="left" stroke="#B5A2D8" tick={{fill:'#7F6F9D', fontSize:12, fontFamily:'Inter'}} />
-                    <YAxis yAxisId="right" orientation="right" stroke={isLight ? '#FFB3D6' : '#FF3F52'} tick={{fill: isLight ? '#FFB3D6' : '#FF3F52', fontSize:12, fontFamily:'Inter'}} domain={[0, 'auto']} />
+                    <YAxis yAxisId="right" orientation="right" stroke={isLight ? '#FFB3D6' : '#FF3F52'} tick={{fill: isLight ? '#FFB3D6' : '#FF3F52', fontSize:12, fontFamily:'Inter'}} domain={[0, 'auto']}
+                      tickFormatter={value => value != null ? `${Number(value).toFixed(1)}%` : ''}
+                    />
                     <Tooltip
                       contentStyle={{background:isLight?'#fff':'#4C386F', color:isLight?'#2E1065':'#fff', border:'1px solid #B5A2D8'}}
                       labelFormatter={label => {
-                        if (typeof label === 'string' && label.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                        if (typeof label === 'string' && label.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
                           const [, month, day] = label.split('-');
                           const date = new Date(label.split('-')[0], month - 1, day);
                           return date.toLocaleDateString('fr-FR', {
@@ -247,6 +258,12 @@ export default function Tracking() {
                           });
                         }
                         return label;
+                      }}
+                      formatter={(value, name, props) => {
+                        if (name === 'Events with anomalies' || name === 'pct_events_with_missing_params') {
+                          return [`${Number(value).toFixed(1)}%`, 'Events with anomalies'];
+                        }
+                        return [value, name];
                       }}
                     />
                     <Bar yAxisId="left" dataKey="total_events" fill={COLOR_TOTAL} fillOpacity={0.7} name="Total events" />
@@ -270,7 +287,7 @@ export default function Tracking() {
       <section className="table-section" style={{marginBottom: '1.5rem'}}>
         <div>
           <h2 className="h2" style={{marginBottom: '0.5rem'}}>Events tracking plan</h2>
-          <p style={{marginBottom: '0.2rem'}}>Statut des événements attendus</p>
+          <p style={{marginBottom: '0.2rem'}}>Status of expected events</p>
           <button className="count-pill" style={{marginTop: 0, marginBottom: '0.5rem'}}>{apiData.trackingPlan.length} ÉVÉNEMENTS</button>
         </div>
         <div className="table-wrapper" style={{width: '100%', paddingBottom: 8, marginLeft: 0, overflowX: 'unset'}}>
@@ -305,8 +322,8 @@ export default function Tracking() {
       <section className="table-section" style={{marginBottom: '1.5rem'}}>
         <div>
           <h2 className="h2">Events with missing parameters</h2>
-          <p>Détail des événements avec paramètres manquants (erreurs en premier)</p>
-          <button className="count-pill">{eventsDetailTotalItems} ERREURS AU TOTAL</button>
+          <p>Detail of events with missing parameters (errors first)</p>
+          <button className="count-pill">{eventsDetailTotalItems} ERRORS TOTAL</button>
         </div>
         <div className="events-detail-table-wrapper table-wrapper" style={{width: '100%', paddingBottom: 8, marginLeft: 0}}>
           {loading ? (
@@ -382,10 +399,10 @@ export default function Tracking() {
               </table>
               <div className="tracking-log-controls">
                 <span className="tracking-page-info">
-                  Page {page} sur {eventsDetailTotalPages} ({eventsDetailTotalItems} événements)
+                  Page {page} of {eventsDetailTotalPages} ({eventsDetailTotalItems} events)
                 </span>
                 <label className="tracking-per-page-selector">
-                  Afficher&nbsp;
+                  Show&nbsp;
                   <select 
                     value={perPage} 
                     onChange={e => { 
@@ -394,7 +411,7 @@ export default function Tracking() {
                     }}
                   >
                     {[5, 10, 20, 50, 100].map(n => (
-                      <option key={n} value={n}>{n} par page</option>
+                      <option key={n} value={n}>{n} per page</option>
                     ))}
                   </select>
                 </label>

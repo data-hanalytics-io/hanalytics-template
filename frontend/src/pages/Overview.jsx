@@ -174,7 +174,7 @@ const Overview = () => {
       {/* Parameter Analysis */}
       <section className="params-section">
         <h2 className="h2">Parameter analysis</h2>
-        <p className="parameter-desc" style={{fontSize: '13px', color: isLight ? '#2E1065' : '#fff', opacity: 0.7, margin: '0 0 0.7rem 0', textAlign: 'left'}}>Taux de paramètres manquants par type dans les événements</p>
+        <p className="parameter-desc" style={{fontSize: '13px', color: isLight ? '#2E1065' : '#fff', opacity: 0.7, margin: '0 0 0.7rem 0', textAlign: 'left'}}>Missing parameter rates by type in events</p>
         <div className="chart-wrapper">
           <ResponsiveContainer width="100%" height={36 * paramAnalysis.length + 40}>
             <BarChart

@@ -35,6 +35,7 @@ export default function Anomalies() {
   });
   const [selectedEvent, setSelectedEvent] = useState('all');
   const [availableEvents, setAvailableEvents] = useState([]);
+  const [showOnlyAnomalies, setShowOnlyAnomalies] = useState(false);
   const { isLight } = useContext(ThemeContext);
 
   // --- CACHE ---
@@ -112,7 +113,7 @@ export default function Anomalies() {
   const anomalyCount = anomalies.filter(a => a.anomaly_flag !== 'Normal').length;
   const anomalyScore = ((anomalyCount / (anomalyCount + normalCount)) * 100).toFixed(1);
   const pieData = [
-    { name: 'Normaux', value: normalCount },
+    { name: 'Normal', value: normalCount },
     { name: 'Anomalies', value: anomalyCount }
   ];
   const DONUT_COLORS = isLight
@@ -145,42 +146,46 @@ export default function Anomalies() {
   const BAR_COLOR_NORM = '#BDA0C3';
   const BAR_COLOR_ANOM = 'rgba(255,63,82,0.7)';
 
+  const displayedLog = showOnlyAnomalies
+    ? currentLog.filter(item => item.status !== "Normal")
+    : currentLog;
+
   return (
     <div className="anomalies-container">
       <div className="anomaly-header">
-        <h1>Score d'Anomalie: {anomalyScore}%</h1>
+        <h1>Anomaly score: {anomalyScore}%</h1>
       </div>
       <div className="anomaly-toolbar" style={{maxWidth: 1100, margin: '0 auto 2rem auto', display: 'flex', justifyContent: 'flex-end'}}>
         <div className="selection-date">
           <DateRangePicker value={dateRange} onChange={setDateRange} />
         </div>
       </div>
-      <Accordion title="Détection d'anomalies par le score MAD">
-        Le score MAD (Médiane des Écarts Absolus) est une méthode statistique robuste pour identifier les anomalies dans les données, calculée en trouvant d'abord la médiane de l'ensemble de données, puis en déterminant la médiane des écarts absolus entre chaque point et cette médiane centrale. Ce qui permet d'utiliser de calculer un score 2 modifié (0,6745 * valeur - médiane / MAD) pour chaque observation, où les valeurs dépassant un seuil prédéfini (généralement 3,0 ou 3,5) sont considérées comme des anomalies; cette approche présente l'avantage majeur d'être moins sensible aux valeurs extrêmes que les méthodes basées sur la moyenne et l'écart-type, le rendant particulièrement efficace pour des distributions non normales ou des ensembles de données contenant déjà des valeurs aberrantes.
+      <Accordion title="Anomaly detection by MAD score">
+        The MAD score (Median Absolute Deviation) is a robust statistical method for identifying anomalies in data, calculated by first finding the median of the dataset, then determining the median of the absolute deviations between each point and this central median. This allows the calculation of a modified score 2 (0,6745 * value - median / MAD) for each observation, where values exceeding a predefined threshold (typically 3.0 or 3.5) are considered anomalies; this approach has the major advantage of being less sensitive to extreme values than methods based on the mean and standard deviation, making it particularly effective for non-normal distributions or datasets containing already extreme values.
       </Accordion>
      
       {/* Bloc résumé + pie chart */}
       <div className="anomaly-metrics-row">
         <div className="summary-cards">
           <div className="card">
-            <h3>Événements analysés</h3>
+            <h3>Events analyzed</h3>
             <p>{anomalies.length}</p>
           </div>
           <div className="card">
-            <h3>Événements normaux</h3>
+            <h3>Normal events</h3>
             <p>{normalCount}</p>
           </div>
           <div className="card">
-            <h3>Anomalies détectées</h3>
+            <h3>Detected anomalies</h3>
             <p>{anomalyCount}</p>
           </div>
           <div className="card">
-            <h3>Types d'événements</h3>
+            <h3>Event types</h3>
             <p>{availableEvents.length}</p>
           </div>
         </div>
         <div className="anomaly-pie">
-          <h2 className="h2">Répartition des événements</h2>
+          <h2 className="h2">Event distribution</h2>
           <div style={{ width: '100%', height: 220 }}>
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
@@ -198,14 +203,14 @@ export default function Anomalies() {
       </div>
       <section className="anomaly-log-section">
         <div className="log-header">
-          <h2 className="h2">Journal des anomalies</h2>
-          <p>Analyse détaillée de chaque événement avec scores et classifications</p>
+          <h2 className="h2">Anomaly log</h2>
+          <p>Detailed analysis of each event with scores and classifications</p>
           <div className="log-controls">
             <span className="page-info">
-              Page {page} sur {totalPages} ({totalItems} événements)
+              Page {page} of {totalPages} ({totalItems} events)
             </span>
             <label className="per-page-selector">
-              Afficher:
+              Show:
               <select 
                 value={perPage} 
                 onChange={e => { 
@@ -214,9 +219,18 @@ export default function Anomalies() {
                 }}
               >
                 {[5, 10, 20, 50, 100].map(n => (
-                  <option key={n} value={n}>{n} par page</option>
+                  <option key={n} value={n}>{n} per page</option>
                 ))}
               </select>
+            </label>
+            <label className="anomaly-filter-checkbox" style={{display: 'flex', alignItems: 'center', marginLeft: '1.2rem', marginRight: '1.2rem', fontWeight: 500, fontSize: 14, cursor: 'pointer', color: isLight ? '#2E1065' : '#fff'}}>
+              <input
+                type="checkbox"
+                checked={showOnlyAnomalies}
+                onChange={e => setShowOnlyAnomalies(e.target.checked)}
+                style={{ accentColor: isLight ? '#FF3F52' : '#B5A2D8', width: 18, height: 18, marginRight: 8 }}
+              />
+              Show only anomalies
             </label>
             <div className="pagination-buttons">
               <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="anomaly-pager-btn prev" aria-label="Page précédente">
@@ -236,16 +250,16 @@ export default function Anomalies() {
           <table className="table">
             <thead>
               <tr>
-                <th>Date & Heure</th>
-                <th>Type d'Événement</th>
+                <th>Date & Time</th>
+                <th>Event type</th>
                 <th>Occurrences</th>
-                <th>Score MAD</th>
-                <th>Statut</th>
-                <th>Informations</th>
+                <th>MAD score</th>
+                <th>Status</th>
+                <th>Information</th>
               </tr>
             </thead>
             <tbody>
-              {currentLog.map((item, index) => (
+              {displayedLog.map((item, index) => (
                 <tr key={item.id || index} className={`row-${item.status.toLowerCase()}`}>
                   <td className="date-cell">
                     <div className="date-primary">{item.date}</div>
@@ -287,9 +301,9 @@ export default function Anomalies() {
       </section>
       <section className="anomaly-chart-section">
         <div className="chart-header">
-          <h2 className="h2">Évolution des événements</h2>
+          <h2 className="h2">Event evolution</h2>
           <select value={selectedEvent} onChange={e => setSelectedEvent(e.target.value)}>
-            <option value="all">Tous les événements</option>
+            <option value="all">All events</option>
             {availableEvents.map(ev => <option key={ev} value={ev}>{ev}</option>)}
           </select>
         </div>

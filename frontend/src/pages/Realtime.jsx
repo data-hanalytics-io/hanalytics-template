@@ -89,7 +89,7 @@ export default function Realtime() {
             className={`refresh-btn ${theme}`}
             onClick={refreshData}
           >
-            Actualiser
+            Refresh
           </button>
         </div>
         {showInfo && (
@@ -104,7 +104,7 @@ export default function Realtime() {
       </div>
       {/* Affichage de la dernière actualisation, centré */}
       <div className="refresh-info-centered">
-        Dernière actualisation : {lastRefresh ? lastRefresh.toLocaleTimeString() : '...'}
+      Last update : {lastRefresh ? lastRefresh.toLocaleTimeString() : '...'}
       </div>
 
       {/* CARTES MÉTRIQUES */}
@@ -142,8 +142,8 @@ export default function Realtime() {
       {/** Event Tracking Checking **/}
       <section className="tracker-section">
         <h2 className="h2">Event tracking checking</h2>
-        <p>Performance des événements par type</p>
-        <span className="pill">{eventsCount} événements</span>
+        <p>Event performance by type</p>
+        <span className="pill">{eventsCount} events</span>
         <div className="table-wrapper">
           <table>
             <thead>
@@ -151,7 +151,7 @@ export default function Realtime() {
                 <th>Event</th>
                 <th>Hits</th>
                 <th>Errors</th>
-                <th>%Error</th>
+                <th>Error %</th>
                 <th>Quality</th>
               </tr>
             </thead>
@@ -177,10 +177,10 @@ export default function Realtime() {
       {/** Page Location **/}
       <section className="tracker-section">
         <h2>Page location</h2>
-        <p>URLs avec le plus d'erreurs</p>
+        <p>URLs with the most errors</p>
         <input
           type="text"
-          placeholder="Rechercher une URL…"
+          placeholder="Search an URL…"
           value={searchPage}
           onChange={e => setSearchPage(e.target.value)}
         />
@@ -189,7 +189,7 @@ export default function Realtime() {
             <thead>
               <tr>
                 <th>Page Location</th>
-                <th>%Error</th>
+                <th>Error %</th>
                 <th>Quality</th>
               </tr>
             </thead>
@@ -213,13 +213,13 @@ export default function Realtime() {
       {/** Event Params **/}
       <section className="tracker-section">
         <h2>Event params</h2>
-        <p>Paramètres manquants</p>
+        <p>Missing parameters</p>
         <div className="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Param</th>
-                <th>%</th>
+                <th>Error %</th>
                 <th>Quality</th>
               </tr>
             </thead>
@@ -243,13 +243,13 @@ export default function Realtime() {
       {/** User Params **/}
       <section className="tracker-section">
         <h2>User params</h2>
-        <p>Paramètres manquants</p>
+        <p>Missing parameters</p>
         <div className="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Param</th>
-                <th>%Error</th>
+                <th>Error %</th>
                 <th>Quality</th>
               </tr>
             </thead>
@@ -273,13 +273,13 @@ export default function Realtime() {
       {/** Item Params **/}
       <section className="tracker-section">
         <h2>Item params</h2>
-        <p>Paramètres manquants</p>
+        <p>Missing parameters</p>
         <div className="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Param</th>
-                <th>%</th>
+                <th>Error %</th>
                 <th>Quality</th>
               </tr>
             </thead>

@@ -860,3 +860,27 @@ body:not(.light-mode) .anomalies-container .recharts-reference-area-rect {
   fill: #4C386F !important;
   opacity: 0.7 !important;
 }
+
+/* Filtre case à cocher anomalies */
+.anomaly-filter-checkbox {
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.anomaly-filter-checkbox input[type="checkbox"] {
+  accent-color: #FF3F52;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+body:not(.light-mode) .anomaly-filter-checkbox {
+  color: #fff !important;
+}
+body:not(.light-mode) .anomaly-filter-checkbox input[type="checkbox"] {
+  accent-color: #B5A2D8;
+}

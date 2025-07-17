@@ -187,3 +187,14 @@ body:not(.light-mode) .date-range-picker-dropdown * {
 body:not(.light-mode) * {
   box-shadow: none !important;
 }
+
+/* Inputs de date en mode sombre : fond foncé, texte blanc, placeholder violet */
+body:not(.light-mode) input[type="date"] {
+  background: #4C386F !important;
+  color: #fff !important;
+  border: 1px solid #B5A2D8 !important;
+}
+body:not(.light-mode) input[type="date"]::placeholder {
+  color: #B5A2D8 !important;
+  opacity: 0.7;
+}
