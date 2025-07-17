@@ -39,7 +39,6 @@ export default function Tracking() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [apiData, setApiData] = useState({ eventsDetail: [], pagination: {}, trackingPlan: [], chartData: [], stats: {} });
-  const [availableEvents, setAvailableEvents] = useState([]);
   const [allEvents, setAllEvents] = useState([]); // Liste complète des events
 
   // Couleurs pour le graphe
@@ -127,7 +126,6 @@ export default function Tracking() {
           if (selectedEvent === 'all' && events.length > 0) {
             setAllEvents(events); // On met à jour la liste complète uniquement sur "All events"
           }
-          setAvailableEvents(allEvents.length > 0 ? allEvents : events);
           if (!silent) setLoading(false);
         })
         .catch(() => {
