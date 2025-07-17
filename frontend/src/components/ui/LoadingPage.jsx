@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { ThemeContext } from '../../theme/ThemeContext';
 
 export default function LoadingPage({
-  title = "Chargement...",
-  subtitle = "Merci de patienter pendant le chargement des données",
+  title = "Loading...",
+  subtitle = "Please wait while the data is loading",
   showProgress = false,
   progress = 0
 }) {

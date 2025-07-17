@@ -124,7 +124,7 @@ export default function Header() {
                 onClick={handleLogout}
                 onMouseOver={e => e.currentTarget.style.background = '#ECE6F0'}
                 onMouseOut={e => e.currentTarget.style.background = 'transparent'}
-              >Déconnexion</div>
+              >Disconnect</div>
             </div>, document.body)
           }
         </span>

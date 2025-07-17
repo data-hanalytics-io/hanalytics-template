@@ -40,6 +40,7 @@ export default function Tracking() {
   const [perPage, setPerPage] = useState(10);
   const [apiData, setApiData] = useState({ eventsDetail: [], pagination: {}, trackingPlan: [], chartData: [], stats: {} });
   const [availableEvents, setAvailableEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]); // Liste complète des events
 
   // Couleurs pour le graphe
   const COLOR_TOTAL = isLight ? '#7F6F9D' : '#B5A2D8';
@@ -123,7 +124,10 @@ export default function Tracking() {
           setApiData(apiData);
           // Extraction des événements uniques pour le sélecteur (toujours à jour)
           const events = Array.from(new Set((apiData.trackingPlan || []).map(e => e.expected_event_name))).sort();
-          setAvailableEvents(events);
+          if (selectedEvent === 'all' && events.length > 0) {
+            setAllEvents(events); // On met à jour la liste complète uniquement sur "All events"
+          }
+          setAvailableEvents(allEvents.length > 0 ? allEvents : events);
           if (!silent) setLoading(false);
         })
         .catch(() => {
@@ -171,7 +175,7 @@ export default function Tracking() {
             <label htmlFor="event-select">Filter by event:</label>
             <select id="event-select" value={selectedEvent} onChange={e => { setSelectedEvent(e.target.value); setPage(1); }}>
               <option value="all">All events</option>
-              {availableEvents.map(ev => (
+              {allEvents.map(ev => (
                 <option key={ev} value={ev}>{ev}</option>
               ))}
             </select>
@@ -288,7 +292,7 @@ export default function Tracking() {
         <div>
           <h2 className="h2" style={{marginBottom: '0.5rem'}}>Events tracking plan</h2>
           <p style={{marginBottom: '0.2rem'}}>Status of expected events</p>
-          <button className="count-pill" style={{marginTop: 0, marginBottom: '0.5rem'}}>{apiData.trackingPlan.length} ÉVÉNEMENTS</button>
+          <button className="count-pill" style={{marginTop: 0, marginBottom: '0.5rem'}}>{apiData.trackingPlan.length} events</button>
         </div>
         <div className="table-wrapper" style={{width: '100%', paddingBottom: 8, marginLeft: 0, overflowX: 'unset'}}>
           <table className="table" style={{tableLayout: 'auto', width: '100%'}}>

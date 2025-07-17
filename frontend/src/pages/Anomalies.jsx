@@ -92,21 +92,6 @@ export default function Anomalies() {
   if (error) return <div>{error}</div>;
 
   // Mapping pour le résumé et les graphiques
-  const totalItems = anomalies.length;
-  const totalPages = Math.ceil(totalItems / perPage);
-  const startIdx = (page - 1) * perPage;
-  const endIdx = startIdx + perPage;
-  const currentLog = anomalies.slice(startIdx, endIdx).map(item => ({
-    date: item.event_date?.value || item.event_date,
-    time: item.analysis_timestamp?.value ? new Date(item.analysis_timestamp.value).toLocaleTimeString() : '',
-    event: item.event_name,
-    count: Number(item.events_count),
-    madScore: item.mad_score ?? 0,
-    status: item.anomaly_flag,
-    info: item.anomaly_info || '',
-    category: '',
-    id: item.event_name + '_' + (item.event_date?.value || item.event_date)
-  }));
 
   // Pourcentages pour le pie chart
   const normalCount = anomalies.filter(a => a.anomaly_flag === 'Normal').length;
@@ -121,7 +106,29 @@ export default function Anomalies() {
     : ['#BDA0C3', 'rgba(255,63,82,0.3)'];
 
   // Filtrage par événement
-  const filteredAnomalies = selectedEvent === 'all' ? anomalies : anomalies.filter(a => a.event_name === selectedEvent);
+  const eventFilteredAnomalies = selectedEvent === 'all' ? anomalies : anomalies.filter(a => a.event_name === selectedEvent);
+  // Filtre anomalies avant pagination
+  const filteredAnomalies = showOnlyAnomalies
+    ? eventFilteredAnomalies.filter(a => a.anomaly_flag !== 'Normal')
+    : eventFilteredAnomalies;
+
+  // Pagination sur le sous-ensemble filtré
+  const totalItems = filteredAnomalies.length;
+  const totalPages = Math.ceil(totalItems / perPage);
+  const startIdx = (page - 1) * perPage;
+  const endIdx = startIdx + perPage;
+  const currentLog = filteredAnomalies.slice(startIdx, endIdx).map(item => ({
+    date: item.event_date?.value || item.event_date,
+    time: item.analysis_timestamp?.value ? new Date(item.analysis_timestamp.value).toLocaleTimeString() : '',
+    event: item.event_name,
+    count: Number(item.events_count),
+    madScore: item.mad_score ?? 0,
+    status: item.anomaly_flag,
+    info: item.anomaly_info || '',
+    category: '',
+    id: item.event_name + '_' + (item.event_date?.value || item.event_date)
+  }));
+
   // Graphe évolution (logique Next.js)
   const chartMap = new Map();
   filteredAnomalies.forEach(item => {
@@ -146,9 +153,9 @@ export default function Anomalies() {
   const BAR_COLOR_NORM = '#BDA0C3';
   const BAR_COLOR_ANOM = 'rgba(255,63,82,0.7)';
 
-  const displayedLog = showOnlyAnomalies
-    ? currentLog.filter(item => item.status !== "Normal")
-    : currentLog;
+  // const displayedLog = showOnlyAnomalies
+  //   ? currentLog.filter(item => item.status !== "Normal")
+  //   : currentLog;
 
   return (
     <div className="anomalies-container">
@@ -259,7 +266,7 @@ export default function Anomalies() {
               </tr>
             </thead>
             <tbody>
-              {displayedLog.map((item, index) => (
+              {currentLog.map((item, index) => (
                 <tr key={item.id || index} className={`row-${item.status.toLowerCase()}`}>
                   <td className="date-cell">
                     <div className="date-primary">{item.date}</div>

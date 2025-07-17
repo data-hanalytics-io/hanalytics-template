@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { ThemeContext } from '../../theme/ThemeContext';
 
 const PRESETS = [
-  { label: '7 derniers jours', days: 7 },
-  { label: '14 derniers jours', days: 14 },
-  { label: '30 derniers jours', days: 30 },
+  { label: 'last 7 days', days: 7 },
+  { label: 'last 14 days', days: 14 },
+  { label: 'last 30 days', days: 30 },
 ];
 
 function formatDate(date) {
@@ -20,7 +20,7 @@ function getPresetRange(days) {
   return {
     start: start.toISOString().split('T')[0],
     end: end.toISOString().split('T')[0],
-    label: `${days} derniers jours`,
+    label: `${days} last days`,
   };
 }
 
@@ -43,12 +43,12 @@ export default function DateRangePicker({ value, onChange }) {
       return;
     }
     if (customEnd < customStart) {
-      setCustomError('La date de fin doit être postérieure ou égale à la date de début.');
+      setCustomError('The end date must be later than or equal to the start date.');
       return;
     }
     const today = new Date().toISOString().split('T')[0];
     if (customStart > today || customEnd > today) {
-      setCustomError('Les dates ne peuvent pas être dans le futur.');
+      setCustomError('Dates cannot be in the future.');
       return;
     }
     setCustomError('');
@@ -182,17 +182,17 @@ export default function DateRangePicker({ value, onChange }) {
               marginBottom: 0,
             }}
           >
-            Période personnalisée
+            Custom period
           </button>
           {showCustom && (
             <div style={{ padding: '12px 14px', borderTop: isDark ? '1px solid #B5A2D8' : '1px solid #eee', background: isDark ? '#4C386F' : '#f8f8fb' }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start', marginBottom: 8 }}>
                 <label style={{ fontSize: 12, color: '#fff' }}>
-                  Début :
+                  Beginning :
                   <input type="date" value={customStart} onChange={e => setCustomStart(e.target.value)} style={{ marginLeft: 6 }} max={today} />
                 </label>
                 <label style={{ fontSize: 12, color: '#fff' }}>
-                  Fin :
+                  End :
                   <input type="date" value={customEnd} onChange={e => setCustomEnd(e.target.value)} style={{ marginLeft: 6 }} max={today} />
                 </label>
                 <button
@@ -207,10 +207,11 @@ export default function DateRangePicker({ value, onChange }) {
                     fontSize: 12,
                     cursor: 'pointer',
                     transition: 'all 0.2s',
+                    marginTop: 10
                   }}
                   disabled={!customStart || !customEnd || !!customError}
                 >
-                  Appliquer
+                  Apply
                 </button>
               </div>
               {customError && (

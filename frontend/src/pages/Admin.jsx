@@ -34,23 +34,23 @@ export default function Admin() {
         if (data.success) {
           setUsers(data.data);
         } else {
-          setError(data.error || 'Erreur de chargement');
+          setError(data.error || 'Loading error');
         }
       } catch (e) {
-        setError('Erreur serveur');
+        setError('Server error');
       } finally {
         setLoading(false);
       }
     };
     fetchUsers();
-  }, [success]); // refresh après création
+  }, [success]); // refresh after creation
 
   // Création utilisateur
   const handleCreate = async e => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    if (!form.prenom || !form.email || !form.password) return setError('Tous les champs sont requis');
+    if (!form.prenom || !form.email || !form.password) return setError('All fields are required');
     try {
       const token = localStorage.getItem('token');
       const res = await fetch('/api/users', {
@@ -63,14 +63,14 @@ export default function Admin() {
       });
       const data = await res.json();
       if (data.success) {
-        setSuccess('Utilisateur créé avec succès');
+        setSuccess('User created successfully');
         setForm({ prenom: '', email: '', password: '', role: 'user' });
         setShowCreateForm(false);
       } else {
-        setError(data.error || 'Erreur lors de la création');
+        setError(data.error || 'Error during creation');
       }
     } catch (e) {
-      setError('Erreur serveur');
+      setError('Server error');
     }
   };
 
@@ -78,7 +78,7 @@ export default function Admin() {
   const handleDelete = async (id) => {
     setError('');
     setSuccess('');
-    if (!window.confirm('Confirmer la suppression de cet utilisateur ?')) return;
+    if (!window.confirm('Confirm deletion of this user?')) return;
     try {
       const token = localStorage.getItem('token');
       const res = await fetch(`/api/users/${id}`, {
@@ -87,12 +87,12 @@ export default function Admin() {
       });
       const data = await res.json();
       if (data.success) {
-        setSuccess('Utilisateur supprimé avec succès');
+        setSuccess('User deleted successfully');
       } else {
-        setError(data.error || 'Erreur lors de la suppression');
+        setError(data.error || 'Error during deletion');
       }
     } catch (e) {
-      setError('Erreur serveur');
+      setError('Server error');
     }
   };
 
@@ -101,34 +101,47 @@ export default function Admin() {
   return (
     <div className="admin-container">
       <div className="admin-main-section">
-        <h1 className="admin-title">Administration des utilisateurs</h1>
+        <h1 className="admin-title">User administration</h1>
         <div className="admin-title-bar" />
-        <div className="admin-subtitle">Gestion des utilisateurs Hanalytics</div>
+        <div className="admin-subtitle">User management for Hanalytics</div>
         <div className="admin-card">
           <div className="admin-card-header">
-            <h2 className="admin-h2">Utilisateurs</h2>
-            <button type="button" className="admin-btn-create-user" onClick={()=>setShowCreateForm(s=>!s)}>Créer un utilisateur</button>
+            <h2 className="admin-h2">Users</h2>
+            <button type="button" className="admin-btn-create-user" onClick={()=>setShowCreateForm(s=>!s)}>Create a user</button>
           </div>
           {showCreateForm && (
             <div className="admin-create-form">
-              <div className="admin-create-form-title">Créer un utilisateur</div>
+              <div className="admin-create-form-title">Create a user</div>
               <form onSubmit={handleCreate} className="admin-create-form-fields">
-                {['Prénom','Email','Mot de passe'].map((ph, i) => (
-                  <input
-                    key={i}
-                    type={ph==='Email'?'email':ph==='Mot de passe'?'password':'text'}
-                    placeholder={ph}
-                    value={i===0?form.prenom:i===1?form.email:form.password}
-                    onChange={e=>setForm(f=>({ ...f, [i===0?'prenom':i===1?'email':'password']:e.target.value }))}
-                    className="admin-input"
-                    required
-                  />
-                ))}
+                <input
+                  type="text"
+                  placeholder="First name"
+                  value={form.prenom}
+                  onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))}
+                  className="admin-input"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                  className="admin-input"
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={form.password}
+                  onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+                  className="admin-input"
+                  required
+                />
                 <select value={form.role} onChange={e=>setForm(f=>({...f,role:e.target.value}))} className="admin-select">
-                  <option value="user">Utilisateur</option>
+                  <option value="user">User</option>
                   <option value="admin">Admin</option>
                 </select>
-                <button type="submit" className="admin-btn-create">Créer</button>
+                <button type="submit" className="admin-btn-create">Create</button>
               </form>
               {error && <div className="admin-error">{error}</div>}
               {success && <div className="admin-success">{success}</div>}
@@ -142,16 +155,16 @@ export default function Admin() {
             <div className="admin-table-section">
               <table className="admin-table">
                 <thead>
-                  <tr>{['PRÉNOM','EMAIL','RÔLE','CRÉÉ LE','DERNIÈRE CONNEXION','STATUT','ACTIONS'].map(h=><th key={h}>{h}</th>)}</tr>
+                  <tr>{['First name','Email','Role','Created at','Last login','Status','Actions'].map(h=><th key={h}>{h}</th>)}</tr>
                 </thead>
                 <tbody>
                   {users.map(u=> (
                     <tr key={u.id}>
                       {[u.prenom,u.email,u.role,u.created_at,u.last_login].map((val,i)=><td key={i}>{val}</td>)}
-                      <td><span className={u.is_active ? 'admin-status admin-status-actif' : 'admin-status admin-status-inactif'}>{u.is_active?'actif':'inactif'}</span></td>
+                      <td><span className={u.is_active ? 'admin-status admin-status-actif' : 'admin-status admin-status-inactif'}>{u.is_active?'active':'inactive'}</span></td>
                       <td>
                         {u.id !== JSON.parse(localStorage.getItem('user')||'{}').id && (
-                          <button type="button" className="admin-btn-delete" onClick={()=>handleDelete(u.id)}>Supprimer</button>
+                          <button type="button" className="admin-btn-delete" onClick={()=>handleDelete(u.id)}>Delete</button>
                         )}
                       </td>
                     </tr>
