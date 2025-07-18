@@ -118,7 +118,7 @@ export default function Realtime() {
             <h3>Error Rate</h3>
             <p>
               { totalHits
-                ? ((errorHits/totalHits)*100).toFixed(0) + '%'
+                ? ((errorHits/totalHits)*100).toFixed(4) + '%'
                 : '0%'
               }
             </p>
