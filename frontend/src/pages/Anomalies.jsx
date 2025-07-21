@@ -204,7 +204,7 @@ export default function Anomalies() {
                 <Tooltip contentStyle={{background: isLight ? '#fff' : '#1D0A41', color: isLight ? '#2E1065' : '#fff', border: '1px solid #B5A2D8', fontWeight: 600, fontSize: 15}} />
                 <Legend iconType="circle" />
               </PieChart>
-            </ResponsiveContainer>
+            </ResponsiveContainer> 
           </div>
         </div>
       </div>
