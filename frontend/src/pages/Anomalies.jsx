@@ -131,7 +131,7 @@ export default function Anomalies() {
 
   // Graphe évolution (logique Next.js)
   const chartMap = new Map();
-  filteredAnomalies.forEach(item => {
+  eventFilteredAnomalies.forEach(item => {
     const date = item.event_date?.value || item.event_date;
     if (!chartMap.has(date)) {
       chartMap.set(date, { event_date: date, total_events: 0, anomaly_events: 0 });
