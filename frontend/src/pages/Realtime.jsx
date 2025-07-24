@@ -34,7 +34,7 @@ export default function Realtime() {
   }
 
   function fetchDataAndCache(cacheKey, silent) {
-    fetch('/api/realtime')
+    fetch(`${process.env.REACT_APP_API_URL || ''}/realtime`)
       .then(res => res.json())
       .then(res => {
         window._realtimeCache[cacheKey] = res.data || {};

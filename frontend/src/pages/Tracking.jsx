@@ -90,7 +90,7 @@ export default function Tracking() {
     }
     fetchDataAndCache(cacheKey, false);
     function fetchDataAndCache(cacheKey, silent) {
-      fetch(`/api/tracking?start=${dateRange.start}&end=${dateRange.end}&event=${selectedEvent}&page=${page}&pageSize=${perPage}`)
+      fetch(`${process.env.REACT_APP_API_URL || ''}/tracking?start=${dateRange.start}&end=${dateRange.end}&event=${selectedEvent}&page=${page}&pageSize=${perPage}`)
         .then(res => res.json())
         .then(result => {
           const data = result.data || {};

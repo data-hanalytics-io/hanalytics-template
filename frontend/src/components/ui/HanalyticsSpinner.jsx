@@ -3,7 +3,7 @@ import React from 'react';
 export default function HanalyticsSpinner({
   size = 'md',
   showText = true,
-  text = 'Chargement...',
+  text = 'Loading...',
   className = ''
 }) {
   const getSize = () => {

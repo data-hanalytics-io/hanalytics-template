@@ -70,7 +70,7 @@ export default function Anomalies() {
     }
     fetchDataAndCache(cacheKey, false);
     function fetchDataAndCache(cacheKey, silent) {
-      fetch(`/api/anomaly?start=${dateRange.start}&end=${dateRange.end}`)
+      fetch(`${process.env.REACT_APP_API_URL || ''}/anomaly?start=${dateRange.start}&end=${dateRange.end}`)
         .then(res => res.json())
         .then(result => {
           const anomalies = result.data || [];

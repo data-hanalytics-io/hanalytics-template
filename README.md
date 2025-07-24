@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# Hanalytics – Démarrage rapide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. Prérequis
 
-## Available Scripts
+- Node.js ≥ 18.x
+- npm ≥ 9.x
+- Un projet Google Cloud avec BigQuery configuré
+- Un compte Vercel (pour le déploiement cloud)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 2. Installation locale
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### a. Cloner le dépôt
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+git clone <repo-url>
+cd hanalytics-react
+```
 
-### `npm test`
+### b. Installer les dépendances
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+cd api
+npm install
+```
+> Le build du frontend est lancé automatiquement via le script postinstall.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 3. Configuration des variables d’environnement
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### a. Backend (`.env` à la racine)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Crée un fichier `.env` à la racine du projet avec le contenu suivant :
 
-### `npm run eject`
+```
+GOOGLE_CLOUD_PROJECT=ton-projet-gcp
+GOOGLE_APPLICATION_CREDENTIALS=./api/credentials/credentials.json
+BIGQUERY_DATASET=ton_dataset
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `GOOGLE_CLOUD_PROJECT` : ID de ton projet Google Cloud
+- `GOOGLE_APPLICATION_CREDENTIALS` : Chemin vers le fichier de credentials JSON (relatif à la racine du projet)
+- `BIGQUERY_DATASET` : Nom du dataset BigQuery utilisé
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### b. Frontend (`frontend/.env.local`)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Crée un fichier `frontend/.env.local` avec le contenu suivant :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+REACT_APP_API_URL=http://localhost:4000/api
+```
 
-## Learn More
+- `REACT_APP_API_URL` : URL de l’API backend en local
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### c. Credentials Google Cloud
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Va sur la console Google Cloud > IAM & Admin > Comptes de service
+2. Crée un compte de service avec accès BigQuery
+3. Génère une clé JSON et télécharge-la
+4. Place ce fichier dans :  
+   `api/credentials/credentials.json`
+5. Vérifie que le chemin correspond à la variable dans `.env`
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 4. Lancement en local
 
-### Analyzing the Bundle Size
+### a. Démarrer le backend (API + build frontend inclus)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+cd api
+npm start
+```
+- L’API écoute sur [http://localhost:4000](http://localhost:4000) et sert le frontend sur le même port.
 
-### Making a Progressive Web App
+### b. Démarrer le frontend en mode développement
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+cd frontend
+npm start
+```
+- Le frontend sera accessible sur [http://localhost:3000](http://localhost:3000) (proxy vers l’API).
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 5. Déploiement sur Vercel (Fullstack)
 
-### Deployment
+Le projet est conçu pour être déployé **en un seul projet sur Vercel** : le backend Express sert aussi le frontend React en production. Il n’y a pas besoin de backend séparé.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### a. Connecter le repo à Vercel
 
-### `npm run build` fails to minify
+- Va sur [vercel.com](https://vercel.com), connecte ton repo GitHub.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### b. Variables d’environnement à configurer sur Vercel
+
+Dans le dashboard Vercel, ajoute ces variables d’environnement :
+
+- `REACT_APP_API_URL=/api` (pour le frontend)
+- `GOOGLE_CLOUD_PROJECT` (backend)
+- `GOOGLE_APPLICATION_CREDENTIALS_JSON` (backend, voir ci-dessous)
+- `BIGQUERY_DATASET` (backend)
+
+**Pour les credentials Google Cloud** : 
+- Copier le contenu du credentials dans le champs valeur de GOOGLE_APPLICATION_CREDENTIALS_JSON sur Vercel
+- Sinon, tu peux uploader le fichier dans le repo (attention à la sécurité !) et référencer son chemin dans la variable `GOOGLE_APPLICATION_CREDENTIALS`.
+
+### c. Déployer
+
+- Vercel détecte automatiquement le projet fullstack (Express + React).
+- Toutes les requêtes (API et frontend) sont servies par le backend Express via `api/index.js`.
+- Le frontend appelle l’API via `/api` (même domaine, pas de CORS).
+
+---
+
+## 6. Résumé des emplacements des fichiers
+
+- `.env` (à la racine) : variables backend (pour le dev local)
+- `frontend/.env.local` : variables frontend (pour le dev local)
+- `api/credentials/credentials.json` : credentials Google Cloud (pour le dev local)
+
+En production sur Vercel, toutes les variables d’environnement sont à renseigner dans le dashboard Vercel.

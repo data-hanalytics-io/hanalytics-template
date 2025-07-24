@@ -61,7 +61,7 @@ const Overview = () => {
     }
     fetchDataAndCache(cacheKey, false);
     function fetchDataAndCache(cacheKey, silent) {
-      fetch(`/api/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
+      fetch(`${process.env.REACT_APP_API_URL || ''}/dashboard?start=${dateRange.start}&end=${dateRange.end}`)
         .then(res => res.json())
         .then(result => {
           window._overviewCache[cacheKey] = result.data;
