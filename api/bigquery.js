@@ -1,10 +1,4 @@
 const { BigQuery } = require('@google-cloud/bigquery');
-const path = require('path');
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-}
-
-
 // Gestion des credentials (local ou production)
 function getCredentials() {
   if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
@@ -27,7 +21,7 @@ const bigquery = new BigQuery({
   credentials: process.env.NODE_ENV === 'production' ? getCredentials() : undefined,
 });
 
-const dataset = process.env.BIGQUERY_DATASET || 'tracking_health';
+const dataset = process.env.BIGQUERY_DATASET ;
 
 async function runQuery(query) {
   try {

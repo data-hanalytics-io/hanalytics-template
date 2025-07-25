@@ -28,7 +28,9 @@ function normalizeEventDetail(event) {
 
 export default function Tracking() {
   const { isLight } = useContext(ThemeContext);
-  const [loading, setLoading] = useState(true);
+  // Ajout de deux états de chargement
+  const [globalLoading, setGlobalLoading] = useState(true);
+  const [tableLoading, setTableLoading] = useState(false);
   const [error, setError] = useState(null);
   const [dateRange, setDateRange] = useState({
     start: '',
@@ -69,9 +71,29 @@ export default function Tracking() {
     }
   }, [selectedEvent, dateRange]);
 
+  // Gestion du chargement global et du tableau
   useEffect(() => {
     if (!dateRange.start || !dateRange.end) return;
-    setLoading(true);
+    setGlobalLoading(true);
+    setError(null);
+    if (!window._trackingCache) window._trackingCache = {};
+    const cacheKey = JSON.stringify({
+      start: dateRange.start,
+      end: dateRange.end,
+      event: selectedEvent,
+      page: 1, // On force la première page pour le chargement global
+      perPage
+    });
+    fetchDataAndCache(cacheKey, false, true); // true = globalLoading
+    setPage(1); // On remet la pagination à 1 sur changement global
+    // eslint-disable-next-line
+  }, [dateRange, selectedEvent]);
+
+  // Pagination du tableau uniquement
+  useEffect(() => {
+    if (!dateRange.start || !dateRange.end) return;
+    if (page === 1) return; // Déjà géré par le globalLoading
+    setTableLoading(true);
     setError(null);
     if (!window._trackingCache) window._trackingCache = {};
     const cacheKey = JSON.stringify({
@@ -81,59 +103,45 @@ export default function Tracking() {
       page,
       perPage
     });
-    if (window._trackingCache[cacheKey]) {
-      setApiData(window._trackingCache[cacheKey]);
-      setLoading(false);
-      // Optionnel : rafraîchir en arrière-plan
-      fetchDataAndCache(cacheKey, true);
-      return;
-    }
-    fetchDataAndCache(cacheKey, false);
-    function fetchDataAndCache(cacheKey, silent) {
-      fetch(`${process.env.REACT_APP_API_URL || ''}/tracking?start=${dateRange.start}&end=${dateRange.end}&event=${selectedEvent}&page=${page}&pageSize=${perPage}`)
-        .then(res => res.json())
-        .then(result => {
-          const data = result.data || {};
-          const normalizeEvent = (event) => ({
-            ...event,
-            date: event.date || '-',
-            event_timestamp: event.event_timestamp || '-',
-            expected_event_name: event.expected_event_name || '-',
-            event_name: event.event_name || '-',
-            device_category: event.device_category || '-',
-            device_operating_system: event.device_operating_system || '-',
-            device_browser: event.device_browser || '-',
-            session_id: event.session_id || '-',
-            missing_event_params: Array.isArray(event.missing_event_params) ? event.missing_event_params : (event.missing_event_params ? [event.missing_event_params] : []),
-            missing_item_params: Array.isArray(event.missing_item_params) ? event.missing_item_params : (event.missing_item_params ? [event.missing_item_params] : []),
-            missing_user_params: Array.isArray(event.missing_user_params) ? event.missing_user_params : (event.missing_user_params ? [event.missing_user_params] : []),
-            missing_ecommerce_params: Array.isArray(event.missing_ecommerce_params) ? event.missing_ecommerce_params : (event.missing_ecommerce_params ? [event.missing_ecommerce_params] : []),
-            all_missing_params: event.all_missing_params || '-',
-            is_event_with_missing_params: event.is_event_with_missing_params || '-',
-            page_location_value: event.page_location_value || '-',
-          });
-          const apiData = {
-            trackingPlan: data.trackingPlan || [],
-            chartData: data.chartData || [],
-            eventsDetail: Array.isArray(data.eventsDetail) ? data.eventsDetail.map(normalizeEvent) : [],
-            stats: data.stats || {},
-            pagination: data.pagination || {},
-          };
-          window._trackingCache[cacheKey] = apiData;
-          setApiData(apiData);
-          // Extraction des événements uniques pour le sélecteur (toujours à jour)
-          const events = Array.from(new Set((apiData.trackingPlan || []).map(e => e.expected_event_name))).sort();
-          if (selectedEvent === 'all' && events.length > 0) {
-            setAllEvents(events); // On met à jour la liste complète uniquement sur "All events"
-          }
-          if (!silent) setLoading(false);
-        })
-        .catch(() => {
-          setError("Erreur lors du chargement des données de tracking");
-          setLoading(false);
+    fetchDataAndCache(cacheKey, false, false); // false = tableLoading
+    // eslint-disable-next-line
+  }, [page]);
+
+  function fetchDataAndCache(cacheKey, silent, isGlobal) {
+    fetch(`${process.env.REACT_APP_API_URL || ''}/tracking?start=${dateRange.start}&end=${dateRange.end}&event=${selectedEvent}&page=${page}&pageSize=${perPage}`)
+      .then(res => res.json())
+      .then(result => {
+        const data = result.data || {};
+        const normalizeEvent = (event) => ({
+          ...event,
+          date: event.date || '-',
+          event_timestamp: event.event_timestamp || '-',
         });
-    }
-  }, [dateRange, selectedEvent, page, perPage]);
+        const apiData = {
+          trackingPlan: data.trackingPlan || [],
+          chartData: data.chartData || [],
+          eventsDetail: Array.isArray(data.eventsDetail) ? data.eventsDetail.map(normalizeEvent) : [],
+          stats: data.stats || {},
+          pagination: data.pagination || {},
+        };
+        window._trackingCache[cacheKey] = apiData;
+        setApiData(apiData);
+        // Extraction des événements uniques pour le sélecteur (toujours à jour)
+        const events = Array.from(new Set((apiData.trackingPlan || []).map(e => e.expected_event_name))).sort();
+        if (selectedEvent === 'all' && events.length > 0) {
+          setAllEvents(events); // On met à jour la liste complète uniquement sur "All events"
+        }
+        if (!silent) {
+          if (isGlobal) setGlobalLoading(false);
+          else setTableLoading(false);
+        }
+      })
+      .catch(() => {
+        setError("Erreur lors du chargement des données de tracking");
+        if (isGlobal) setGlobalLoading(false);
+        else setTableLoading(false);
+      });
+  }
 
   // Correction : formatage des dates pour l'axe X du graphique (évite [object Object])
   const chartDataWithFormattedDates = (apiData.chartData || []).map(point => {
@@ -161,6 +169,7 @@ export default function Tracking() {
   const eventsDetailTotalItems = apiData.pagination?.totalItems || apiData.eventsDetail.length;
   const eventsDetailTotalPages = apiData.pagination?.totalPages || 1;
 
+  if (globalLoading) return <LoadingPage />;
   if (error) return <div>{error}</div>;
 
   return (
@@ -328,8 +337,8 @@ export default function Tracking() {
           <button className="count-pill">{eventsDetailTotalItems} ERRORS TOTAL</button>
         </div>
         <div className="events-detail-table-wrapper table-wrapper" style={{width: '100%', paddingBottom: 8, marginLeft: 0}}>
-          {loading ? (
-            <LoadingPage />
+          {tableLoading ? (
+            <div style={{textAlign:'center',padding:'2rem'}}><LoadingPage /></div>
           ) : (
             <>
               <table className="table events-detail-table" style={{borderCollapse: 'separate', borderSpacing: 0, fontSize: '13px', tableLayout: 'fixed', minWidth: 0}}>

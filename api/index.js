@@ -1,10 +1,10 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const { getDashboardMetrics, getEventAnomalies, getRealtimeEvents, getTrackingHealth, getEventStatistics, getParametersAnalysis, getRealtimeEventStats, getRealtimeEventParams, getRealtimeUserParams, getRealtimeItemParams, getRealtimePageStats, getTrackingPlanFull } = require('./bigquery');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const serverlessExpress = require('@vendia/serverless-express');
 
 const app = express();
